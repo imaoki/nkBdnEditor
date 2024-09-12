@@ -1,0 +1,989 @@
+/*! © 2024 imaoki | MIT License | https://github.com/imaoki */
+
+// /////////////////////////////////////////////////////////////////////////////
+// ボイラープレート
+// /////////////////////////////////////////////////////////////////////////////
+/*1.1.0:Assertion*/proc string assertTrue(int $a) {return ($a == true) ? "" : ("Assert: expected 1, got " + $a);}proc string assertFalse(int $a) {return ($a == false) ? "" : ("Assert: expected 0, got " + $a);}proc string assertFloatEqual(float $e, float $a, float $t) {return (`abs ($e - $a)` <= $t) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertFloatNotEqual(float $e, float $a, float $t) {return (`abs ($e - $a)` > $t) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertIntEqual(int $e, int $a) {return ($a == $e) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertIntNotEqual(int $e, int $a) {return ($a != $e) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertStringEqual(string $e, string $a) {return ($a == $e) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertStringNotEqual(string $e, string $a) {return ($a != $e) ? "" : ("Assert: expected " + $e + ", got " + $a);}proc string assertFloatArrayEqual(float $es[], float $as[], float $t) {int $numAs = `size $as`;int $isEqual = $numAs == `size $es`;if ($isEqual) {for ($i = 0; $i < $numAs; $i++) {$isEqual = `abs ($es[$i] - $as[$i])` <= $t;if (!$isEqual) break;}}return ($isEqual) ? "" : ("Assert: expected {" + floatArrayToString($es, ", ") + "}, got {" + floatArrayToString($as, ", ") + "}");}proc string assertIntArrayEqual(int $es[], int $as[]) {int $numAs = `size $as`;int $isEqual = $numAs == `size $es`;if ($isEqual) {for ($i = 0; $i < $numAs; $i++) {$isEqual = $as[$i] == $es[$i];if (!$isEqual) break;}}return ($isEqual) ? "" : ("Assert: expected {" + intArrayToString($es, ", ") + "}, got {" + intArrayToString($as, ", ") + "}");}proc string assertStringArrayEqual(string $es[], string $as[]) {int $numAs = `size $as`;int $isEqual = $numAs == `size $es`;if ($isEqual) {for ($i = 0; $i < $numAs; $i++) {$isEqual = $as[$i] == $es[$i];if (!$isEqual) break;}}return ($isEqual) ? "" : ("Assert: expected {" + stringArrayToString($es, ", ") + "}, got {" + stringArrayToString($as, ", ") + "}");}proc testNewScene() {file -f -new;}proc testOpenScene(string $filename) {file -f -op "v=0;"  -iv  -typ "mayaAscii" -pmt false -o $filename;}
+/*1.9.0:Attribute*/proc int existsAttribute(string $node, string $attribute) {return (`objExists $node` && `attributeQuery -ex -n $node $attribute`);}proc string getAttributeType(string $node, string $attribute) {if (!existsAttribute($node, $attribute)) return "";return `getAttr -typ ($node + "." + $attribute)`;}proc int isAttributeType(string $node, string $attribute, string $type) {return (getAttributeType($node, $attribute) == $type);}proc int isEditableAttribute(string $node, string $attribute) {return (existsAttribute($node, $attribute) && !`connectionInfo -id ($node + "." + $attribute)`);}proc int isAttributeLocked(string $node, string $attribute) {if (!existsAttribute($node, $attribute)) return true;return `getAttr -l ($node + "." + $attribute)`;}proc setAttributeLock(string $node, string $attribute, int $state) {if (!existsAttribute($node, $attribute)) return;setAttr -l $state ($node + "." + $attribute);}proc int isAttributeChannelBox(string $node, string $attribute) {if (!existsAttribute($node, $attribute)) return false;return `getAttr -cb ($node + "." + $attribute)`;}proc setAttributeChannelBox(string $node, string $attribute, int $state) {if (!existsAttribute($node, $attribute)) return;setAttr -cb $state ($node + "." + $attribute);}proc string[] getEnumLabels(string $node, string $attribute) {string $labels[];if (!isAttributeType($node, $attribute, "enum")) return $labels;string $enumLabels[] = `attributeQuery -le -n $node $attribute`;if (!(`size $enumLabels` && `size $enumLabels[0]`)) return $labels;tokenize $enumLabels[0] ":" $labels;if (`size $labels` == 1 && !`size $labels[0]`) clear $labels;return $labels;}proc string attributeNameInPascalCase(string $node, string $attribute) {string $pascalName;if (!existsAttribute($node, $attribute)) return $pascalName;$pascalName = `attributeName -n ($node + "." + $attribute)`;$pascalName = substituteAllString($pascalName, " ", "");return $pascalName;}proc int hasShapeTransformAttributes(string $n) {return (isAttributeType($n, "shapeTranslate", "double3") && isAttributeType($n, "shapeTranslateX", "doubleLinear") && isAttributeType($n, "shapeTranslateY", "doubleLinear") && isAttributeType($n, "shapeTranslateZ", "doubleLinear") && isAttributeType($n, "shapeRotate", "double3") && isAttributeType($n, "shapeRotateX", "doubleAngle") && isAttributeType($n, "shapeRotateY", "doubleAngle") && isAttributeType($n, "shapeRotateZ", "doubleAngle") && isAttributeType($n, "shapeScale", "double3") && isAttributeType($n, "shapeScaleX", "double") && isAttributeType($n, "shapeScaleY", "double") && isAttributeType($n, "shapeScaleZ", "double"));}proc addShapeTransformAttributes(string $n) {if (!`objExists $n` || hasShapeTransformAttributes($n)) return;addAttr -at "double3"      -k false -ln "shapeTranslate"  -sn "st" $n;addAttr -at "doubleLinear" -k false -ln "shapeTranslateX" -sn "stx" -p "shapeTranslate" $n;addAttr -at "doubleLinear" -k false -ln "shapeTranslateY" -sn "sty" -p "shapeTranslate" $n;addAttr -at "doubleLinear" -k false -ln "shapeTranslateZ" -sn "stz" -p "shapeTranslate" $n;addAttr -at "double3"      -k false -ln "shapeRotate"     -sn "sr" $n;addAttr -at "doubleAngle"  -k false -ln "shapeRotateX"    -sn "srx" -p "shapeRotate" $n;addAttr -at "doubleAngle"  -k false -ln "shapeRotateY"    -sn "sry" -p "shapeRotate" $n;addAttr -at "doubleAngle"  -k false -ln "shapeRotateZ"    -sn "srz" -p "shapeRotate" $n;addAttr -at "double3"      -k false -ln "shapeScale"      -sn "ss" $n;addAttr -at "double"       -k false -ln "shapeScaleX"     -sn "ssx" -p "shapeScale" $n;addAttr -at "double"       -k false -ln "shapeScaleY"     -sn "ssy" -p "shapeScale" $n;addAttr -at "double"       -k false -ln "shapeScaleZ"     -sn "ssz" -p "shapeScale" $n;setAttr ($n + ".ss") -typ "double3" 1.0 1.0 1.0;}proc int hasCurveNameAttribute(string $n) {return isAttributeType($n, "curveName", "string");}proc addCurveNameAttribute(string $n) {if (!`objExists $n` || hasCurveNameAttribute($n)) return;addAttr -dt "string" -ln "curveName" -sn "cn" $n;}proc float getFloatAttribute(string $node, string $attribute, float $default) {if (!existsAttribute($node, $attribute)) return $default;return `getAttr ($node + "." + $attribute)`;}proc setFloatAttribute(string $node, string $attribute, float $value) {if (!isEditableAttribute($node, $attribute)) return;if (`attributeQuery -mxe -n $node $attribute`) {float $max[] = `attributeQuery -max -n $node $attribute`;if ($value > $max[0]) $value = $max[0];}if (`attributeQuery -mne -n $node $attribute`) {float $min[] = `attributeQuery -min -n $node $attribute`;if ($value < $min[0]) $value = $min[0];}setAttr ($node + "." + $attribute) $value;}proc batchSetFloatAttribute(string $nodes[], string $attribute, float $value) {for ($n in $nodes) {setFloatAttribute($n, $attribute, $value);}}proc float[] getFloat3Attribute(string $node, string $attribute, float $defaults[]) {if (!existsAttribute($node, $attribute)) return $defaults;return `getAttr ($node + "." + $attribute)`;}proc setFloat3Attribute(string $node, string $attribute, float $values[]) {if (!isEditableAttribute($node, $attribute) || `size $values` != 3) return;if (`attributeQuery -mxe -n $node $attribute`) {float $max[] = `attributeQuery -max -n $node $attribute`;if ($values[0] > $max[0]) $values[0] = $max[0];if ($values[1] > $max[1]) $values[1] = $max[1];if ($values[2] > $max[2]) $values[2] = $max[2];}if (`attributeQuery -mne -n $node $attribute`) {float $min[] = `attributeQuery -min -n $node $attribute`;if ($values[0] < $min[0]) $values[0] = $min[0];if ($values[1] < $min[1]) $values[1] = $min[1];if ($values[2] < $min[2]) $values[2] = $min[2];}setAttr ($node + "." + $attribute) $values[0] $values[1] $values[2];}proc batchSetFloat3Attribute(string $nodes[], string $attribute, float $values[]) {for ($n in $nodes) {setFloat3Attribute($n, $attribute, $values);}}proc int getIntAttribute(string $node, string $attribute, int $default) {if (!existsAttribute($node, $attribute)) return $default;return `getAttr ($node + "." + $attribute)`;}proc setIntAttribute(string $node, string $attribute, int $value) {if (!isEditableAttribute($node, $attribute)) return;if (`attributeQuery -mxe -n $node $attribute`) {float $max[] = `attributeQuery -max -n $node $attribute`;if ($value > $max[0]) $value = (int) $max[0];}if (`attributeQuery -mne -n $node $attribute`) {float $min[] = `attributeQuery -min -n $node $attribute`;if ($value < $min[0]) $value = (int) $min[0];}setAttr ($node + "." + $attribute) $value;}proc batchSetIntAttribute(string $nodes[], string $attribute, int $value) {for ($n in $nodes) {setIntAttribute($n, $attribute, $value);}}proc int[] getInt3Attribute(string $node, string $attribute, int $defaults[]) {if (!existsAttribute($node, $attribute)) return $defaults;return `getAttr ($node + "." + $attribute)`;}proc setInt3Attribute(string $node, string $attribute, int $values[]) {if (!isEditableAttribute($node, $attribute) || `size $values` != 3) return;if (`attributeQuery -mxe -n $node $attribute`) {float $max[] = `attributeQuery -max -n $node $attribute`;if ($values[0] > $max[0]) $values[0] = (int) $max[0];if ($values[1] > $max[1]) $values[1] = (int) $max[1];if ($values[2] > $max[2]) $values[2] = (int) $max[2];}if (`attributeQuery -mne -n $node $attribute`) {float $min[] = `attributeQuery -min -n $node $attribute`;if ($values[0] < $min[0]) $values[0] = (int) $min[0];if ($values[1] < $min[1]) $values[1] = (int) $min[1];if ($values[2] < $min[2]) $values[2] = (int) $min[2];}setAttr ($node + "." + $attribute) $values[0] $values[1] $values[2];}proc batchSetInt3Attribute(string $nodes[], string $attribute, int $values[]) {for ($n in $nodes) {setInt3Attribute($n, $attribute, $values);}}proc string getStringAttribute(string $node, string $attribute, string $default) {string $value = $default;if (!existsAttribute($node, $attribute)) return $value;$value = `getAttr ($node + "." + $attribute)`;if (!`size $value`) $value = "";return $value;}proc setStringAttribute(string $node, string $attribute, string $value) {if (!isEditableAttribute($node, $attribute)) return;setAttr ($node + "." + $attribute) -typ "string" $value;}proc batchSetStringAttribute(string $nodes[], string $attribute, string $value) {for ($n in $nodes) {setStringAttribute($n, $attribute, $value);}}proc string[] getSourceConnections(string $n,string $attributes[],string $type,string $sourceAttributes[],string $targetAttributes[]) {string $sourceNodes[];clear $sourceAttributes;clear $targetAttributes;if (!`objExists $n`) return $sourceNodes;$n = longNameOf($n);int $typeFlag = `size $type` > 0;if (`size $attributes`) {for ($attribute in $attributes) {if (!existsAttribute($n, $attribute)) continue;string $destPath = $n + "." + $attribute;string $nodes[];if ($typeFlag) {$nodes = `listConnections -d false -p false -s true -t $type $destPath`;}else {$nodes = `listConnections -d false -p false -s true $destPath`;}$sourceNodes = stringArrayCatenate($sourceNodes, $nodes);string $plugs[];if ($typeFlag) {$plugs = `listConnections -d false -p true -s true -t $type $destPath`;}else {$plugs = `listConnections -d false -p true -s true $destPath`;}$plugs = stringArrayRemoveDuplicates($plugs);for ($plug in $plugs) {string $buffer[];if (`tokenize $plug "." $buffer` != 2) continue;string $sourcePath = longNameOf($buffer[0]) + "." + $buffer[1];$sourceAttributes[`size $sourceAttributes`] = $sourcePath;$targetAttributes[`size $targetAttributes`] = $destPath;}}}else {string $plugs[];if ($typeFlag) {$sourceNodes = `listConnections -d false -p false -s true -t $type $n`;$plugs = `listConnections -d false -p true -s true -t $type $n`;}else {$sourceNodes = `listConnections -d false -p false -s true $n`;$plugs = `listConnections -d false -p true -s true $n`;}$plugs = stringArrayRemoveDuplicates($plugs);for ($plug in $plugs) {string $buffer[];if (`tokenize $plug "." $buffer` != 2) continue;string $sourcePath = longNameOf($buffer[0]) + "." + $buffer[1];string $targetPlugs[] = `listConnections -d true -p true -s false $sourcePath`;$targetPlugs = stringArrayRemoveDuplicates($targetPlugs);for ($targetPlug in $targetPlugs) {string $targetBuffer[];if (`tokenize $targetPlug "." $targetBuffer` != 2) continue;string $targetNode = longNameOf($targetBuffer[0]);if ($targetNode != $n) continue;string $destPath = $targetNode + "." + $targetBuffer[1];$sourceAttributes[`size $sourceAttributes`] = $sourcePath;$targetAttributes[`size $targetAttributes`] = $destPath;}}}$sourceNodes = stringArrayRemoveDuplicates($sourceNodes);for ($i = 0; $i < `size $sourceNodes`; $i++) {$sourceNodes[$i] = longNameOf($sourceNodes[$i]);}return $sourceNodes;}proc string[] getDestConnections(string $n,string $attributes[],string $type,string $sourceAttributes[],string $targetAttributes[]) {string $destNodes[];clear $sourceAttributes;clear $targetAttributes;if (!`objExists $n`) return $destNodes;$n = longNameOf($n);int $typeFlag = `size $type` > 0;if (`size $attributes`) {for ($attribute in $attributes) {if (!existsAttribute($n, $attribute)) continue;string $sourcePath = $n + "." + $attribute;string $nodes[];if ($typeFlag) {$nodes = `listConnections -d true -p false -s false -t $type $sourcePath`;}else {$nodes = `listConnections -d true -p false -s false $sourcePath`;}$destNodes = stringArrayCatenate($destNodes, $nodes);string $plugs[];if ($typeFlag) {$plugs = `listConnections -d true -p true -s false -t $type $sourcePath`;}else {$plugs = `listConnections -d true -p true -s false $sourcePath`;}$plugs = stringArrayRemoveDuplicates($plugs);for ($plug in $plugs) {string $buffer[];if (`tokenize $plug "." $buffer` != 2) continue;string $destPath = longNameOf($buffer[0]) + "." + $buffer[1];$sourceAttributes[`size $sourceAttributes`] = $sourcePath;$targetAttributes[`size $targetAttributes`] = $destPath;}}}else {string $plugs[];if ($typeFlag) {$destNodes = `listConnections -d true -p false -s false -t $type $n`;$plugs = `listConnections -d true -p true -s false -t $type $n`;}else {$destNodes = `listConnections -d true -p false -s false $n`;$plugs = `listConnections -d true -p true -s false $n`;}$plugs = stringArrayRemoveDuplicates($plugs);for ($plug in $plugs) {string $buffer[];if (`tokenize $plug "." $buffer` != 2) continue;string $destPath = longNameOf($buffer[0]) + "." + $buffer[1];string $sourcePlugs[] = `listConnections -d false -p true -s true $destPath`;$sourcePlugs = stringArrayRemoveDuplicates($sourcePlugs);for ($sourcePlug in $sourcePlugs) {string $sourceBuffer[];if (`tokenize $sourcePlug "." $sourceBuffer` != 2) continue;string $sourceNode = longNameOf($sourceBuffer[0]);if ($sourceNode != $n) continue;string $sourcePath = $sourceNode + "." + $sourceBuffer[1];$sourceAttributes[`size $sourceAttributes`] = $sourcePath;$targetAttributes[`size $targetAttributes`] = $destPath;}}}$destNodes = stringArrayRemoveDuplicates($destNodes);for ($i = 0; $i < `size $destNodes`; $i++) {$destNodes[$i] = longNameOf($destNodes[$i]);}return $destNodes;}proc connectAttributes(string $sourceAttributes[],string $targetAttributes[],int $force) {int $numAttributes = `size $sourceAttributes`;if (`size $targetAttributes` != $numAttributes) return;for ($i = 0; $i < $numAttributes; $i++) {string $sourceAttribute = $sourceAttributes[$i];string $targetAttribute = $targetAttributes[$i];if (`isConnected -iuc $sourceAttribute $targetAttribute`) continue;if ($force) {connectAttr -f $sourceAttribute $targetAttribute;}else {connectAttr $sourceAttribute $targetAttribute;}}}proc disconnectAttributes(string $sourceAttributes[],string $targetAttributes[]) {int $numAttributes = `size $sourceAttributes`;if (`size $targetAttributes` != $numAttributes) return;for ($i = 0; $i < $numAttributes; $i++) {string $sourceAttribute = $sourceAttributes[$i];string $targetAttribute = $targetAttributes[$i];if (!`isConnected -iuc $sourceAttribute $targetAttribute`) continue;disconnectAttr $sourceAttribute $targetAttribute;}}
+/*1.15.0:Node*/proc int nodesExists(string $nodes[]) {int $numNodes = `size $nodes`;if (!$numNodes) return false;int $count;for ($n in $nodes) {if (`objExists $n`) $count += 1;}return ($count == $numNodes);}proc int isSelected(string $n) {if (!`objExists $n`) return false;string $nodes[] = `ls -l -sl $n`;return (`size $nodes` > 0);}proc int isType(string $n, string $types[], int $exactType) {if (!`objExists $n`) return false;if (!`size $types`) return true;string $nodeType = `nodeType $n`;string $nodeTypes[] = `nodeType -i $n`;int $isMatch;if ($exactType) {$isMatch = stringArrayContains($nodeType, $types);}else {for ($type in $types) {$isMatch = stringArrayContains($type, $nodeTypes);if ($isMatch) break;}}return $isMatch;}proc int isTypeContains(string $nodes[], string $type, int $exactType) {int $isMatch;if (!`size $type`) return $isMatch;for ($n in $nodes) {$isMatch = isType($n, {$type}, $exactType);if ($isMatch) break;}return $isMatch;}proc string[] getShapeNodes(string $n, string $type) {if (!`objExists $n`) return {};if (`size $type`) {return `listRelatives -f -s -typ $type $n`;}else {return `listRelatives -f -s $n`;}}proc int isNodeReferenced(string $n) {return (`objExists $n` && `referenceQuery -inr $n`);}proc int isDagNode(string $n) {return isType($n, {"dagNode"}, false);}proc int isTransformNode(string $n) {return isType($n, {"transform"}, true);}proc int isJointNode(string $n) {return isType($n, {"joint"}, true);}proc int isShapeNode(string $n) {return isType($n, {"shape"}, false);}proc int isConstraintNode(string $n) {return isType($n, {"constraint"}, false);}proc int isLocatorShapeNode(string $n) {return isType($n, {"locator"}, true);}proc int isLocatorNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "locator", true);}else {return isLocatorShapeNode($n);}}proc int isNurbsSurfaceShapeNode(string $n) {return isType($n, {"nurbsSurface"}, true);}proc int isNurbsSurfaceNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "nurbsSurface", true);}else {return isNurbsSurfaceShapeNode($n);}}proc int isNurbsCurveShapeNode(string $n) {return isType($n, {"nurbsCurve"}, true);}proc int isNurbsCurveNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "nurbsCurve", true);}else {return isNurbsCurveShapeNode($n);}}proc int isBezierCurveShapeNode(string $n) {return isType($n, {"bezierCurve"}, true);}proc int isBezierCurveNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "bezierCurve", true);}else {return isBezierCurveShapeNode($n);}}proc int isMeshShapeNode(string $n) {return isType($n, {"mesh"}, true);}proc int isMeshNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "mesh", true);}else {return isMeshShapeNode($n);}}proc int isLightShapeNode(string $n) {return isType($n, {"light"}, false);}proc int isLightNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "light", false);}else {return isLightShapeNode($n);}}proc int isCameraShapeNode(string $n) {return isType($n, {"camera"}, false);}proc int isCameraNode(string $n) {if (isTransformNode($n)) {return isTypeContains(getShapeNodes($n, ""), "camera", false);}else {return isCameraShapeNode($n);}}proc int isUUID(string $input) {string $hex = "[A-F0-9]";string $digit4 = $hex + $hex + $hex + $hex;string $digit8 = $digit4 + $digit4;string $digit12 = $digit8 + $digit4;return (isValidString($input,$digit8 + "-" + $digit4 + "-" + $digit4 + "-" + $digit4 + "-" + $digit12));}proc string toShortName(string $path) {string $shortName;if (!`size $path`) return $shortName;string $buffer1[];int $numBuffer1 = `tokenize $path "|" $buffer1`;if ($numBuffer1 > 0) {string $buffer2[];int $numBuffer2 = `tokenize $buffer1[$numBuffer1 - 1] ":" $buffer2`;if ($numBuffer2 > 0) {$shortName = $buffer2[$numBuffer2 - 1];}}return $shortName;}proc string toUUID(string $n) {string $uuid;if (!`objExists $n`) return $uuid;string $uuids[] = `ls -uid $n`;if (`size $uuids` == 1) $uuid = $uuids[0];return $uuid;}proc string uuidToLongName(string $uuid) {string $longName;if (!isUUID($uuid)) return $longName;string $longNames[] = `ls -l $uuid`;if (`size $longNames` == 1) $longName = $longNames[0];return $longName;}proc string setNodeName(string $n, string $name) {if (!`objExists $n` || !`size $name` || isNodeReferenced($n)) return "";string $nodeId = toUUID($n);$n = uuidToLongName($nodeId);rename $n $name;$n = uuidToLongName($nodeId);return $n;}proc string getParentNode(string $n) {if (!`objExists $n`) return "";string $parents[] = `listRelatives -f -p $n`;if (!`size $parents`) return "";return $parents[0];}proc string[] setParentNode(string $nodes[], string $parentNode) {int $toWorld = `size $parentNode` == 0;int $parentIsDagNode = isDagNode($parentNode);if (!$toWorld && !$parentIsDagNode) return $nodes;string $nodeIds[];string $dagNodes[];for ($n in $nodes) {$nodeIds[`size $nodeIds`] = toUUID($n);if (isDagNode($n) && !isNodeReferenced($n)) {$dagNodes[`size $dagNodes`] = $n;}}int $numDagNodes = `size $dagNodes`;if (!$numDagNodes) return $nodes;string $selectedNodes[] = `ls -l -sl`;string $selectedNodeIds[];for ($n in $selectedNodes) {$selectedNodeIds[`size $selectedNodeIds`] = toUUID($n);}if ($numDagNodes) {if ($toWorld) {parent -w $dagNodes;}else if ($parentIsDagNode) {parent -a $dagNodes $parentNode;}}string $newNodes[];for ($id in $nodeIds) {$newNodes[`size $newNodes`] = uuidToLongName($id);}string $newSelectedNodes[];for ($id in $selectedNodeIds) {$newSelectedNodes[`size $newSelectedNodes`] = uuidToLongName($id);}select -r $newSelectedNodes;return $newNodes;}proc string getRootNode(string $n) {string $rootNode;if (!`objExists $n`) return $rootNode;$rootNode = $n;string $parentNode = getParentNode($rootNode);while (`objExists $parentNode`) {$rootNode = $parentNode;$parentNode = getParentNode($rootNode);}return $rootNode;}proc string[] collectRootNodes(string $nodes[]) {string $rootNodes[];if (!`size $nodes`) return $rootNodes;for ($n in $nodes) {string $rootNode = getRootNode($n);if (`objExists $rootNode`) {$rootNodes[`size $rootNodes`] = $rootNode;}}$rootNodes = stringArrayRemoveDuplicates($rootNodes);return $rootNodes;}proc string[] collectChildNodes(string $n) {string $childNodes[];if (!`objExists $n`) return $childNodes;$childNodes = `listRelatives -f -c $n`;return $childNodes;}proc string[] collectDescendantNodes(string $n,string $parentNode,string $types[],int $exactType,string $script) {string $descendantNodes[];if (!`objExists $n`) return $descendantNodes;$n = longNameOf($n);$parentNode = longNameOf($parentNode);string $sourceNode = $n;string $nextNode = $sourceNode;if (`exists $script` && isType($sourceNode, $types, $exactType)) {string $arg1 = "\"" + toUUID($sourceNode) + "\"";string $arg2 = "\"" + toUUID($parentNode) + "\"";string $result[] = `eval $script $arg1 $arg2`;if (`size $result` == 2 && (!`size $result[0]` || isUUID($result[0])) && (!`size $result[1]` || isUUID($result[1]))) {$sourceNode = uuidToLongName($result[0]);$nextNode = uuidToLongName($result[1]);}}if (`objExists $sourceNode`) {$descendantNodes[`size $descendantNodes`] = $sourceNode;}string $childNodes[] = collectChildNodes($nextNode);for ($c in $childNodes) {$descendantNodes = stringArrayCatenate($descendantNodes,collectDescendantNodes($c, $sourceNode, $types, $exactType, $script));}if (`size $types`) {for ($i = `size $descendantNodes` - 1; $i >= 0; $i--) {if (!isType($descendantNodes[$i], $types, $exactType)) {stringArrayRemoveAtIndex($i, $descendantNodes);}}}return $descendantNodes;}proc string[] collectHierarchyNodes(string $nodes[],string $parentNode,string $types[],int $exactType,string $script) {string $hierarchyNodes[];if (!`size $nodes`) return $hierarchyNodes;string $rootNodes[] = collectRootNodes($nodes);for ($n in $rootNodes) {$hierarchyNodes = stringArrayCatenate($hierarchyNodes,collectDescendantNodes($n, $parentNode, $types, $exactType, $script));}$hierarchyNodes = stringArrayRemoveDuplicates($hierarchyNodes);return $hierarchyNodes;}proc string[] gatherNodes(string $types[],int $exactType,int $selectedOnly,string $pattern) {if (!`size $pattern`) $pattern = "*";string $nodes[];if (`size $types`) {for ($type in $types) {if ($selectedOnly) {if ($exactType) {$nodes = stringArrayCatenate($nodes, `ls -l -sl -et $type $pattern`);}else {$nodes = stringArrayCatenate($nodes, `ls -l -sl -typ $type $pattern`);}}else {if ($exactType) {$nodes = stringArrayCatenate($nodes, `ls -l -et $type $pattern`);}else {$nodes = stringArrayCatenate($nodes, `ls -l -typ $type $pattern`);}}}}else {if ($selectedOnly) {$nodes = `ls -l -sl $pattern`;}else {$nodes = `ls -l $pattern`;}}$nodes = stringArrayRemoveDuplicates($nodes);return $nodes;}proc string nodesAsCSV(string $types[],int $exactType,int $selectedOnly,string $pattern,int $singleNodeOnly) {string $nodes[] = gatherNodes($types, $exactType, $selectedOnly, $pattern);if (`size $nodes` > 1 && $singleNodeOnly) clear $nodes;return stringArrayToString($nodes, ",");}proc string[] csvAsNodes(string $input) {string $nodes[];tokenize $input "," $nodes;if (`size $nodes` == 1 && !`size $nodes[0]`) clear $nodes;return $nodes;}proc string[] getSourceConnectionNodes(string $nodes[],string $types[],int $exactType) {string $tmpNodes[];for ($n in $nodes) {if (!`objExists $n`) continue;$tmpNodes = stringArrayCatenate($tmpNodes,`listConnections -d false -p false -s true $n`);}$tmpNodes = stringArrayRemoveDuplicates($tmpNodes);string $sourceNodes[];for ($i = 0; $i < `size $tmpNodes`; $i++) {string $tmpNode = longNameOf($tmpNodes[$i]);if (isType($tmpNode, $types, $exactType)) {$sourceNodes[`size $sourceNodes`] = $tmpNode;}}$sourceNodes = `sort $sourceNodes`;return $sourceNodes;}proc string[] getDestConnectionNodes(string $nodes[],string $types[],int $exactType) {string $tmpNodes[];for ($n in $nodes) {if (!`objExists $n`) continue;$tmpNodes = stringArrayCatenate($tmpNodes,`listConnections -d true -p false -s false $n`);}$tmpNodes = stringArrayRemoveDuplicates($tmpNodes);string $destNodes[];for ($i = 0; $i < `size $tmpNodes`; $i++) {string $tmpNode = longNameOf($tmpNodes[$i]);if (isType($tmpNode, $types, $exactType)) {$destNodes[`size $destNodes`] = $tmpNode;}}$destNodes = `sort $destNodes`;return $destNodes;}proc string buildDagNode(string $n,string $name,string $parentNode,string $matchTransformNode,int $matchFlags[]) {if (!isDagNode($n) || isNodeReferenced($n)) return $n;string $nodeId = toUUID($n);$n = uuidToLongName($nodeId);if (isDagNode($matchTransformNode)) {int $numMatchFlags = `size $matchFlags`;if (!`size $matchFlags`) {matchTransform $n $matchTransformNode;}else {if ($matchFlags[0]) matchTransform -pos $n $matchTransformNode;if ($matchFlags[1]) matchTransform -rot $n $matchTransformNode;if ($matchFlags[2]) matchTransform -scl $n $matchTransformNode;}}string $selection[] = `ls -l -sl`;int $shouldSelect = isSelected($n);if ($shouldSelect) {$selection = stringArrayRemove({$n}, $selection);}if (isDagNode($parentNode)) {parent -a $n $parentNode;$n = uuidToLongName($nodeId);}if ($shouldSelect) {$selection[`size $selection`] = $n;}select -r $selection;if (`size $name`) {rename $n $name;$n = uuidToLongName($nodeId);}return $n;}proc string createJoint(string $name,string $parentNode,string $matchTransformNode,int $matchFlags[]) {return (buildDagNode(longNameOf(`createNode -ss "joint"`),$name,$parentNode,$matchTransformNode,$matchFlags));}proc string createLocator(string $name,string $parentNode,string $matchTransformNode,int $matchFlags[]) {return (buildDagNode(getParentNode(longNameOf(`createNode -ss "locator"`)),$name,$parentNode,$matchTransformNode,$matchFlags));}proc string createTransform(string $name,string $parentNode,string $matchTransformNode,int $matchFlags[]) {return (buildDagNode(longNameOf(`createNode -ss "transform"`),$name,$parentNode,$matchTransformNode,$matchFlags));}proc string getTopLevelNode(string $topLevelName, int $shouldCreate) {string $n;if (!`size $topLevelName`) return "";string $nodes[] = `ls -l ("::" + $topLevelName)`;int $numNodes = `size $nodes`;if ($numNodes > 1) return "";$n = ($numNodes == 1) ? $nodes[0] : "";if (`objExists $n`) return $n;if ($shouldCreate) {$n = createTransform($topLevelName, "", "", {});}return $n;}proc string getSecondLevelNode(string $topLevelName,string $secondLevelName,int $shouldCreate) {string $n;if (!`size $topLevelName` || !`size $secondLevelName`) return "";string $nodes[] = `ls -l ("|::" + $topLevelName + "|::" + $secondLevelName)`;int $numNodes = `size $nodes`;if ($numNodes > 1) return "";$n = ($numNodes == 1) ? $nodes[0] : "";if (`objExists $n`) return $n;if ($shouldCreate) {string $topLevelNode = getTopLevelNode($topLevelName, $shouldCreate);if (!`objExists $topLevelNode`) return "";$n = createTransform($secondLevelName, $topLevelNode, "", {});}return $n;}proc string getThirdLevelNode(string $topLevelName,string $secondLevelName,string $thirdLevelName,int $shouldCreate) {string $n;if ( !`size $topLevelName` || !`size $secondLevelName` || !`size $thirdLevelName`) return "";string $nodes[] = `ls -l ("|::" + $topLevelName + "|::" + $secondLevelName + "|::" + $thirdLevelName)`;int $numNodes = `size $nodes`;if ($numNodes > 1) return "";$n = ($numNodes == 1) ? $nodes[0] : "";if (`objExists $n`) return $n;if ($shouldCreate) {string $secondLevelNode = getSecondLevelNode($topLevelName,$secondLevelName,$shouldCreate);if (!`objExists $secondLevelNode`) return "";$n = createTransform($thirdLevelName, $secondLevelNode, "", {});}return $n;}
+/*1.5.0:String*/proc string escapeStringForLiteral(string $input) {string $escapedText;int $size = `size $input`;for ($i = 1; $i <= $size; $i++) {string $c = `substring $input $i $i`;switch ($c) {case "\"": $escapedText += "\\\""; break;case "\\": $escapedText += "\\\\"; break;case "\n": $escapedText += "\\n"; break;case "\r": $escapedText += "\\r"; break;case "\t": $escapedText += "\\t"; break;default: $escapedText += $c; break;}}return $escapedText;}proc string escapeStringForPythonAtString(string $input) {string $escapedText;int $size = `size $input`;for ($i = 1; $i <= $size; $i++) {string $c = `substring $input $i $i`;switch ($c) {case "\\": $escapedText += "\\\\"; break;case "'": $escapedText += "\\'"; break;case "\n": $escapedText += "\\n"; break;case "\r": $escapedText += "\\r"; break;default: $escapedText += $c; break;}}return $escapedText;}proc string booleanAsStringLiteral(int $value) {return (($value == 0) ? "false" : "true");}proc string floatAsStringLiteral(float $value) {string $literal = (string) $value;if (!`gmatch $literal "*e*"` && !`gmatch $literal "*.*"`) $literal += ".0";return $literal;}proc string intAsStringLiteral(int $value) {return ((string) $value);}proc string stringAsStringLiteral(string $value) {return ("\"" + escapeStringForLiteral($value) + "\"");}proc string booleanArrayAsStringLiteral(int $values[]) {string $stringValues[];for ($i = 0; $i < `size $values`; $i++) {$stringValues[$i] = booleanAsStringLiteral($values[$i]);}return ("{" + stringArrayToString($stringValues, ", ") + "}");}proc string floatArrayAsStringLiteral(float $values[]) {string $stringValues[];for ($i = 0; $i < `size $values`; $i++) {$stringValues[$i] = floatAsStringLiteral($values[$i]);}return ("{" + stringArrayToString($stringValues, ", ") + "}");}proc string intArrayAsStringLiteral(int $values[]) {return ("{" + intArrayToString($values, ", ") + "}");}proc string stringArrayAsStringLiteral(string $values[]) {string $stringValues[];for ($i = 0; $i < `size $values`; $i++) {$stringValues[$i] = stringAsStringLiteral($values[$i]);}return ("{" + stringArrayToString($stringValues, ", ") + "}");}proc string join(string $inputs[], string $separator, int $ignoreEmpty) {int $numInputs = `size $inputs`;if (!$numInputs || ($numInputs == 1 && !`size $inputs[0]`)) return "";if ($ignoreEmpty) {string $buffer[];for ($input in $inputs) {if (`size $input`) $buffer[`size $buffer`] = $input;}return stringArrayToString($buffer, $separator);}else {return stringArrayToString($inputs, $separator);}}proc string strip(string $input) {return `python("'" + escapeStringForPythonAtString($input) + "'.strip()")`;}proc string regexSearchGroup(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");string $result = `python("(lambda m: m.group() if m else None)(re.search(" + $pattern + ", " + $input + "))")`;return $result;}proc int[] regexSearchSpan(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");int $result[] = `python("(lambda m: m.span() if m else None)(re.search(" + $pattern + ", " + $input + "))")`;return $result;}proc string[] regexMatchGroups(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");string $result[] = `python("tuple([m.group() for m in re.finditer(" + $pattern + ", " + $input + ")])")`;return $result;}proc string[] regexMatchSubGroups(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");string $result[] = `python("sum([m.groups() for m in re.finditer(" + $pattern + ", " + $input + ")], ())")`;return $result;}proc int[] regexMatchSpans(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");int $result[] = `python("sum([m.span() for m in re.finditer(" + $pattern + ", " + $input + ")], ())")`;return $result;}proc int regexIsMatch(string $pattern, string $input, string $flags) {return (`size (regexSearchGroup($pattern, $input, $flags))` > 0);}proc string[] regexSplit(string $pattern, string $input, string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");string $result[] = `python("tuple(re.split(" + $pattern + ", " + $input + "))")`;return $result;}proc string regexReplace(string $pattern,string $replacement,string $input,string $flags) {$flags = (`size $flags`) ? "(?" + $flags + ")" : "";$pattern = "'" + $flags + escapeStringForPythonAtString($pattern) + "'";$replacement = "'" + escapeStringForPythonAtString($replacement) + "'";$input = "'" + escapeStringForPythonAtString($input) + "'";python("import re");string $result = `python("re.sub(" + $pattern + ", " + $replacement + ", " + $input + ")")`;return $result;}proc string getClipboardText() {python("from PySide2 import QtGui");python("cb = QtGui.QClipboard()");return python("cb.text()");}proc setClipboardText(string $text) {python("from PySide2 import QtGui");python("cb = QtGui.QClipboard()");python("cb.setText('" + escapeStringForPythonAtString($text) + "')");}proc string dictSanitize(string $input) {string $pattern = "[=;]";if (regexIsMatch($pattern, $input, "")) {return regexReplace($pattern, "_", $input, "");}else {return $input;}}proc string[] dictSanitizeArray(string $input[]) {string $result[];for ($i = 0; $i < `size $input`; $i++) {$result[$i] = dictSanitize($input[$i]);}return $result;}proc string[] dictExtractItems(string $dict) {string $items[];string $buffer[] = regexSplit(";", $dict, "");for ($item in $buffer) {if (!`size $item`) continue;$items[`size $items`] = $item;}return $items;}proc int dictIsKeyEquals(string $item, string $key) {return (`size $key` && `gmatch $item ($key + "=*")`);}proc string dictExtractKey(string $item) {if (!`gmatch $item "?*=*"`) return "";return regexReplace("^([^=]+)=.*", "\\1", $item, "");}proc string dictExtractValue(string $item) {if (!`gmatch $item "?*=*"`) return "";return regexReplace("^[^=]+=", "", $item, "");}proc string dictGetValue(string $dict, string $key) {string $value;if (!`size $key`) return $value;string $items[] = dictExtractItems($dict);for ($item in $items) {if (dictIsKeyEquals($item, $key)) {$value = dictExtractValue($item);break;}}return $value;}proc string[] dictKeys(string $dict) {string $keys[];string $items[] = dictExtractItems($dict);for ($item in $items) {string $key = dictExtractKey($item);if (!`size $key`) continue;$keys[`size $keys`] = $key;}return $keys;}proc int dictContainsKey(string $dict, string $key) {if (!`size $key`) return false;string $keys[] = dictKeys($dict);return stringArrayContains($key, $keys);}proc string dictAddItem(string $dict, string $key, string $value) {if (!`size $key`) return $dict;string $newDict;int $isOverwrite;string $items[] = dictExtractItems($dict);for ($item in $items) {if (dictIsKeyEquals($item, $key)) {$isOverwrite = true;$newDict += $key + "=" + $value + ";";}else {$newDict += $item + ";";}}if (!$isOverwrite) {$newDict += $key + "=" + $value + ";";}return $newDict;}proc string dictAddBoolean(string $dict, string $key, int $value) {return dictAddItem($dict, dictSanitize($key), booleanAsStringLiteral($value));}proc string dictAddFloat(string $dict, string $key, float $value) {return dictAddItem($dict, dictSanitize($key), floatAsStringLiteral($value));}proc string dictAddInt(string $dict, string $key, int $value) {return dictAddItem($dict, dictSanitize($key), intAsStringLiteral($value));}proc string dictAddString(string $dict, string $key, string $value) {$value = dictSanitize($value);return dictAddItem($dict, dictSanitize($key), stringAsStringLiteral($value));}proc string dictAddBooleanArray(string $dict, string $key, int $value[]) {return dictAddItem($dict, dictSanitize($key), booleanArrayAsStringLiteral($value));}proc string dictAddFloatArray(string $dict, string $key, float $value[]) {return dictAddItem($dict, dictSanitize($key), floatArrayAsStringLiteral($value));}proc string dictAddIntArray(string $dict, string $key, int $value[]) {return dictAddItem($dict, dictSanitize($key), intArrayAsStringLiteral($value));}proc string dictAddStringArray(string $dict, string $key, string $value[]) {$value = dictSanitizeArray($value);return dictAddItem($dict, dictSanitize($key), stringArrayAsStringLiteral($value));}proc int dictGetBoolean(string $dict, string $key, int $default) {string $value = dictGetValue($dict, $key);if ($value == "true") {return true;}else if ($value == "false") {return false;}return $default;}proc float dictGetFloat(string $dict, string $key, float $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return ((float) $value);return $default;}proc int dictGetInt(string $dict, string $key, int $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return ((int) $value);return $default;}proc string dictGetString(string $dict, string $key, string $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return `eval ("format -s " + $value + " \"^1s\";")`;return $default;}global int $dictBooleanArrayBuffer[];global float $dictFloatArrayBuffer[];global int $dictIntArrayBuffer[];global string $dictStringArrayBuffer[];proc int[] dictGetBooleanArray(string $dict, string $key, int $default[]) {global int $dictBooleanArrayBuffer[];clear $dictBooleanArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictBooleanArrayBuffer = " + $value + ";");return $dictBooleanArrayBuffer;}return $default;}proc float[] dictGetFloatArray(string $dict, string $key, float $default[]) {global float $dictFloatArrayBuffer[];clear $dictFloatArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictFloatArrayBuffer = " + $value + ";");return $dictFloatArrayBuffer;}return $default;}proc int[] dictGetIntArray(string $dict, string $key, int $default[]) {global int $dictIntArrayBuffer[];clear $dictIntArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictIntArrayBuffer = " + $value + ";");return $dictIntArrayBuffer;}return $default;}proc string[] dictGetStringArray(string $dict, string $key, string $default[]) {global string $dictStringArrayBuffer[];clear $dictStringArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictStringArrayBuffer = " + $value + ";");return $dictStringArrayBuffer;}return $default;}proc string dictRemove(string $dict, string $key) {if (!`size $key`) return $dict;string $newDict;string $items[] = dictExtractItems($dict);for ($item in $items) {string $itemKey = dictExtractKey($item);if ($itemKey == $key) continue;$newDict += $item + ";";}return $newDict;}
+/*2.1.0:UIControl*/global string $nkUIControls[];proc appendUIControls(string $controls[]) {global string $nkUIControls[];for ($control in $controls) {$nkUIControls[`size $nkUIControls`] = $control;}}proc string getUIControl(string $root, string $end) {global string $nkUIControls[];string $path;for ($control in $nkUIControls) {string $buffer[];int $depth = `tokenize $control "|" $buffer`;string $first = ($depth > 0) ? $buffer[0] : "";string $last = ($depth > 0) ? $buffer[$depth - 1] : "";if ($first == $root && $last == $end) {$path = $control;break;}}return $path;}proc removeUIControls(string $root, string $end) {global string $nkUIControls[];string $paths[];for ($control in $nkUIControls) {string $buffer[];int $depth = `tokenize $control "|" $buffer`;string $first = ($depth > 0) ? $buffer[0] : "";string $last = ($depth > 0) ? $buffer[$depth - 1] : "";int $shouldRemove = (!`size $end`) ? $first == $root : $first == $root && $last == $end;if ($shouldRemove) $paths[`size $paths`] = $control;}if (`size $paths` > 0) {$nkUIControls = stringArrayRemove($paths, $nkUIControls);}}proc string uiControlTypeOf(string $control) {string $type = `objectTypeUI $control`;if ($type == "floatingWindow") $type = "window";return $type;}proc int qEnable(string $control) {string $type = uiControlTypeOf($control);if ($type == "window" || $type == "workspaceControl") return true;return `control -q -en $control`;}proc eEnable(int $bValue, string $control) {string $type = uiControlTypeOf($control);if ($type == "window" || $type == "workspaceControl") return;control -e -en $bValue $control;}proc int qExists(string $control) {return `control -q -ex $control`;}proc int qVisible(string $control) {return `control -q -vis $control`;}proc eVisible(int $bValue, string $control) {control -e -vis $bValue $control;}proc float qFloat(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc eFloat(string $type, string $flag, float $fValue, string $control) {eval $type "-e" $flag $fValue $control;}proc int qInt(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc eInt(string $type, string $flag, int $iValue, string $control) {eval $type "-e" $flag $iValue $control;}proc string qString(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc eString(string $type, string $flag, string $sValue, string $control) {eval $type "-e" $flag ("\"" + $sValue + "\"") $control;}proc float[] qFloatArray(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc int[] qIntArray(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc string[] qStringArray(string $type, string $flag, string $control) {return `eval $type "-q" $flag $control`;}proc eStringArray(string $type, string $flag, string $sValues[], string $control) {for ($sValue in $sValues) {eString($type, $flag, $sValue, $control);}}proc eOrderedFloat(string $type, string $flag, float $fValues[], string $control) {for ($i = 0; $i < `size $fValues`; $i++) {eFloat($type, ($flag + ($i + 1)), $fValues[$i], $control);}}proc eOrderedInt(string $type, string $flag, int $iValues[], string $control) {for ($i = 0; $i < `size $iValues`; $i++) {eInt($type, ($flag + ($i + 1)), $iValues[$i], $control);}}proc eOrderedString(string $type, string $flag, string $sValues[], string $control) {for ($i = 0; $i < `size $sValues`; $i++) {eString($type, ($flag + ($i + 1)), $sValues[$i], $control);}}proc int qIndex(string $type, string $flag, string $control) {return (qInt($type, $flag, $control) - 1);}proc eIndex(string $type, string $flag, int $index, string $control) {eInt($type, $flag, ($index + 1), $control);}proc int[] qIndexArray(string $type, string $flag, string $control) {int $indices[] = qIntArray($type, $flag, $control);for ($i = 0; $i < `size $indices`; $i++) $indices[$i] -= 1;return $indices;}proc eIndexArray(string $type, string $flag, int $indices[], string $control) {for ($i in $indices) {eInt($type, $flag, $i + 1, $control);}}proc int qFirstIndex(string $type, string $flag, string $control) {int $indices[] = qIndexArray($type, $flag, $control);return  ((`size $indices`) ? $indices[0] : -1);}proc string qFirstString(string $type, string $flag, string $control) {string $sValues[] = qStringArray($type, $flag, $control);return  ((`size $sValues`) ? $sValues[0] : "");}proc eIntString(string $type, string $flag, int $iValue, string $sValue, string $control) {eval $type "-e" $flag $iValue ("\"" + $sValue + "\"") $control;}proc eIndexString(string $type, string $flag, int $index, string $sValue, string $control) {eIntString($type, $flag, $index + 1, $sValue, $control);}proc eStringInt(string $type, string $flag, string $sValue, int $iValue, string $control) {eval $type "-e" $flag ("\"" + $sValue + "\"") $iValue $control;}proc executeUIControl(string $type, string $flag, string $control) {eval $type "-e" $flag $control;}proc string getParentableWindow(string $control) {if (uiControlTypeOf($control) == "workspaceControl" && !qInt("workspaceControl", "-fl", $control)) {return "MayaWindow";}else {return $control;}}proc windowClose(string $control) {if (qExists($control)) {string $type = uiControlTypeOf($control);switch ($type) {case "window": deleteUI $control; break;case "workspaceControl": executeUIControl("workspaceControl", "-cl", $control);break;default: break;}}}proc windowPrefRemove(string $type, string $control) {if (qExists($control)) windowClose($control);switch ($type) {case "window": if (qInt("windowPref", "-ex", $control)) {windowPref -r $control;}break;case "workspaceControl": if (qInt("workspaceControlState", "-ex", $control)) {workspaceControlState -r $control;}break;default: break;}}proc string buildWorkspaceControl(string $workspaceControlName,string $label,string $buildProcName,string $buildProcFilename) {string $control = $workspaceControlName;if (!qExists($workspaceControlName)) {string $uiScript = "if (!`exists " + $buildProcName + "`)" + " source \"" + $buildProcFilename + "\"; " + $buildProcName + "();";$control = `workspaceControl -dup false -fl true -l $label -rt false -ui $uiScript$workspaceControlName`;}return $control;}
+
+// /////////////////////////////////////////////////////////////////////////////
+// ドメイン
+// /////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
+// プラグイン
+// -----------------------------------------------------------------------------
+/*-
+@returns <boolean>
+*/
+proc int isPluginLoaded() {
+  // print("isPluginLoaded\n"); // debug
+  return `pluginInfo -q -l "boneDynamicsNode"`;
+}
+
+/*-
+@returns <>
+*/
+proc loadBdnPlugin() {
+  // print("loadBdnPlugin\n"); // debug
+  if (isPluginLoaded()) return;
+  loadPlugin "boneDynamicsNode";
+}
+
+/*-
+@returns <>
+*/
+proc unloadBdnPlugin() {
+  // print("unloadBdnPlugin\n"); // debug
+  if (!isPluginLoaded()) return;
+
+  string $bdnNodes[] = `ls -typ "boneDynamicsNode"`;
+  if (!`size $bdnNodes`) {
+    unloadPlugin -f "boneDynamicsNode";
+  }
+  else {
+    confirmDialog
+        -b "OK" -cb "OK" -db "OK" -ds "OK"
+        -m "Cannot unload because a bondDynamicsNode exists in the scene."
+        -t "nkBdnTool";
+  }
+}
+
+// -----------------------------------------------------------------------------
+// アトリビュート
+// -----------------------------------------------------------------------------
+/*-
+@param $n <string>
+@param $type <string> コライダーの種類。
+| 値              | 種類      |
+| --------------- | --------- |
+| `infinitePlane` | 無限平面  |
+| `sphere`        | 球        |
+| `cuboid`        | 立方体    |
+| `cupsule`       | カプセル  |
+| `cupsule2`      | カプセル2 |
+| `cupsule3`      | カプセル3 |
+@returns <string[]>
+*/
+proc string[] addColliderCommonAttributes(string $n, string $type) {
+  string $attributes[];
+  if (`objExists $n`) {
+    addAttr -dt "string" -ln "colliderType" -sn "cldtyp" $n;
+    setStringAttribute($n, "cldtyp", $type);
+    setAttributeLock($n, "cldtyp", true);
+  }
+  return $attributes;
+}
+
+// -----------------------------------------------------------------------------
+// BDNノード
+// -----------------------------------------------------------------------------
+/*-
+@param $nodes <string[]>
+@param $color <float[3]>
+@returns <>
+*/
+proc setOutlinerColor(string $nodes[], float $color[]) {
+  if (`size $color` != 3) return;
+
+  for ($n in $nodes) {
+    if (!`objExists $n`) continue;
+
+    setIntAttribute($n, "uocol", true);
+    setFloat3Attribute($n, "oclr", $color);
+  }
+}
+
+/*-
+@param $nodes <string[]>
+@param $index <int> `0`から`31`の整数。
+@returns <>
+*/
+proc setOverrideColor(string $nodes[], int $index) {
+  if (!(0 <= $index && $index <= 31)) return;
+
+  for ($n in $nodes) {
+    if (!`objExists $n`) continue;
+
+    setIntAttribute($n, "ove", true);
+    setIntAttribute($n, "ovrgbf", false);
+    setIntAttribute($n, "ovc", $index);
+  }
+}
+
+/*-
+@param $selectedOnly <boolean>
+@returns <string[]>
+*/
+proc string[] gatherBdnNodes(int $selectedOnly) {
+  return gatherNodes({"boneDynamicsNode"}, true, $selectedOnly, "");
+}
+
+/*-
+@param $selectedOnly <boolean>
+@returns <string[]>
+*/
+proc string[] gatherDynamicsNodes(int $selectedOnly) {
+  string $dynamicsNodes[];
+  return $dynamicsNodes;
+}
+
+/*-
+@param $selectedOnly <boolean>
+@returns <string[]>
+*/
+proc string[] gatherColliderNodes(int $selectedOnly) {
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc deleteAllBdnNodes() {
+  print("deleteAllBdnNodes\n"); // debug
+  string $bdnNodes[] = gatherBdnNodes(false);
+  select -r $bdnNodes;
+}
+
+// -----------------------------------------------------------------------------
+// コライダー
+// -----------------------------------------------------------------------------
+/*-
+@param $bdnBaseName <string>
+@param $sourceNodes <string[]>
+@returns <string[]>
+*/
+proc string[] createInfinitePlaneCollider(
+  string $bdnBaseName,
+  string $sourceNodes[]
+) {
+  print("createInfinitePlaneCollider\n"); // debug
+  print("  bdnBaseName:" + $bdnBaseName + "\n"); // debug
+  print("  sourceNodes:{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
+
+  string $colliderNodes[];
+  string $colliderName = "infinitePlaneCollider";
+
+  string $bdnNodeName = join({"bdn", $bdnBaseName}, "_", true);
+  string $colliderRootNode = getSecondLevelNode($bdnNodeName, "collider", true);
+  print("  colliderRootNode:" + $colliderRootNode + "\n"); // debug
+  if (!`objExists $colliderRootNode`) return $colliderNodes;
+
+  // $colliderNodes[`size $colliderNodes`] = $colliderRootNode;
+
+  if (!`size $sourceNodes`) $sourceNodes = {""};
+  for ($sourceNode in $sourceNodes) {
+    string $sourceShortName = toShortName($sourceNode);
+    string $idtNodeName = join({$sourceShortName, $colliderName, "idt"}, "_", true);
+    string $colliderNodeName = join({$sourceShortName, $colliderName}, "_", true);
+
+    string $planeNodes[] = `nurbsPlane -ax 0.0 1.0 0.0 -d 3 -lr 1.0 -u 1.0 -v 1.0 -w 1.0`;
+    if (`size $planeNodes` != 2) continue;
+
+    string $idtNode = createLocator($idtNodeName, $colliderRootNode, $sourceNode, {});
+    string $transformNode = buildDagNode(longNameOf($planeNodes[0]), $colliderNodeName, $idtNode, $idtNode, {});
+    string $makeNode = longNameOf($planeNodes[1]);
+    $colliderNodes[`size $colliderNodes`] = $idtNode;
+    $colliderNodes[`size $colliderNodes`] = $transformNode;
+    $colliderNodes[`size $colliderNodes`] = $makeNode;
+
+    addColliderCommonAttributes($transformNode, "infinitePlane");
+    setOutlinerColor({$transformNode}, {1.0, 1.0, 0.0});
+    setOverrideColor(getShapeNodes($transformNode, ""), 17);
+
+    addAttr -at "double" -dv 1.0 -k true -hxv false -hnv true -min 0.001 -ln "colliderWidth" -sn "cldw" $transformNode;
+    addAttr -at "double" -dv 1.0 -k true -hxv false -hnv true -min 0.001 -ln "colliderHeight" -sn "cldh" $transformNode;
+
+    string $ratioNode = uuidToLongName(toUUID(`createNode -ss "floatMath"`));
+    $colliderNodes[`size $colliderNodes`] = $ratioNode;
+    setAttr ($ratioNode + "._cnd") 3;
+    connectAttr ($transformNode + ".cldw") ($makeNode  + ".w"  );
+    connectAttr ($transformNode + ".cldh") ($ratioNode + "._fa");
+    connectAttr ($transformNode + ".cldw") ($ratioNode + "._fb");
+    connectAttr ($ratioNode     + ".of"  ) ($makeNode  + ".lr" );
+  }
+
+  return $colliderNodes;
+}
+
+/*-
+@returns <string>
+*/
+proc string[] createSphereCollider() {
+  print("createSphereCollider\n"); // debug
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+/*-
+@returns <string>
+*/
+proc string[] createCuboidCollider() {
+  print("createCuboidCollider\n"); // debug
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+/*-
+@returns <string>
+*/
+proc string[] createCapsule1Collider() {
+  print("createCapsule1Collider\n"); // debug
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+/*-
+@returns <string>
+*/
+proc string[] createCapsule2Collider() {
+  print("createCapsule2Collider\n"); // debug
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+/*-
+@returns <string>
+*/
+proc string[] createCapsule3Collider() {
+  print("createCapsule3Collider\n"); // debug
+  string $colliderNodes[];
+  return $colliderNodes;
+}
+
+// /////////////////////////////////////////////////////////////////////////////
+// API
+// /////////////////////////////////////////////////////////////////////////////
+
+// /////////////////////////////////////////////////////////////////////////////
+// スクリプトジョブ
+// /////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
+// イベントジョブ
+// -----------------------------------------------------------------------------
+// /*-
+// @returns <>
+// */
+// proc registerEventJob() {
+//   print("registerEventJob\n"); // debug
+// }
+
+// /*-
+// @returns <>
+// */
+// proc unregisterEventJob() {
+//   print("unregisterEventJob\n"); // debug
+// }
+
+// -----------------------------------------------------------------------------
+// ノードジョブ
+// -----------------------------------------------------------------------------
+// /*-
+// @param $n <string>
+// @returns <>
+// */
+// proc registerNodeJob(string $n) {
+//   print("registerNodeJob\n"); // debug
+//   print("  n:" + $n + "\n"); // debug
+// }
+
+// /*-
+// @param $nodeId <string>
+// @returns <>
+// */
+// proc unregisterNodeJob(string $nodeId) {
+//   print("unregisterNodeJob\n"); // debug
+//   print("  nodeId:" + $nodeId + "\n"); // debug
+// }
+
+// /////////////////////////////////////////////////////////////////////////////
+// プレゼンテーション
+// /////////////////////////////////////////////////////////////////////////////
+/*-
+@returns <string>
+*/
+proc string getBdnBaseName() {
+  string $bdnBaseNameText = getUIControl("nkBdnToolWindow", "bdnBaseNameText");
+  return qString("textFieldGrp", "-tx", $bdnBaseNameText);
+}
+
+// -----------------------------------------------------------------------------
+// UIコントロールイベントハンドラ
+// -----------------------------------------------------------------------------
+/*-
+@returns <>
+*/
+proc nkBdnToolWindowClosed() {
+  print("nkBdnToolWindowClosed\n"); // debug
+  removeUIControls("nkBdnToolWindow", "");
+}
+
+/*-
+@returns <>
+*/
+proc resetWindowMenuItemSelected() {
+  print("resetWindowMenuItemSelected\n"); // debug
+  windowPrefRemove("window", "nkBdnToolWindow");
+  nkBdnTool();
+}
+
+/*-
+@returns <>
+*/
+proc quitMenuItemSelected() {
+  print("quitMenuItemSelected\n"); // debug
+  string $nkBdnToolWindow = getUIControl("nkBdnToolWindow", "nkBdnToolWindow");
+  print("  nkBdnToolWindow:" + $nkBdnToolWindow + "\n"); // debug
+  windowClose($nkBdnToolWindow);
+}
+
+/*-
+@returns <>
+*/
+proc aboutMenuItemSelected() {
+  print("aboutMenuItemSelected\n"); // debug
+  confirmDialog
+      -b "OK"
+      -db "OK"
+      -m (
+        "nkBdnTool " + (nkBdnToolVersion())
+            + "\n\nMIT License\nhttps://github.com/imaoki/nkBdnTool"
+      )
+      -p (getParentableWindow("nkBdnToolWindow"))
+      -t "About - nkBdnTool";
+}
+
+/*-
+@returns <>
+*/
+proc bdnPluginLoadButtonPressed() {
+  // print("bdnPluginLoadButtonPressed\n"); // debug
+  loadBdnPlugin();
+}
+
+/*-
+@returns <>
+*/
+proc bdnPluginUnloadButtonPressed() {
+  // print("bdnPluginUnloadButtonPressed\n"); // debug
+  unloadBdnPlugin();
+}
+
+/*-
+@returns <>
+*/
+proc deleteAllButtonPressed() {
+  // print("deleteAllButtonPressed\n"); // debug
+  deleteAllBdnNodes();
+}
+
+/*-
+@returns <>
+*/
+proc controlNodeTextPressed() {
+  // print("controlNodeTextPressed\n"); // debug
+  string $controlNodeText = getUIControl("nkBdnToolWindow", "controlNodeText");
+  eString("textFieldButtonGrp", "-tx", nodesAsCSV({"transform"}, true, true, "", false), $controlNodeText);
+}
+
+/*-
+@returns <>
+*/
+proc selectTimeNodeButtonPressed() {
+  print("selectTimeNodeButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc selectBdnNodesFromDynamicsJointsButtonPressed() {
+  print("selectBdnNodesFromDynamicsJointsButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc selectTargetJointsFromDynamicsJointsButtonPressed() {
+  print("selectTargetJointsFromDynamicsJointsButtonPressed\n"); // debug
+}
+/*-
+@returns <>
+*/
+proc generateDynamicsUnitButtonPressed() {
+  print("generateDynamicsUnitButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc createColliderInfinitePlaneButtonPressed() {
+  // print("createColliderInfinitePlaneButtonPressed\n"); // debug
+  string $bdnBaseName = getBdnBaseName();
+  string $sourceNodes[] = gatherNodes({"transform"}, false, true, "");
+  string $colliderNodes[] = createInfinitePlaneCollider($bdnBaseName, $sourceNodes);
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc createColliderSphereButtonPressed() {
+  // print("createColliderSphereButtonPressed\n"); // debug
+  string $colliderNodes[] = createSphereCollider();
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc createColliderCuboidButtonPressed() {
+  // print("createColliderCuboidButtonPressed\n"); // debug
+  string $colliderNodes[] = createCuboidCollider();
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc createColliderCapsule1ButtonPressed() {
+  // print("createColliderCapsule1ButtonPressed\n"); // debug
+  string $colliderNodes[] = createCapsule1Collider();
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc createColliderCapsule2ButtonPressed() {
+  // print("createColliderCapsule2ButtonPressed\n"); // debug
+  string $colliderNodes[] = createCapsule2Collider();
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc createColliderCapsule3ButtonPressed() {
+  // print("createColliderCapsule3ButtonPressed\n"); // debug
+  string $colliderNodes[] = createCapsule3Collider();
+  print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
+  select -r $colliderNodes;
+}
+
+/*-
+@returns <>
+*/
+proc saveColliderSetButtonPressed() {
+  print("saveColliderSetButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc loadColliderSetButtonPressed() {
+  print("loadColliderSetButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc bdnNodeTextPressed() {
+  print("bdnNodeTextPressed\n"); // debug
+  if (!isPluginLoaded()) return;
+
+  string $bdnNodeText = getUIControl("nkBdnToolWindow", "bdnNodeText");
+  eString("textFieldButtonGrp", "-tx", nodesAsCSV({"boneDynamicsNode"}, true, true, "", false), $bdnNodeText);
+}
+
+/*-
+@returns <>
+*/
+proc appendColliderToBdnButtonPressed() {
+  print("appendColliderToBdnButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc removeColliderFromBdnButtonPressed() {
+  print("removeColliderFromBdnButtonPressed\n"); // debug
+}
+
+/*-
+@returns <>
+*/
+proc bakeSelectedButtonPressed() {
+  print("bakeSelectedButtonPressed\n"); // debug
+}
+
+// -----------------------------------------------------------------------------
+// ウィンドウ定義
+// -----------------------------------------------------------------------------
+/*-
+@returns <>
+*/
+proc buildMainWindow() {
+  print("buildMainWindow\n"); // debug
+  windowClose("nkBdnToolWindow");
+
+  if (`uiTemplate -ex "nkBdnToolTemplateNarrow"`) deleteUI -uit "nkBdnToolTemplateNarrow";
+  if (`uiTemplate -ex "nkBdnToolTemplateFrameList"`) deleteUI -uit "nkBdnToolTemplateFrameList";
+  if (`uiTemplate -ex "nkBdnToolTemplateSubFrame"`) deleteUI -uit "nkBdnToolTemplateSubFrame";
+  if (`uiTemplate -ex "nkBdnToolTemplateFlat"`) deleteUI -uit "nkBdnToolTemplateFlat";
+  uiTemplate "nkBdnToolTemplateNarrow";
+  uiTemplate "nkBdnToolTemplateFrameList";
+  uiTemplate "nkBdnToolTemplateSubFrame";
+  uiTemplate "nkBdnToolTemplateFlat";
+  columnLayout -dt "nkBdnToolTemplateNarrow" -adj true -rs 0;
+  frameLayout -dt "nkBdnToolTemplateFrameList" -bgs true -cll true -cl true -mh 0 -mw 4;
+  columnLayout -dt "nkBdnToolTemplateFrameList" -adj true -rs 0;
+  frameLayout -dt "nkBdnToolTemplateSubFrame" -bgs true -cll true -cl true -mh 4 -mw 0;
+  columnLayout -dt "nkBdnToolTemplateSubFrame" -adj true -rs 4;
+  frameLayout -dt "nkBdnToolTemplateFlat" -bgs true -cll true -cl true -mh 4 -mw 4;
+  columnLayout -dt "nkBdnToolTemplateFlat" -adj true -rs 4;
+
+  string $nkBdnToolWindow = `window
+      -mxb false
+      -mnb false
+      -s true
+      -t "nkBdnTool"
+      "nkBdnToolWindow"`;
+    string $outerForm = `formLayout "outerForm"`;
+      string $menuBar = `menuBarLayout
+          // -bgc 0.25 0.5 0.25
+          "menuBar"`;
+        string $fileMenu = `menu
+            -l "File"
+            "fileMenu"`;
+          string $resetWindowMenuItem = `menuItem
+              -l "Reset Window"
+              "resetWindowMenuItem"`;
+          menuItem -d true;
+          string $quitMenuItem = `menuItem
+              -l "Quit"
+              "quitMenuItem"`;
+        string $helpMenu = `menu
+            -hm true
+            -l "Help"
+            "helpMenu"`;
+          string $aboutMenuItem = `menuItem
+              -l "About nkBdnTool"
+              "aboutMenuItem"`;
+      setParent ..;
+
+      // string $column = `columnLayout -adj true -rs 3 "column"`;
+      //   string $button = `button -l "Button" "button"`;
+      // setParent ..;
+
+      setUITemplate -pst "nkBdnToolTemplateNarrow";
+
+      string $scroll = `scrollLayout -cr true -pe true -vsb true -w 277 "scroll"`;
+        string $column = `columnLayout "column"`;
+
+          setUITemplate -pst "nkBdnToolTemplateFlat";
+
+          string $generalFrame = `frameLayout -l "General" -cl false "generalFrame"`;
+            string $generalColumn = `columnLayout "generalColumn"`;
+              string $bdnBaseNameText = `textFieldGrp
+                  -adj 2
+                  -cat 2 "right" -5
+                  -cw2 90 10
+                  -l "BDN BaseName:"
+                  -tx ""
+                  "bdnBaseNameText"`;
+              // separator;
+              // string $loadPluginButton = `button
+              //     -l "Load Plug-in"
+              //     "loadPluginButton"`;
+              // string $unloadPluginButton = `button
+              //     -l "Unload Plug-in"
+              //     "unloadPluginButton"`;
+              string $bdnPluginRow = `rowLayout
+                  -ann "boneDynamicsNode.mll"
+                  -cw3 90 75 75
+                  -cat 1 "both" 0
+                  -cat 2 "both" 0
+                  -cat 3 "both" 0
+                  -nc 3
+                  "bdnPluginRow"`;
+                text -al "right" -l "Plug-in:";
+                string $bdnPluginLoadButton = `button -l "Load" "bdnPluginLoadButton"`;
+                string $bdnPluginUnloadButton = `button -l "Unload" "bdnPluginUnloadButton"`;
+              setParent ..;
+              separator;
+              string $deleteAllButton = `button
+                  -l "Delete All"
+                  "deleteAllButton"`;
+            setParent ..;
+          setParent ..;
+
+          setUITemplate -pst "nkBdnToolTemplateFlat";
+
+          string $selectFrame = `frameLayout -l "Select" -cl false "selectFrame"`;
+            string $selectColumn = `columnLayout "selectColumn"`;
+              string $selectTimeNodeButton = `button
+                  -l "Time node"
+                  "selectTimeNodeButton"`;
+              string $selectBdnNodesFromDynamicsJointsButton = `button
+                  -l "BDN nodes from dynamics joints"
+                  "selectBdnNodesFromDynamicsJointsButton"`;
+              string $selectTargetJointsFromDynamicsJointsButton = `button
+                  -l "Target joints from dynamics joints"
+                  "selectTargetJointsFromDynamicsJointsButton"`;
+            setParent ..;
+          setParent ..;
+
+          setUITemplate -pst "nkBdnToolTemplateFlat";
+
+          string $DynamicsUnitFrame = `frameLayout -l "Dynamics Unit" -cl false "DynamicsUnitFrame"`;
+            string $DynamicsUnitColumn = `columnLayout "DynamicsUnitColumn"`;
+              string $controlNodeText = `textFieldButtonGrp
+                  -adj 2
+                  -bl "<"
+                  -ct3 "both" "both" "both"
+                  -cw3 90 10 20
+                  -l "Control Nodes:"
+                  -tx ""
+                  "controlNodeText"`;
+              // text -al "left" -l "Selected control nodes is the target";
+              string $generateTargetJointCheckBox = `checkBox
+                  -l "Generate Target Joint"
+                  -v false
+                  "generateTargetJointCheckBox"`;
+              string $generateEndJointCheckBox = `checkBox
+                  -l "Generate End Joint"
+                  -v false
+                  "generateEndJointCheckBox"`;
+              string $endJointOffsetField = `floatFieldGrp
+                  -adj 0
+                  -cw4 90 49 49 49
+                  -l "End Joint Offset:"
+                  -nf 3
+                  -pre 3
+                  -tze true
+                  -v1 1.0 -v2 0.0 -v3 0.0
+                  "endJointOffsetField"`;
+              string $generateRadiusSphereCheckBox = `checkBox
+                  -l "Generate Radius Sphere"
+                  -v false
+                  "generateRadiusSphereCheckBox"`;
+              string $constraintTypeRadioButton = `radioButtonGrp
+                  -cw3 90 60 60
+                  -l "Constraint Type:"
+                  -la2 "Parent" "Orient"
+                  -nrb 2
+                  -sl 1
+                  "constraintTypeRadioButton"`;
+              string $generateDynamicsUnitButton = `button -l "Generate Dynamics Unit" "generateDynamicsUnitButton"`;
+            setParent ..;
+          setParent ..;
+
+          setUITemplate -pst "nkBdnToolTemplateFlat";
+
+          string $colliderFrame = `frameLayout -l "Collider" -cl false "colliderFrame"`;
+            string $colliderColumn = `columnLayout "colliderColumn"`;
+              string $colliderForm = `formLayout "colliderForm"`;
+                string $createColliderInfinitePlaneButton = `button -l "Infinite Plane" "createColliderInfinitePlaneButton"`;
+                string $createColliderSphereButton = `button -l "Sphere" "createColliderSphereButton"`;
+                string $createColliderCuboidButton = `button -l "Cuboid" "createColliderCuboidButton"`;
+                string $createColliderCapsule1Button = `button -l "Capsule1" "createColliderCapsule1Button"`;
+                string $createColliderCapsule2Button = `button -l "Capsule2" "createColliderCapsule2Button"`;
+                string $createColliderCapsule3Button = `button -l "Capsule3" "createColliderCapsule3Button"`;
+              setParent ..;
+              // string $colliderGrid = `gridLayout -ag true -cw 124 -cr true -nc 2 "colliderGrid"`;
+              //   string $createColliderInfinitePlaneButton = `button
+              //       -l "Infinite Plane"
+              //       "createColliderInfinitePlaneButton"`;
+              //   string $createColliderSphereButton = `button
+              //       -l "Sphere"
+              //       "createColliderSphereButton"`;
+              //   string $createColliderCapsule1Button = `button
+              //       -l "Capsule1"
+              //       "createColliderCapsule1Button"`;
+              //   string $createColliderCapsule2Button = `button
+              //       -l "Capsule2"
+              //       "createColliderCapsule2Button"`;
+              //   string $createColliderCapsule3Button = `button
+              //       -l "Capsule3"
+              //       "createColliderCapsule3Button"`;
+              //   string $createColliderCuboidButton = `button
+              //       -l "Cuboid"
+              //       "createColliderCuboidButton"`;
+              // setParent ..;
+              string $saveColliderSetButton = `button
+                  -l "Save Collider Set"
+                  "saveColliderSetButton"`;
+              string $loadColliderSetButton = `button
+                  -l "Load Collider Set"
+                  "loadColliderSetButton"`;
+              separator;
+              string $bdnNodeText = `textFieldButtonGrp
+                  -adj 2
+                  -bl "<"
+                  -ct3 "both" "both" "both"
+                  -cw3 90 10 20
+                  -l "BDN Nodes:"
+                  -tx ""
+                  "bdnNodeText"`;
+              string $appendColliderToBdnButton = `button
+                  -l "Append Collider to BDN"
+                  "appendColliderToBdnButton"`;
+              string $removeColliderFromBdnButton = `button
+                  -l "Remove Collider from BDN"
+                  "removeColliderFromBdnButton"`;
+            setParent ..;
+          setParent ..;
+
+          setUITemplate -pst "nkBdnToolTemplateFlat";
+
+          string $bakeFrame = `frameLayout -l "Bake" -cl false "bakeFrame"`;
+            string $bakeColumn = `columnLayout "bakeColumn"`;
+              string $bakeTimeRangeRadioButton = `radioButtonGrp
+                  -cw3 90 78 78
+                  -l "Time Range:"
+                  -la2 "Time Slider" "Start/End"
+                  -nrb 2
+                  -sl 1
+                  "bakeTimeRangeRadioButton"`;
+              string $bakeStartEndField = `floatFieldGrp
+                  -adj 0
+                  -cw3 90 74 74
+                  -l "Start/End:"
+                  -nf 2
+                  -pre 3
+                  -tze true
+                  -v1 0.0 -v2 30.0
+                  "bakeStartEndField"`;
+              string $bakeSelectedButton = `button
+                  -l "Bake Selected"
+                  "bakeSelectedButton"`;
+            setParent ..;
+          setParent ..;
+
+        setParent ..;
+      setParent ..;
+    setParent ..;
+
+  setUITemplate -ppt;
+
+  formLayout -e
+      -af $menuBar "top" 0
+      -af $menuBar "left" 0
+      -af $menuBar "right" 0
+      -ac $scroll "top" 0 $menuBar
+      -af $scroll "left" 0
+      -af $scroll "right" 0
+      -af $scroll "bottom" 0
+      $outerForm;
+
+  formLayout -e
+      -af $createColliderInfinitePlaneButton "top" 0
+      -af $createColliderInfinitePlaneButton "left" 0
+      -ap $createColliderInfinitePlaneButton "right" 1 50
+      -af $createColliderSphereButton "top" 0
+      -ap $createColliderSphereButton "left" 1 50
+      -af $createColliderSphereButton "right" 0
+      -ac $createColliderCuboidButton "top" 4 $createColliderInfinitePlaneButton
+      -af $createColliderCuboidButton "left" 0
+      -ap $createColliderCuboidButton "right" 1 50
+      -ac $createColliderCapsule1Button "top" 4 $createColliderSphereButton
+      -ap $createColliderCapsule1Button "left" 1 50
+      -af $createColliderCapsule1Button "right" 0
+      -ac $createColliderCapsule2Button "top" 4 $createColliderCuboidButton
+      -af $createColliderCapsule2Button "left" 0
+      -ap $createColliderCapsule2Button "right" 1 50
+      -ac $createColliderCapsule3Button "top" 4 $createColliderCapsule1Button
+      -ap $createColliderCapsule3Button "left" 1 50
+      -af $createColliderCapsule3Button "right" 0
+      $colliderForm;
+
+  window -e -cc "nkBdnToolEventController(\"nkBdnToolWindow\", \"cc\", \"nkBdnToolWindow\");" $nkBdnToolWindow;
+  menuItem -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"resetWindowMenuItem\");" $resetWindowMenuItem;
+  menuItem -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"quitMenuItem\");" $quitMenuItem;
+  menuItem -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"aboutMenuItem\");" $aboutMenuItem;
+
+  // button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"button\");" $button;
+
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"bdnPluginLoadButton\");" $bdnPluginLoadButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"bdnPluginUnloadButton\");" $bdnPluginUnloadButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"deleteAllButton\");" $deleteAllButton;
+
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"selectTimeNodeButton\");" $selectTimeNodeButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"selectBdnNodesFromDynamicsJointsButton\");" $selectBdnNodesFromDynamicsJointsButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"selectTargetJointsFromDynamicsJointsButton\");" $selectTargetJointsFromDynamicsJointsButton;
+
+  textFieldButtonGrp -e -bc "nkBdnToolEventController(\"nkBdnToolWindow\", \"bc\", \"controlNodeText\");" $controlNodeText;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"generateDynamicsUnitButton\");" $generateDynamicsUnitButton;
+
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderInfinitePlaneButton\");" $createColliderInfinitePlaneButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderCuboidButton\");" $createColliderCuboidButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderCapsule2Button\");" $createColliderCapsule2Button;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderSphereButton\");" $createColliderSphereButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderCapsule1Button\");" $createColliderCapsule1Button;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"createColliderCapsule3Button\");" $createColliderCapsule3Button;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"saveColliderSetButton\");" $saveColliderSetButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"loadColliderSetButton\");" $loadColliderSetButton;
+
+  textFieldButtonGrp -e -bc "nkBdnToolEventController(\"nkBdnToolWindow\", \"bc\", \"bdnNodeText\");" $bdnNodeText;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"appendColliderToBdnButton\");" $appendColliderToBdnButton;
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"removeColliderFromBdnButton\");" $removeColliderFromBdnButton;
+
+  button -e -c "nkBdnToolEventController(\"nkBdnToolWindow\", \"c\", \"bakeSelectedButton\");" $bakeSelectedButton;
+
+  appendUIControls({
+    $nkBdnToolWindow,
+    $bdnBaseNameText,
+    $controlNodeText,
+    $generateTargetJointCheckBox,
+    $generateEndJointCheckBox,
+    $endJointOffsetField,
+    $generateRadiusSphereCheckBox,
+    $constraintTypeRadioButton,
+    $bdnNodeText,
+    $bakeTimeRangeRadioButton,
+    $bakeStartEndField
+  });
+
+  showWindow $nkBdnToolWindow;
+  setFocus $nkBdnToolWindow;
+}
+
+// -----------------------------------------------------------------------------
+// イベントコントローラ
+// -----------------------------------------------------------------------------
+/*-
+@param $window <string>
+@param $event <string>
+@param $control <string>
+@returns <>
+*/
+global proc nkBdnToolEventController(
+  string $window,
+  string $event,
+  string $control
+) {
+  // print("nkBdnToolEventController\n"); // debug
+  // print("  window :" + $window + "\n"); // debug
+  // print("  event  :" + $event + "\n"); // debug
+  // print("  control:" + $control + "\n"); // debug
+  switch ($window) {
+    case "nkBdnToolWindow":
+      switch ($event) {
+        case "bc":
+          switch ($control) {
+            case "controlNodeText": controlNodeTextPressed(); break;
+            case "bdnNodeText": bdnNodeTextPressed(); break;
+            default: break;
+          }
+          break;
+        case "c":
+          switch ($control) {
+            case "resetWindowMenuItem": resetWindowMenuItemSelected(); break;
+            case "quitMenuItem": quitMenuItemSelected(); break;
+            case "aboutMenuItem": aboutMenuItemSelected(); break;
+
+            case "bdnPluginLoadButton": bdnPluginLoadButtonPressed(); break;
+            case "bdnPluginUnloadButton": bdnPluginUnloadButtonPressed(); break;
+            case "deleteAllButton": deleteAllButtonPressed(); break;
+
+            case "selectTimeNodeButton": selectTimeNodeButtonPressed(); break;
+            case "selectBdnNodesFromDynamicsJointsButton": selectBdnNodesFromDynamicsJointsButtonPressed(); break;
+            case "selectTargetJointsFromDynamicsJointsButton": selectTargetJointsFromDynamicsJointsButtonPressed(); break;
+
+            case "generateDynamicsUnitButton": generateDynamicsUnitButtonPressed(); break;
+
+            case "createColliderInfinitePlaneButton": createColliderInfinitePlaneButtonPressed(); break;
+            case "createColliderCuboidButton": createColliderCuboidButtonPressed(); break;
+            case "createColliderCapsule2Button": createColliderCapsule2ButtonPressed(); break;
+            case "createColliderSphereButton": createColliderSphereButtonPressed(); break;
+            case "createColliderCapsule1Button": createColliderCapsule1ButtonPressed(); break;
+            case "createColliderCapsule3Button": createColliderCapsule3ButtonPressed(); break;
+            case "saveColliderSetButton": saveColliderSetButtonPressed(); break;
+            case "loadColliderSetButton": loadColliderSetButtonPressed(); break;
+
+            case "appendColliderToBdnButton": appendColliderToBdnButtonPressed(); break;
+            case "removeColliderFromBdnButton": removeColliderFromBdnButtonPressed(); break;
+
+            case "bakeSelectedButton": bakeSelectedButtonPressed(); break;
+            default: break;
+          }
+          break;
+        default: break;
+      }
+      break;
+    default: break;
+  }
+}
+
+// /////////////////////////////////////////////////////////////////////////////
+// オブザーバ
+// /////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
+// ドメインオブザーバ
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// イベントオブザーバ
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// ノードオブザーバ
+// -----------------------------------------------------------------------------
+
+// /////////////////////////////////////////////////////////////////////////////
+// メイン
+// /////////////////////////////////////////////////////////////////////////////
+/*-
+@returns <string>
+*/
+global proc string nkBdnToolVersion() {
+  return "0.1.0";
+}
+
+/*-
+@returns <>
+*/
+global proc nkBdnTool() {
+  buildMainWindow();
+  // registerEventJob();
+}
+
+/*
+eval ("source \"" + `getenv "MAYA_APP_DIR"` + "/dev/nkBdnTool/nkBdnTool.mel\"");
+nkBdnTool;
+*/
+
+// /////////////////////////////////////////////////////////////////////////////
+// テスト
+// /////////////////////////////////////////////////////////////////////////////
+/*-
+@returns <>
+@remarks カテゴリ。
+*/
+proc test0() {
+  print("test0 start\n");
+  string $r;
+
+  $r = assertStringEqual("a", "a"); if (`size $r`) warning $r;
+
+  print("test0 end\n");
+}
+
+/*-
+@param $flags <boolean[]>
+@returns <>
+*/
+global proc nkBdnToolTest(int $flags[]) {
+  if ($flags[0]) test0();
+}
+
+/*
+eval ("source \"" + `getenv "MAYA_APP_DIR"` + "/dev/nkBdnTool/nkBdnTool.mel\"");
+nkBdnToolTest({1});
+*/
