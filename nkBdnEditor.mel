@@ -60,34 +60,6 @@ global string $nkBdnEditorInfinitePlaneColliderAttributeCache;
 */
 global string $nkBdnEditorSphereColliderAttributeCache;
 
-// /*-
-// @var <boolean>
-// */
-// global int $nkBdnEditorEditorWindowVisibility;
-
-// /*-
-// @returns <>
-// */
-// proc initializeEditorWindowParameters() {
-//   global int $nkBdnEditorEditorWindowVisibility;
-//   $nkBdnEditorEditorWindowVisibility = false;
-// }
-
-// /*-
-// @param $state <boolean>
-// @returns <>
-// */
-// proc setEditorWindowVisibility(int $state) {
-//   print("setEditorWindowVisibility\n"); // debug
-//   print("  state:" + $state + "\n"); // debug
-//   global int $nkBdnEditorEditorWindowVisibility;
-//   $nkBdnEditorEditorWindowVisibility = $state == true;
-//   notifyInt(
-//     "nkBdnEditorEditorWindowVisibilityChanged",
-//     $nkBdnEditorEditorWindowVisibility
-//   );
-// }
-
 // -----------------------------------------------------------------------------
 // プラグイン
 // -----------------------------------------------------------------------------
@@ -127,10 +99,6 @@ proc int unloadBdnPlugin() {
   }
   else {
     warning -n "nkBdnEditor: Plugin unload failed: bondDynamicsNode exists in the scene.";
-    // confirmDialog
-    //     -b "OK" -cb "OK" -db "OK" -ds "OK"
-    //     -m "Cannot unload because a bondDynamicsNode exists in the scene."
-    //     -t "nkBdnEditor";
   }
   return !isBdnPluginLoaded();
 }
@@ -220,20 +188,6 @@ proc int unlockTransformAttributes(string $node, int $tFlag, int $rFlag, int $sF
 // -----------------------------------------------------------------------------
 // BDNノード
 // -----------------------------------------------------------------------------
-// /*-
-// @param $n <string>
-// @returns <string>
-// */
-// proc string initBDNNode(string $n) {
-//   if (`objExists $n`) {
-//     if (!hasDictAttribute($n, "bdnData")) {
-//       addDictAttribute($n, "bdnData");
-//     }
-//     setStringToDict($n, "bdnData", "type", "bdn");
-//   }
-//   return $n;
-// }
-
 /*-
 @param $n <string>
 @param $groupType <string>
@@ -250,7 +204,6 @@ proc string initGroupNode(string $n, string $groupType) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    // setStringToDict($n, "bdnData", "type", $groupType + "Group");
     setStringToDict($n, "bdnData", "type", "group");
     setStringToDict($n, "bdnData", "groupType", $groupType);
   }
@@ -667,15 +620,6 @@ proc string[] gatherBdnNodes(int $selectedOnly) {
 @param $selectedOnly <boolean>
 @returns <string[]>
 */
-// proc string[] gatherDynamicsNodes(int $selectedOnly) {
-//   string $dynamicsNodes[];
-//   return $dynamicsNodes;
-// }
-
-/*-
-@param $selectedOnly <boolean>
-@returns <string[]>
-*/
 proc string[] gatherColliderNodes(int $selectedOnly) {
   string $colliderNodes[];
   if ($selectedOnly) {
@@ -741,13 +685,6 @@ proc string[] gatherMeshNodes(int $selectedOnly) {
   $meshNodes = stringArrayRemoveDuplicates($meshNodes);
   return $meshNodes;
 }
-
-// /*-
-// @returns <>
-// */
-// proc deleteAllBdnNodes() {
-//   print("deleteAllBdnNodes\n"); // debug
-// }
 
 // -----------------------------------------------------------------------------
 // BDNアトリビュート
@@ -1006,20 +943,6 @@ proc string[] substituteBdnNodes(string $bdnNodes[]) {
     string $altNode = initAltNode(uuidToLongName(toUUID(`createNode -n ($bdnNode + "_ALT") -ss "unknown"`)), $bdnNode);
     $altNodes[`size $altNodes`] = $altNode;
 
-    // 1	message	msg	message
-    // 2	caching	cch	bool
-    // 3	frozen	fzn	bool
-    // 4	isHistoricallyInteresting	ihi	byte
-    // 5	nodeState	nds	enum
-    // 6	binMembership	bnm	string
-
-    // 1	message	msg	message
-    // 2	caching	cch	bool
-    // 3	frozen	fzn	bool
-    // 4	isHistoricallyInteresting	ihi	byte
-    // 5	nodeState	nds	enum
-    // 6	binMembership	bnm	string
-
     addAttr -at "bool" -dv 1 -k true -ln "enable" -sn "en" $altNode;
 
     // time attributes
@@ -1247,21 +1170,16 @@ global proc string[] nkBdnEditorGenerateProxyScript(
 
       // ノード接続
       addAttr -at "message" -ln "bdnBindSource" $parentNode;
-      // addAttr -at "message" -ln "proxyTarget" $parentNode;
       string $parentSourceNode = getParentNode($sourceNode);
       if (`objExists $parentSourceNode`) {
-        // connectAttr -f ($parentSourceNode + ".message") ($parentNode + ".bdnBindSource");
         connectMessage($parentSourceNode, $parentNode, "bdnBindSource");
       }
     }
     string $node = initJointNode(createJoint($name + "_Proxy", $parentNode, true, $sourceNode, {}), "proxy", "normal");
     $nodeId = toUUID($node);
-    // setFloatAttribute($node, "radi", 0.5);
 
     // ノード接続
-    // addAttr -at "message" -ln "proxyTarget" $node;
     addAttr -at "message" -ln "bdnBindTarget" $node;
-    // connectAttr -f ($sourceNode + ".message") ($node + ".bdnBindTarget");
     connectMessage($sourceNode, $node, "bdnBindTarget");
 
     // sscをここで設定してもなぜか反映されない
@@ -1295,17 +1213,14 @@ global proc string[] nkBdnEditorGenerateTargetScript(
       addAttr -at "message" -ln "bdnBindSource" $parentNode;
       string $parentSourceNode = getParentNode($sourceNode);
       if (`objExists $parentSourceNode`) {
-        // connectAttr -f ($parentSourceNode + ".message") ($parentNode + ".bdnBindSource");
         connectMessage($parentSourceNode, $parentNode, "bdnBindSource");
       }
     }
     string $node = initJointNode(createJoint($name + "_Target", $parentNode, true, $sourceNode, {}), "target", "normal");
     $nodeId = toUUID($node);
-    // setFloatAttribute($node, "radi", 1.0);
 
     // ノード接続
     addAttr -at "message" -ln "bdnSource" $node;
-    // connectAttr -f ($sourceNode + ".message") ($node + ".bdnSource");
     connectMessage($sourceNode, $node, "bdnSource");
 
     // sscをここで設定してもなぜか反映されない
@@ -1362,7 +1277,6 @@ proc string[] splitSkeletonBranch(
 
         string $branchIdtNode = initSpaceNode(createTransform($name + "_Branch_SPC", "", true, $dummyAimNode, {}), $jointKind);
         string $branchJointNode = initJointNode(createJoint($name + "_Branch", $branchIdtNode, true, $branchIdtNode, {}), $jointKind, "normal");
-        // setFloatAttribute($branchJointNode, "radi", 0.5);
         setParentNode({$childNode}, $branchJointNode);
         $newNodes[`size $newNodes`] = $branchIdtNode;
         $newNodes[`size $newNodes`] = $branchJointNode;
@@ -1372,7 +1286,6 @@ proc string[] splitSkeletonBranch(
         // ノード接続
         addAttr -at "message" -ln "bdnBindSource" $branchIdtNode;
         addAttr -at "message" -ln "bdnBindTarget" $branchJointNode;
-        // connectAttr -f ($node + ".message") ($branchIdtNode + ".bdnBindSource");
         connectMessage($node, $branchIdtNode, "bdnBindSource");
         // `$branchJointNode`はソース無し
       }
@@ -1400,7 +1313,6 @@ proc string[] generateEndJoint(string $nodes[], float $endJointOffset[]) {
       string $name = toShortName($node);
       string $jointKind = getJointKind($node);
       string $jointNode = initJointNode(createJoint($name + "_End", $node, true, $node, {}), $jointKind, "end");
-      // setFloatAttribute($jointNode, "radi", 0.5);
       $newNodes[`size $newNodes`] = $jointNode;
 
       // ノード接続
@@ -1431,7 +1343,6 @@ proc string[] constraintSkeleton(string $nodes[]) {
     string $nodeName = toShortName($n);
 
     if ($bdnType == "space") {
-      // string $sourceNodes[] = `listConnections -d false -p false -s true ($n + ".bdnBindSource")`;
       string $sourceNodes[] = getSourceConnections($n, {"bdnBindSource"}, "", {}, {});
       if (`size $sourceNodes` != 1) continue;
 
@@ -1448,13 +1359,11 @@ proc string[] constraintSkeleton(string $nodes[]) {
     }
     else if ($bdnType == "joint") {
       string $jointType = getJointType($n);
-      // string $targetNodes[] = `listConnections -d false -p false -s true ($n + ".bdnBindTarget")`;
       string $targetNodes[] = getSourceConnections($n, {"bdnBindTarget"}, "", {}, {});
       if (`size $targetNodes` != 1) continue;
 
       string $targetNode = longNameOf($targetNodes[0]);
       // print("  targetNode:" + $targetNode + "\n"); // debug
-      // if (!unlockTransformAttributes($targetNode)) continue;
 
       if ($jointType == "branch") {
         if (!unlockTransformAttributes($targetNode, true, true, false)) continue;
@@ -1557,20 +1466,17 @@ proc string[] generateRadiusSphere(string $nodes[]) {
 }
 
 /*-
-// @param $bdnBaseName <string>
 @param $sourceNodes <string[]>
 @param $branchAimVector <float[3]>
 @param $branchUpVector <float[3]>
 @returns <string[]>
 */
 proc string[] generateTarget(
-  // string $bdnBaseName,
   string $sourceNodes[],
   float $branchAimVector[],
   float $branchUpVector[]
 ) {
   // print("generateTarget\n"); // debug
-  // print("  bdnBaseName    :" + $bdnBaseName + "\n"); // debug
   // print("  sourceNodes    :{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
   // print("  branchAimVector:{" + floatArrayToString($branchAimVector, ", ") + "}\n"); // debug
   // print("  branchUpVector :{" + floatArrayToString($branchUpVector, ", ") + "}\n"); // debug
@@ -1578,10 +1484,7 @@ proc string[] generateTarget(
   string $targetNodes[];
   if (!`size $sourceNodes`) return $targetNodes;
 
-  // string $bdnNodeName = join({"BDN", $bdnBaseName}, "_", true);
-  // string $targetGrpNode = initGroupNode(getSecondLevelNode($bdnNodeName, "Target_GRP", true, true), "target");
   string $targetGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Target_GRP", true, true), "target");
-  // initBDNNode(getTopLevelNode($bdnNodeName, false, true));
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
   // print("  targetGrpNode:" + $targetGrpNode + "\n"); // debug
   if (!`objExists $targetGrpNode`) return $targetNodes;
@@ -1642,65 +1545,23 @@ proc string[] generateTarget(
 }
 
 /*-
-// @param $bdnBaseName <string>
-@param $nodes <string[]>
-@returns <string[]>
-*/
-// proc createBdnSet(
-//   // string $bdnBaseName,
-//   string $nodes[]
-// ) {
-//   // print("createBdnSet\n"); // debug
-//   // print("  bdnBaseName:" + $bdnBaseName + "\n"); // debug
-//   // print("  nodes:{\n    " + stringArrayToString($nodes, ",\n    ") + "\n  }\n"); // debug
-//   if (!isBdnPluginLoaded() || !`size $nodes`) return;
-
-//   // string $bdnSetNode = join({"BDN", $bdnBaseName, "Set"}, "_", true);
-//   string $bdnSetNode = join({"BDN_GRP", "Set"}, "_", true);
-//   if (!`objExists $bdnSetNode`) {
-//     $bdnSetNode = `sets -em -n $bdnSetNode`;
-//   }
-//   if (!`objExists $bdnSetNode`) return;
-
-//   for ($node in $nodes) {
-//     if (!isType($node, {"boneDynamicsNode"}, true)) continue;
-
-//     if (!`sets -im $bdnSetNode $node`) {
-//       sets -add $bdnSetNode $node;
-//     }
-//   }
-// }
-
-/*-
-// @param $bdnBaseName <string>
 @param $sourceNodes <string[]>
-// @param $generateTargetJoint <boolean>
-// @param $generateEndJoint <boolean>
 @param $branchAimVector <float[3]>
 @param $branchUpVector <float[3]>
 @param $endJointOffset <float[3]>
-// @param $shouldGenerateRadiusSphere <boolean>
 @returns <string[]>
 */
 proc string[] generateDynamicsUnit(
-  // string $bdnBaseName,
   string $sourceNodes[],
-  // int $generateTargetJoint,
-  // int $generateEndJoint,
   float $branchAimVector[],
   float $branchUpVector[],
   float $endJointOffset[]
-  // int $shouldGenerateRadiusSphere
 ) {
   // print("generateDynamicsUnit\n"); // debug
-  // print("  bdnBaseName    :" + $bdnBaseName + "\n"); // debug
   // print("  sourceNodes    :{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
-  // print("  generateTargetJoint       :" + $generateTargetJoint + "\n"); // debug
-  // print("  generateEndJoint          :" + $generateEndJoint + "\n"); // debug
   // print("  branchAimVector:{" + floatArrayToString($branchAimVector, ", ") + "}\n"); // debug
   // print("  branchUpVector :{" + floatArrayToString($branchUpVector, ", ") + "}\n"); // debug
   // print("  endJointOffset :{" + floatArrayToString($endJointOffset, ", ") + "}\n"); // debug
-  // print("  shouldGenerateRadiusSphere:" + $shouldGenerateRadiusSphere + "\n"); // debug
 
   string $dynamicsNodes[];
   if (!`size $sourceNodes`) return $dynamicsNodes;
@@ -1708,17 +1569,7 @@ proc string[] generateDynamicsUnit(
   if (!isBdnPluginLoaded()) loadBdnPlugin();
   if (!isBdnPluginLoaded()) return $dynamicsNodes;
 
-  /*
-  ToDo:
-  リファレンスを考慮して複数のBDNグループの存在に対応する。
-  変更可能なBDN_GRPはシーンに一つ。
-  あとは読み取り専用。
-  */
-
-  // string $bdnNodeName = join({"BDN", $bdnBaseName}, "_", true);
-  // string $proxyGrpNode = initGroupNode(getSecondLevelNode($bdnNodeName, "Proxy_GRP", true, true), "proxy");
   string $proxyGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Proxy_GRP", true, true), "proxy");
-  // initBDNNode(getTopLevelNode($bdnNodeName, false, true));
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
   // print("  proxyGrpNode:" + $proxyGrpNode + "\n"); // debug
   if (!`objExists $proxyGrpNode`) return $dynamicsNodes;
@@ -1750,13 +1601,8 @@ proc string[] generateDynamicsUnit(
 
   $dynamicsNodes = stringArrayCatenate($dynamicsNodes, constraintSkeleton($dynamicsNodes));
   $dynamicsNodes = stringArrayCatenate($dynamicsNodes, generateBdnNodes($dynamicsNodes));
-  // if ($shouldGenerateRadiusSphere) {
-    $dynamicsNodes = stringArrayCatenate($dynamicsNodes, generateRadiusSphere($dynamicsNodes));
-  // }
-  // $dynamicsNodes = stringArrayCatenate($dynamicsNodes, generateTarget($bdnBaseName, $sourceNodes, $branchAimVector, $branchUpVector));
+  $dynamicsNodes = stringArrayCatenate($dynamicsNodes, generateRadiusSphere($dynamicsNodes));
   $dynamicsNodes = stringArrayCatenate($dynamicsNodes, generateTarget($sourceNodes, $branchAimVector, $branchUpVector));
-
-  // createBdnSet($bdnBaseName, $dynamicsNodes);
 
   if (`size $dynamicsNodes`) {
     notify("nkBdnEditorDynamicsNodeCreated");
@@ -1768,55 +1614,20 @@ proc string[] generateDynamicsUnit(
 // -----------------------------------------------------------------------------
 // コライダー
 // -----------------------------------------------------------------------------
-// /*-
-// @param $sourceNodes <string[]>
-// @param $destNode <string>
-// @returns <>
-// */
-// proc appendColliderAffectedBy(string $sourceNodes[], string $destNode) {
-//   // print("appendColliderAffectedBy\n"); // debug
-//   // print("  sourceNodes:{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
-//   // print("  destNode   :" + $destNode + "\n"); // debug
-//   if (!existsAttribute($destNode, "colliderAffectedBy")) {
-//     addAttr -at "message" -ln "colliderAffectedBy" -m $destNode;
-//   }
-//   if (!existsAttribute($destNode, "colliderAffectedBy")) return;
-
-//   int $index = `getAttr -s ($destNode + ".colliderAffectedBy")`;
-//   for ($sourceNode in $sourceNodes) {
-//     if (!existsAttribute($sourceNode, "message")) continue;
-
-//     connectAttr -f
-//         ($sourceNode + ".message")
-//         ($destNode + ".colliderAffectedBy[" + $index + "]");
-//     $index++;
-//   }
-// }
-
 /*-
-// @param $bdnBaseName <string>
 @param $sourceNodes <string[]>
 @param $shouldCreateEnd <boolean>
 @returns <string[]>
 */
-proc string[] createCapsuleCollider(
-  // string $bdnBaseName,
-  string $sourceNodes[],
-  int $shouldCreateEnd
-) {
+proc string[] createCapsuleCollider(string $sourceNodes[], int $shouldCreateEnd) {
   // print("createCapsuleCollider\n"); // debug
-  // // print("  bdnBaseName    :" + $bdnBaseName + "\n"); // debug
   // print("  sourceNodes    :{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
   // print("  shouldCreateEnd:" + $shouldCreateEnd + "\n"); // debug
-
   string $colliderNodes[];
   string $colliderType = "capsule";
   string $colliderName = "CapsuleCollider";
 
-  // string $bdnNodeName = join({"BDN", $bdnBaseName}, "_", true);
-  // string $colliderGrpNode = initGroupNode(getSecondLevelNode($bdnNodeName, "Collider_GRP", true, true), "collider");
   string $colliderGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Collider_GRP", true, true), "collider");
-  // initBDNNode(getTopLevelNode($bdnNodeName, false, true));
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
   // print("  colliderGrpNode:" + $colliderGrpNode + "\n"); // debug
   if (!`objExists $colliderGrpNode`) return $colliderNodes;
@@ -1918,7 +1729,6 @@ proc string[] createCapsuleCollider(
 
     // ノード初期化
     initColliderNode($transformNode, $colliderType);
-    // setOutlinerColor({$transformNode}, {1.0, 1.0, 0.0});
     setOutlinerColor({$spcNode}, {1.0, 1.0, 0.0});
     setOverrideColor($sphereAShapeNodes, 17);
     setOverrideColor($sphereBShapeNodes, 17);
@@ -1927,13 +1737,11 @@ proc string[] createCapsuleCollider(
     setOverrideColor($loftShapeNodes, 17);
 
     // アトリビュート設定
-    // addAttr -at "message" -ln "colliderSource" $spcNode;
     addAttr -at "message" -ln "colliderAffectedBy" -m $transformNode;
     addAttr -dt "string" -ln "colliderSource" $spcNode;
     addAttr -dt "string" -ln "colliderAimTarget" $spcNode;
     addAttr -at "double" -dv 0.5 -k true -hxv false -hnv true -min 0.001 -ln "colliderRadiusA" $transformNode;
     addAttr -at "double" -dv 0.5 -k true -hxv false -hnv true -min 0.001 -ln "colliderRadiusB" $transformNode;
-    // addAttr -at "double" -dv 2.0 -k true -hxv false -hnv true -min 0.001 -ln "colliderLength" $transformNode;
     addAttr -at "double" -dv 2.0 -k true -hxv false -hnv false -ln "colliderLength" $transformNode;
     addAttr -at "double" -dv 0.0 -k true -hxv false -hnv false -ln "colliderOffset" $transformNode;
     addAttr -at "enum" -dv 0 -k true -en "A:Center:B" -ln "colliderPivot" $transformNode;
@@ -2067,28 +1875,10 @@ proc string[] createCapsuleCollider(
     disableRenderStats(getShapeNodes($loftTransformNode, ""));
 
     // ノード接続
-    // appendColliderAffectedBy({$sphereATransformNode}, $transformNode);
-    // appendColliderAffectedBy({$makeSphereANode}, $transformNode);
-    // appendColliderAffectedBy($sphereAShapeNodes, $transformNode);
-    // appendColliderAffectedBy({$sphereBTransformNode}, $transformNode);
-    // appendColliderAffectedBy({$makeSphereBNode}, $transformNode);
-    // appendColliderAffectedBy($sphereBShapeNodes, $transformNode);
-    // appendColliderAffectedBy({$circleATransformNode}, $transformNode);
-    // appendColliderAffectedBy({$makeCircleANode}, $transformNode);
-    // appendColliderAffectedBy($circleAShapeNodes, $transformNode);
-    // appendColliderAffectedBy({$circleBTransformNode}, $transformNode);
-    // appendColliderAffectedBy({$makeCircleBNode}, $transformNode);
-    // appendColliderAffectedBy($circleBShapeNodes, $transformNode);
-    // appendColliderAffectedBy({$loftTransformNode}, $transformNode);
-    // appendColliderAffectedBy({$loftNode}, $transformNode);
-    // appendColliderAffectedBy($loftShapeNodes, $transformNode);
-    // appendColliderAffectedBy({$halfLengthNode, $pivotNode, $offsetANode, $offsetBNode}, $transformNode);
-    // appendColliderAffectedBy({$lengthDirNode, $sweepRangeANode, $sweepRangeBNode, $sweepAStartUcNode, $sweepAEndUcNode, $sweepBStartUcNode, $sweepBEndUcNode}, $transformNode);
     appendMultiMessage($affectedNodes, $transformNode, "colliderAffectedBy");
 
     // コンストレイント設定
     if (`objExists $sourceNode`) {
-      // connectAttr -f ($sourceNode + ".message") ($spcNode + ".colliderSource");
       if (`objExists $nextSourceNode`) {
         string $ptcstNodes[] = `pointConstraint $sourceNode $spcNode`;
         if (`size $ptcstNodes`) {
@@ -2121,23 +1911,14 @@ proc string[] createCapsuleCollider(
     batchSetAttributeLock({$spcNode}, {"colliderSource", "colliderAimTarget"}, true);
 
     // アトリビュート値設定
-    // if ($i < $lastIndex) {
-    //   string $nextSourceNode = $sourceNodes[$i + 1];
-    //   print("nextSourceNode:" + $nextSourceNode + "\n"); // debug
-      if (`objExists $nextSourceNode`) {
-        // float $colliderLength = getFloatAttribute($nextSourceNode, "tx", 2.0);
-        float $t1[] = `xform -q -t -ws $sourceNode`;
-        float $t2[] = `xform -q -t -ws $nextSourceNode`;
-
-        vector $delta = <<$t2[0] - $t1[0], $t2[1] - $t1[1], $t2[2] - $t1[2]>>;
-        float $colliderLength = `mag $delta`;
-        // setFloatAttribute($transformNode, "colliderLength", `abs $colliderLength`);
-        setFloatAttribute($transformNode, "colliderLength", $colliderLength);
-        // if ($colliderLength < 0) {
-        //   setIntAttribute($transformNode, "colliderPivot", 2);
-        // }
-      }
-    // }
+    // print("nextSourceNode:" + $nextSourceNode + "\n"); // debug
+    if (`objExists $nextSourceNode`) {
+      float $t1[] = `xform -q -t -ws $sourceNode`;
+      float $t2[] = `xform -q -t -ws $nextSourceNode`;
+      vector $delta = <<$t2[0] - $t1[0], $t2[1] - $t1[1], $t2[2] - $t1[2]>>;
+      float $colliderLength = `mag $delta`;
+      setFloatAttribute($transformNode, "colliderLength", $colliderLength);
+    }
   }
 
   if (`size $colliderNodes`) {
@@ -2148,26 +1929,18 @@ proc string[] createCapsuleCollider(
 }
 
 /*-
-// @param $bdnBaseName <string>
 @param $sourceNodes <string[]>
 @returns <string[]>
 */
-proc string[] createInfinitePlaneCollider(
-  // string $bdnBaseName,
-  string $sourceNodes[]
-) {
+proc string[] createInfinitePlaneCollider(string $sourceNodes[]) {
   // print("createInfinitePlaneCollider\n"); // debug
-  // // print("  bdnBaseName:" + $bdnBaseName + "\n"); // debug
   // print("  sourceNodes:{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
 
   string $colliderNodes[];
   string $colliderType = "infinitePlane";
   string $colliderName = "InfinitePlaneCollider";
 
-  // string $bdnNodeName = join({"BDN", $bdnBaseName}, "_", true);
-  // string $colliderGrpNode = initGroupNode(getSecondLevelNode($bdnNodeName, "Collider_GRP", true, true), "collider");
   string $colliderGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Collider_GRP", true, true), "collider");
-  // initBDNNode(getTopLevelNode($bdnNodeName, false, true));
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
   // print("  colliderGrpNode:" + $colliderGrpNode + "\n"); // debug
   if (!`objExists $colliderGrpNode`) return $colliderNodes;
@@ -2197,12 +1970,10 @@ proc string[] createInfinitePlaneCollider(
 
     // ノード初期化
     initColliderNode($transformNode, $colliderType);
-    // setOutlinerColor({$transformNode}, {1.0, 1.0, 0.0});
     setOutlinerColor({$spcNode}, {1.0, 1.0, 0.0});
     setOverrideColor($shapeNodes, 17);
 
     // アトリビュート設定
-    // addAttr -at "message" -ln "colliderSource" $spcNode;
     addAttr -at "message" -ln "colliderAffectedBy" -m $transformNode;
     addAttr -dt "string" -ln "colliderSource" $spcNode;
     addAttr -at "double" -dv 1.0 -k true -hxv false -hnv true -min 0.001 -ln "colliderWidth" $transformNode;
@@ -2231,14 +2002,10 @@ proc string[] createInfinitePlaneCollider(
     connectAttr -f ($ratioNode     + ".outFloat"      ) ($makeNode  + ".lengthRatio");
 
     // ノード接続
-    // appendColliderAffectedBy({$makeNode}, $transformNode);
-    // appendColliderAffectedBy($shapeNodes, $transformNode);
-    // appendColliderAffectedBy({$ratioNode}, $transformNode);
     appendMultiMessage($affectedNodes, $transformNode, "colliderAffectedBy");
 
     // コンストレイント設定
     if (`objExists $sourceNode`) {
-      // connectAttr -f ($sourceNode + ".message") ($spcNode + ".colliderSource");
       string $prcstNodes[] = `parentConstraint $sourceNode $spcNode`;
       if (`size $prcstNodes`) {
         $prcstNodes[0] = setNodeName($prcstNodes[0], $spcNodeName + "_PRCST", false);
@@ -2257,26 +2024,18 @@ proc string[] createInfinitePlaneCollider(
 }
 
 /*-
-// @param $bdnBaseName <string>
 @param $sourceNodes <string[]>
 @returns <string[]>
 */
-proc string[] createSphereCollider(
-  // string $bdnBaseName,
-  string $sourceNodes[]
-) {
+proc string[] createSphereCollider(string $sourceNodes[]) {
   // print("createSphereCollider\n"); // debug
-  // // print("  bdnBaseName:" + $bdnBaseName + "\n"); // debug
   // print("  sourceNodes:{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
 
   string $colliderNodes[];
   string $colliderType = "sphere";
   string $colliderName = "SphereCollider";
 
-  // string $bdnNodeName = join({"BDN", $bdnBaseName}, "_", true);
-  // string $colliderGrpNode = initGroupNode(getSecondLevelNode($bdnNodeName, "Collider_GRP", true, true), "collider");
   string $colliderGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Collider_GRP", true, true), "collider");
-  // initBDNNode(getTopLevelNode($bdnNodeName, false, true));
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
   // print("  colliderGrpNode:" + $colliderGrpNode + "\n"); // debug
   if (!`objExists $colliderGrpNode`) return $colliderNodes;
@@ -2306,12 +2065,10 @@ proc string[] createSphereCollider(
 
     // ノード初期化
     initColliderNode($transformNode, $colliderType);
-    // setOutlinerColor({$transformNode}, {1.0, 1.0, 0.0});
     setOutlinerColor({$spcNode}, {1.0, 1.0, 0.0});
     setOverrideColor($shapeNodes, 17);
 
     // アトリビュート設定
-    // addAttr -at "message" -ln "colliderSource" $spcNode;
     addAttr -at "message" -ln "colliderAffectedBy" -m $transformNode;
     addAttr -dt "string" -ln "colliderSource" $spcNode;
     addAttr -at "double" -dv 0.5 -k true -hxv false -hnv true -min 0.001 -ln "colliderRadius" $transformNode;
@@ -2326,13 +2083,10 @@ proc string[] createSphereCollider(
     connectAttr -f ($transformNode + ".colliderRadius") ($makeNode  + ".radius");
 
     // ノード接続
-    // appendColliderAffectedBy({$makeNode}, $transformNode);
-    // appendColliderAffectedBy($shapeNodes, $transformNode);
     appendMultiMessage($affectedNodes, $transformNode, "colliderAffectedBy");
 
     // コンストレイント設定
     if (`objExists $sourceNode`) {
-      // connectAttr -f ($sourceNode + ".message") ($spcNode + ".colliderSource");
       string $prcstNodes[] = `parentConstraint $sourceNode $spcNode`;
       if (`size $prcstNodes`) {
         $prcstNodes[0] = setNodeName($prcstNodes[0], $spcNodeName + "_PRCST", false);
@@ -2431,7 +2185,6 @@ proc appendCollider(string $colliderNodes[], string $bdnNodes[]) {
   int $numCcNodes = `size $ccNodes`;
   int $numPcNodes = `size $pcNodes`;
   int $numScNodes = `size $scNodes`;
-  // int $shouldModify = $numCcNodes > 0 || $numPcNodes > 0 || $numScNodes > 0;
   if ($numCcNodes == 0 && $numPcNodes == 0 && $numScNodes == 0) return;
 
   for ($bdnNode in $bdnNodes) {
@@ -2520,10 +2273,7 @@ proc appendCollider(string $colliderNodes[], string $bdnNodes[]) {
       }
     }
   }
-
-  // if ($shouldModify) {
   notify("nkBdnEditorBdnColliderConnectionChanged");
-  // }
 }
 
 /*-
@@ -2559,7 +2309,6 @@ proc removeCollider(string $colliderNodes[], string $bdnNodes[]) {
   int $numCcNodes = `size $ccNodes`;
   int $numPcNodes = `size $pcNodes`;
   int $numScNodes = `size $scNodes`;
-  // int $shouldModify = $numCcNodes > 0 || $numPcNodes > 0 || $numScNodes > 0;
   if ($numCcNodes == 0 && $numPcNodes == 0 && $numScNodes == 0) return;
 
   for ($bdnNode in $bdnNodes) {
@@ -2642,10 +2391,7 @@ proc removeCollider(string $colliderNodes[], string $bdnNodes[]) {
       }
     }
   }
-
-  // if ($shouldModify) {
   notify("nkBdnEditorBdnColliderConnectionChanged");
-  // }
 }
 
 // -----------------------------------------------------------------------------
@@ -2824,7 +2570,6 @@ proc applyDictToSphereColliderAttributes(string $dict, string $colliderNodes[]) 
 
 /*-
 @param $colliderNodes <string[]>
-// @param $colliderType <string>
 @param $attribute <string>
 @param $value <float>
 @returns <>
@@ -2948,15 +2693,12 @@ proc importColliders(string $filename) {
         $existsColliderAimTarget = `objExists $colliderAimTarget`;
         if ($existsColliderAimTarget) $sourceNodes[`size $sourceNodes`] = $colliderAimTarget;
       }
-      // $colliderNodes = createCapsuleCollider("", $sourceNodes, !$existsColliderAimTarget);
       $colliderNodes = createCapsuleCollider($sourceNodes, !$existsColliderAimTarget);
     }
     else if ($dictType == "infinitePlane") {
-      // $colliderNodes = createInfinitePlaneCollider("", $sourceNodes);
       $colliderNodes = createInfinitePlaneCollider($sourceNodes);
     }
     else if ($dictType == "sphere") {
-      // $colliderNodes = createSphereCollider("", $sourceNodes);
       $colliderNodes = createSphereCollider($sourceNodes);
     }
     // print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
@@ -3408,7 +3150,6 @@ proc connectOffset(string $sourceNodes[], string $bdnNodes[]) {
 
   string $offsetNodes[];
   for ($sourceNode in $sourceNodes) {
-    // if (!isTransformNode($sourceNode)) continue;
     if (!isType($sourceNode, {"transform"}, false)) continue;
 
     $offsetNodes[`size $offsetNodes`] = $sourceNode;
@@ -3440,7 +3181,6 @@ proc disconnectOffset(string $sourceNodes[], string $bdnNodes[]) {
 
   string $offsetNodes[];
   for ($sourceNode in $sourceNodes) {
-    // if (!isTransformNode($sourceNode)) continue;
     if (!isType($sourceNode, {"transform"}, false)) continue;
 
     $offsetNodes[`size $offsetNodes`] = $sourceNode;
@@ -3449,7 +3189,6 @@ proc disconnectOffset(string $sourceNodes[], string $bdnNodes[]) {
   int $numOffsetNodes = `size $offsetNodes`;
   if ($numOffsetNodes == 0) return;
 
-  // string $offsetNode = $offsetNodes[$numOffsetNodes - 1];
   int $hasDisconnected = false;
   for ($offsetNode in $offsetNodes) {
     for ($bdnNode in $bdnNodes) {
@@ -3655,101 +3394,10 @@ proc unregisterEventJob() {
 // プレゼンテーション
 // /////////////////////////////////////////////////////////////////////////////
 /*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorBdnNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorProxyNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorTargetNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorInfluencedColliderNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorAllColliderNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorMeshNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorForceNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorOffsetNodes[];
-
-/*-
-@var <string[]> 編集ウィンドウ用の一時変数。
-*/
-// global string $nkBdnEditorBindNodes[];
-
-/*-
-@returns <>
-*/
-// proc initializeEditorParameters() {
-//   global string $nkBdnEditorBdnNodes[];
-//   global string $nkBdnEditorBdnAttributeCache;
-//   global string $nkBdnEditorProxyNodes[];
-//   global string $nkBdnEditorTargetNodes[];
-//   global string $nkBdnEditorInfluencedColliderNodes[];
-//   global string $nkBdnEditorAllColliderNodes[];
-//   global string $nkBdnEditorMeshNodes[];
-//   global string $nkBdnEditorForceNodes[];
-//   global string $nkBdnEditorOffsetNodes[];
-//   global string $nkBdnEditorBindNodes[];
-//   clear $nkBdnEditorBdnNodes;
-//   // $nkBdnEditorBdnAttributeCache = "";
-//   clear $nkBdnEditorProxyNodes;
-//   clear $nkBdnEditorTargetNodes;
-//   clear $nkBdnEditorInfluencedColliderNodes;
-//   clear $nkBdnEditorAllColliderNodes;
-//   clear $nkBdnEditorMeshNodes;
-//   clear $nkBdnEditorForceNodes;
-//   clear $nkBdnEditorOffsetNodes;
-//   clear $nkBdnEditorBindNodes;
-// }
-
-/*-
-@returns <string>
-*/
-// proc string getBdnBaseName() {
-//   string $bdnBaseNameText = getUIControl("nkBdnEditorWindow", "bdnBaseNameText");
-//   return qString("textFieldGrp", "-tx", $bdnBaseNameText);
-// }
-
-// /*-
-// @param $value <boolean>
-// @returns <>
-// */
-// proc updateToggleEditorWindowCheckBox(int $value) {
-//   print("updateToggleEditorWindowCheckBox\n"); // debug
-//   print("  value:" + $value + "\n"); // debug
-//   string $toggleEditorWindowCheckBox = getUIControl("nkBdnEditorWindow", "toggleEditorWindowCheckBox");
-//   eInt("iconTextCheckBox", "-v", $value, $toggleEditorWindowCheckBox);
-// };
-
-/*-
 @returns <>
 */
 proc subscribeMainWindowObservers() {
   // print("subscribeMainWindowObservers\n"); // debug
-  // subscribe("nkBdnEditorEditorWindowVisibilityChanged", "nkBdnEditorEditorWindowVisibilityChanged");
   subscribe("nkBdnEditorDynamicsNodeCreated", "nkBdnEditorDynamicsNodeCreated");
   subscribe("nkBdnEditorBdnAttributeChanged", "nkBdnEditorBdnAttributeChanged");
   subscribe("nkBdnEditorBdnColliderConnectionChanged", "nkBdnEditorBdnColliderConnectionChanged");
@@ -3766,7 +3414,6 @@ proc subscribeMainWindowObservers() {
 */
 proc unsubscribeMainWindowObservers() {
   // print("unsubscribeMainWindowObservers\n"); // debug
-  // unsubscribe("nkBdnEditorEditorWindowVisibilityChanged", "nkBdnEditorEditorWindowVisibilityChanged");
   unsubscribe("nkBdnEditorDynamicsNodeCreated", "nkBdnEditorDynamicsNodeCreated");
   unsubscribe("nkBdnEditorBdnAttributeChanged", "nkBdnEditorBdnAttributeChanged");
   unsubscribe("nkBdnEditorBdnColliderConnectionChanged", "nkBdnEditorBdnColliderConnectionChanged");
@@ -3778,30 +3425,13 @@ proc unsubscribeMainWindowObservers() {
   unsubscribe("nkBdnEditorForceAttributeChanged", "nkBdnEditorForceAttributeChanged");
 }
 
-// /*-
-// @returns <>
-// */
-// proc closeEditorWindow() {
-//   print("closeEditorWindow\n"); // debug
-//   string $nkBdnEditorEditorWindow = getUIControl("nkBdnEditorEditorWindow", "nkBdnEditorEditorWindow");
-//   windowClose($nkBdnEditorEditorWindow);
-// }
-
 // -----------------------------------------------------------------------------
 /*-
 @returns <string[]>
 */
 proc string[] getSelectedBdnNodes() {
   // print("getSelectedBdnNodes\n"); // debug
-  // global string $nkBdnEditorBdnNodes[];
-  // print("  nkBdnEditorEditorBdnNodes:{\n    " + stringArrayToString($nkBdnEditorBdnNodes, ",\n    ") + "\n  }\n");
-
   string $bdnNodeList = getUIControl("nkBdnEditorWindow", "bdnNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $bdnNodeList);
-  // string $bdnNodes[];
-  // for ($i in $selectedIndices) {
-  //   $bdnNodes[`size $bdnNodes`] = $nkBdnEditorBdnNodes[$i];
-  // }
   string $bdnNodes[] = qStringArray("textScrollList", "-sut", $bdnNodeList);
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
   return $bdnNodes;
@@ -3812,15 +3442,7 @@ proc string[] getSelectedBdnNodes() {
 */
 proc string[] getSelectedProxyNodes() {
   // print("getSelectedProxyNodes\n"); // debug
-  // global string $nkBdnEditorProxyNodes[];
-  // print("  nkBdnEditorEditorProxyNodes:{\n    " + stringArrayToString($nkBdnEditorProxyNodes, ",\n    ") + "\n  }\n");
-
   string $proxyNodeList = getUIControl("nkBdnEditorWindow", "proxyNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $proxyNodeList);
-  // string $proxyNodes[];
-  // for ($i in $selectedIndices) {
-  //   $proxyNodes[`size $proxyNodes`] = $nkBdnEditorProxyNodes[$i];
-  // }
   string $proxyNodes[] = qStringArray("textScrollList", "-sut", $proxyNodeList);
   // print("  proxyNodes:{\n    " + stringArrayToString($proxyNodes, ",\n    ") + "\n  }\n"); // debug
   return $proxyNodes;
@@ -3831,15 +3453,7 @@ proc string[] getSelectedProxyNodes() {
 */
 proc string[] getSelectedTargetNodes() {
   // print("getSelectedTargetNodes\n"); // debug
-  // global string $nkBdnEditorTargetNodes[];
-  // print("  nkBdnEditorEditorTargetNodes:{\n    " + stringArrayToString($nkBdnEditorTargetNodes, ",\n    ") + "\n  }\n");
-
   string $targetNodeList = getUIControl("nkBdnEditorWindow", "targetNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $targetNodeList);
-  // string $targetNodes[];
-  // for ($i in $selectedIndices) {
-  //   $targetNodes[`size $targetNodes`] = $nkBdnEditorTargetNodes[$i];
-  // }
   string $targetNodes[] = qStringArray("textScrollList", "-sut", $targetNodeList);
   // print("  targetNodes:{\n    " + stringArrayToString($targetNodes, ",\n    ") + "\n  }\n"); // debug
   return $targetNodes;
@@ -3850,15 +3464,7 @@ proc string[] getSelectedTargetNodes() {
 */
 proc string[] getSelectedInfluencedColliderNodes() {
   // print("getSelectedInfluencedColliderNodes\n"); // debug
-  // global string $nkBdnEditorInfluencedColliderNodes[];
-  // print("  nkBdnEditorEditorInfluencedColliderNodes:{\n    " + stringArrayToString($nkBdnEditorInfluencedColliderNodes, ",\n    ") + "\n  }\n");
-
   string $influencedColliderNodeList = getUIControl("nkBdnEditorWindow", "influencedColliderNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $influencedColliderNodeList);
-  // string $colliderNodes[];
-  // for ($i in $selectedIndices) {
-  //   $colliderNodes[`size $colliderNodes`] = $nkBdnEditorInfluencedColliderNodes[$i];
-  // }
   string $colliderNodes[] = qStringArray("textScrollList", "-sut", $influencedColliderNodeList);
   // print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
   return $colliderNodes;
@@ -3891,15 +3497,7 @@ proc string[] getSelectedAllColliderNodes(string $colliderType) {
 */
 proc string[] getSelectedMeshNodes() {
   // print("getSelectedMeshNodes\n"); // debug
-  // global string $nkBdnEditorMeshNodes[];
-  // print("  nkBdnEditorEditorMeshNodes:{\n    " + stringArrayToString($nkBdnEditorMeshNodes, ",\n    ") + "\n  }\n");
-
   string $meshNodeList = getUIControl("nkBdnEditorWindow", "meshNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $meshNodeList);
-  // string $meshNodes[];
-  // for ($i in $selectedIndices) {
-  //   $meshNodes[`size $meshNodes`] = $nkBdnEditorMeshNodes[$i];
-  // }
   string $meshNodes[] = qStringArray("textScrollList", "-sut", $meshNodeList);
   // print("  meshNodes:{\n    " + stringArrayToString($meshNodes, ",\n    ") + "\n  }\n"); // debug
   return $meshNodes;
@@ -3910,15 +3508,7 @@ proc string[] getSelectedMeshNodes() {
 */
 proc string[] getSelectedForceNodes() {
   // print("getSelectedForceNodes\n"); // debug
-  // global string $nkBdnEditorForceNodes[];
-  // print("  nkBdnEditorEditorForceNodes:{\n    " + stringArrayToString($nkBdnEditorForceNodes, ",\n    ") + "\n  }\n");
-
   string $forceNodeList = getUIControl("nkBdnEditorWindow", "forceNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $forceNodeList);
-  // string $forceNodes[];
-  // for ($i in $selectedIndices) {
-  //   $forceNodes[`size $forceNodes`] = $nkBdnEditorForceNodes[$i];
-  // }
   string $forceNodes[] = qStringArray("textScrollList", "-sut", $forceNodeList);
   // print("  forceNodes:{\n    " + stringArrayToString($forceNodes, ",\n    ") + "\n  }\n"); // debug
   return $forceNodes;
@@ -3945,15 +3535,7 @@ proc string[] getSelectedForceVectorNodes() {
 */
 proc string[] getSelectedOffsetNodes() {
   // print("getSelectedOffsetNodes\n"); // debug
-  // global string $nkBdnEditorOffsetNodes[];
-  // print("  nkBdnEditorEditorOffsetNodes:{\n    " + stringArrayToString($nkBdnEditorOffsetNodes, ",\n    ") + "\n  }\n");
-
   string $offsetNodeList = getUIControl("nkBdnEditorWindow", "offsetNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $offsetNodeList);
-  // string $offsetNodes[];
-  // for ($i in $selectedIndices) {
-  //   $offsetNodes[`size $offsetNodes`] = $nkBdnEditorOffsetNodes[$i];
-  // }
   string $offsetNodes[] = qStringArray("textScrollList", "-sut", $offsetNodeList);
   // print("  offsetNodes:{\n    " + stringArrayToString($offsetNodes, ",\n    ") + "\n  }\n"); // debug
   return $offsetNodes;
@@ -3964,15 +3546,7 @@ proc string[] getSelectedOffsetNodes() {
 */
 proc string[] getSelectedBindNodes() {
   // print("getSelectedBindNodes\n"); // debug
-  // global string $nkBdnEditorBindNodes[];
-  // print("  nkBdnEditorEditorBindNodes:{\n    " + stringArrayToString($nkBdnEditorBindNodes, ",\n    ") + "\n  }\n");
-
   string $bindNodeList = getUIControl("nkBdnEditorWindow", "bindNodeList");
-  // int $selectedIndices[] = qIndexArray("textScrollList", "-sii", $bindNodeList);
-  // string $bindNodes[];
-  // for ($i in $selectedIndices) {
-  //   $bindNodes[`size $bindNodes`] = $nkBdnEditorBindNodes[$i];
-  // }
   string $bindNodes[] = qStringArray("textScrollList", "-sut", $bindNodeList);
   // print("  bindNodes:{\n    " + stringArrayToString($bindNodes, ",\n    ") + "\n  }\n"); // debug
   return $bindNodes;
@@ -4269,7 +3843,6 @@ proc string makeListItemLabel(string $node) {
 proc updateProxyNodeList(string $bdnNodes[]) {
   // print("updateProxyNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorProxyNodes[];
   string $proxyNodeList = getUIControl("nkBdnEditorWindow", "proxyNodeList");
 
   string $proxyNodes[];
@@ -4280,15 +3853,9 @@ proc updateProxyNodeList(string $bdnNodes[]) {
     );
   }
 
-  // clear $nkBdnEditorProxyNodes;
   executeUIControl("textScrollList", "-ra", $proxyNodeList);
   for ($proxyNode in $proxyNodes) {
-    // $nkBdnEditorProxyNodes[`size $nkBdnEditorProxyNodes`] = $proxyNode;
-    // eString("textScrollList", "-a", toShortName($proxyNode), $proxyNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($proxyNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($proxyNode))
         -a (makeListItemLabel($proxyNode))
         -utg $proxyNode
         $proxyNodeList;
@@ -4302,7 +3869,6 @@ proc updateProxyNodeList(string $bdnNodes[]) {
 proc updateTargetNodeList(string $bdnNodes[]) {
   // print("updateTargetNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorTargetNodes[];
   string $targetNodeList = getUIControl("nkBdnEditorWindow", "targetNodeList");
 
   string $targetNodes[];
@@ -4313,15 +3879,9 @@ proc updateTargetNodeList(string $bdnNodes[]) {
     );
   }
 
-  // clear $nkBdnEditorTargetNodes;
   executeUIControl("textScrollList", "-ra", $targetNodeList);
   for ($targetNode in $targetNodes) {
-    // $nkBdnEditorTargetNodes[`size $nkBdnEditorTargetNodes`] = $targetNode;
-    // eString("textScrollList", "-a", toShortName($targetNode), $targetNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($targetNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($targetNode))
         -a (makeListItemLabel($targetNode))
         -utg $targetNode
         $targetNodeList;
@@ -4335,13 +3895,10 @@ proc updateTargetNodeList(string $bdnNodes[]) {
 proc updateInfluencedColliderNodeList(string $bdnNodes[]) {
   // print("updateInfluencedColliderNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorInfluencedColliderNodes[];
   string $influencedColliderNodeList = getUIControl("nkBdnEditorWindow", "influencedColliderNodeList");
 
-  /*
-  ToDo:
-  bdnTypeによる判定ではなく全ての入力アトリビュートを調べてより汎用的な処理にする。
-  */
+  // ToDo: bdnTypeによる判定ではなく全ての入力アトリビュートを調べてより汎用的な処理にする
+
   string $influencedColliderNodes[];
   for ($bdnNode in $bdnNodes) {
     string $sourceNodes[] = getSourceConnections($bdnNode, {}, "", {}, {});
@@ -4354,15 +3911,9 @@ proc updateInfluencedColliderNodeList(string $bdnNodes[]) {
   $influencedColliderNodes = stringArrayRemoveDuplicates($influencedColliderNodes);
   // print("  influencedColliderNodes:{\n    " + stringArrayToString($influencedColliderNodes, ",\n    ") + "\n  }\n"); // debug
 
-  // clear $nkBdnEditorInfluencedColliderNodes;
   executeUIControl("textScrollList", "-ra", $influencedColliderNodeList);
   for ($influencedColliderNode in $influencedColliderNodes) {
-    // $nkBdnEditorInfluencedColliderNodes[`size $nkBdnEditorInfluencedColliderNodes`] = $influencedColliderNode;
-    // eString("textScrollList", "-a", toShortName($influencedColliderNode), $influencedColliderNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($influencedColliderNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($influencedColliderNode))
         -a (makeListItemLabel($influencedColliderNode))
         -utg $influencedColliderNode
         $influencedColliderNodeList;
@@ -4374,24 +3925,16 @@ proc updateInfluencedColliderNodeList(string $bdnNodes[]) {
 */
 proc updateAllColliderNodeList() {
   // print("updateAllColliderNodeList\n"); // debug
-  // global string $nkBdnEditorAllColliderNodes[];
   string $allColliderNodeList = getUIControl("nkBdnEditorWindow", "allColliderNodeList");
 
-  // string $allColliderNodes[] = nsort(gatherColliderNodes(false));
   string $allColliderNodes[] = gatherColliderNodes(false);
   // print("  allColliderNodes:{\n    " + stringArrayToString($allColliderNodes, ",\n    ") + "\n  }\n"); // debug
 
   // ToDo: 選択の引継ぎ処理
 
-  // clear $nkBdnEditorAllColliderNodes;
   executeUIControl("textScrollList", "-ra", $allColliderNodeList);
   for ($allColliderNode in $allColliderNodes) {
-    // $nkBdnEditorAllColliderNodes[`size $nkBdnEditorAllColliderNodes`] = $allColliderNode;
-    // eString("textScrollList", "-a", toShortName($allColliderNode), $allColliderNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($allColliderNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($allColliderNode))
         -a (makeListItemLabel($allColliderNode))
         -utg $allColliderNode
         $allColliderNodeList;
@@ -4406,7 +3949,6 @@ proc updateAllColliderNodeList() {
 proc updateMeshNodeList(string $bdnNodes[]) {
   // print("updateMeshNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorMeshNodes[];
   string $meshNodeList = getUIControl("nkBdnEditorWindow", "meshNodeList");
 
   string $meshNodes[];
@@ -4426,15 +3968,9 @@ proc updateMeshNodeList(string $bdnNodes[]) {
   $meshNodes = stringArrayRemoveDuplicates($meshNodes);
   // print("  meshNodes:{\n    " + stringArrayToString($meshNodes, ",\n    ") + "\n  }\n"); // debug
 
-  // clear $nkBdnEditorMeshNodes;
   executeUIControl("textScrollList", "-ra", $meshNodeList);
   for ($meshNode in $meshNodes) {
-    // $nkBdnEditorMeshNodes[`size $nkBdnEditorMeshNodes`] = $meshNode;
-    // eString("textScrollList", "-a", toShortName($meshNode), $meshNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($meshNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($meshNode))
         -a (makeListItemLabel($meshNode))
         -utg $meshNode
         $meshNodeList;
@@ -4448,7 +3984,6 @@ proc updateMeshNodeList(string $bdnNodes[]) {
 proc updateForceNodeList(string $bdnNodes[]) {
   // print("updateForceNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorForceNodes[];
   string $forceNodeList = getUIControl("nkBdnEditorWindow", "forceNodeList");
 
   string $transformNodes[];
@@ -4461,15 +3996,9 @@ proc updateForceNodeList(string $bdnNodes[]) {
   $transformNodes = stringArrayRemoveDuplicates($transformNodes);
   // print("  transformNodes:{\n    " + stringArrayToString($transformNodes, ",\n    ") + "\n  }\n"); // debug
 
-  // clear $nkBdnEditorForceNodes;
   executeUIControl("textScrollList", "-ra", $forceNodeList);
   for ($transformNode in $transformNodes) {
-    // $nkBdnEditorForceNodes[`size $nkBdnEditorForceNodes`] = $forceNode;
-    // eString("textScrollList", "-a", toShortName($forceNode), $forceNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($transformNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($transformNode))
         -a (makeListItemLabel($transformNode))
         -utg $transformNode
         $forceNodeList;
@@ -4484,7 +4013,6 @@ proc updateForceNodeList(string $bdnNodes[]) {
 proc updateOffsetNodeList(string $bdnNodes[]) {
   // print("updateOffsetNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorOffsetNodes[];
   string $offsetNodeList = getUIControl("nkBdnEditorWindow", "offsetNodeList");
 
   string $offsetNodes[];
@@ -4497,15 +4025,9 @@ proc updateOffsetNodeList(string $bdnNodes[]) {
   $offsetNodes = stringArrayRemoveDuplicates($offsetNodes);
   // print("  offsetNodes:{\n    " + stringArrayToString($offsetNodes, ",\n    ") + "\n  }\n"); // debug
 
-  // clear $nkBdnEditorOffsetNodes;
   executeUIControl("textScrollList", "-ra", $offsetNodeList);
   for ($offsetNode in $offsetNodes) {
-    // $nkBdnEditorOffsetNodes[`size $nkBdnEditorOffsetNodes`] = $offsetNode;
-    // eString("textScrollList", "-a", toShortName($offsetNode), $offsetNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($offsetNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($offsetNode))
         -a (makeListItemLabel($offsetNode))
         -utg $offsetNode
         $offsetNodeList;
@@ -4519,15 +4041,10 @@ proc updateOffsetNodeList(string $bdnNodes[]) {
 proc updateBindNodeList(string $bdnNodes[]) {
   // print("updateBindNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  // global string $nkBdnEditorBindNodes[];
   string $bindNodeList = getUIControl("nkBdnEditorWindow", "bindNodeList");
 
   string $bindNodes[];
   for ($bdnNode in $bdnNodes) {
-    // $bindNodes = stringArrayCatenate(
-    //   $bindNodes,
-    //   getDestConnections($bdnNode, {"outputRotate"}, "", {}, {})
-    // );
     string $proxyNodes[] = getDestConnections($bdnNode, {"outputRotate"}, "", {}, {});
     for ($proxyNode in $proxyNodes) {
       $bindNodes = stringArrayCatenate(
@@ -4539,15 +4056,9 @@ proc updateBindNodeList(string $bdnNodes[]) {
   $bindNodes = stringArrayRemoveDuplicates($bindNodes);
   // print("  bindNodes:{\n    " + stringArrayToString($bindNodes, ",\n    ") + "\n  }\n"); // debug
 
-  // clear $nkBdnEditorBindNodes;
   executeUIControl("textScrollList", "-ra", $bindNodeList);
   for ($bindNode in $bindNodes) {
-    // $nkBdnEditorBindNodes[`size $nkBdnEditorBindNodes`] = $bindNode;
-    // eString("textScrollList", "-a", toShortName($bindNode), $bindNodeList);
-    // string $prefix;
-    // if (isNodeReferenced($bindNode)) $prefix += "[R]";
     textScrollList -e
-        // -a ($prefix + toShortName($bindNode))
         -a (makeListItemLabel($bindNode))
         -utg $bindNode
         $bindNodeList;
@@ -4595,12 +4106,10 @@ proc updateBdnRelatedNodeList(int $shouldUpdateAllColliderNodeList) {
 */
 proc updateBdnNodeList() {
   // print("updateBdnNodeList\n"); // debug
-  // global string $nkBdnEditorBdnNodes[];
   string $bdnNodeList = getUIControl("nkBdnEditorWindow", "bdnNodeList");
 
   // ToDo: 選択の引継ぎ処理
 
-  // clear $nkBdnEditorBdnNodes;
   executeUIControl("textScrollList", "-ra", $bdnNodeList);
 
   // BDNグループをシングルトン化
@@ -4610,19 +4119,7 @@ proc updateBdnNodeList() {
     string $bdnNodes[] = nsort(gatherBdnNodes(false));
     // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
     for ($bdnNode in $bdnNodes) {
-      // $nkBdnEditorBdnNodes[`size $nkBdnEditorBdnNodes`] = $bdnNode;
-      // eString("textScrollList", "-a", $bdnNode, $bdnNodeList);
-      // print("  bdnNode:" + $bdnNode + "\n"); // debug
-      /*
-      ToDo:
-      リファレンスノードには"[R]"を付ける。
-      代替ノードには"[A]"を付ける。
-      */
-      // string $prefix;
-      // if (isNodeReferenced($bdnNode)) $prefix += "[R]";
-      // if (isBdnType($bdnNode, "alt")) $prefix += "[A]";
       textScrollList -e
-          // -a ($prefix + $bdnNode)
           -a (makeListItemLabel($bdnNode))
           -utg $bdnNode
           $bdnNodeList;
@@ -4643,37 +4140,16 @@ proc nkBdnEditorWindowClosed() {
   unregisterEventJob();
   unsubscribeMainWindowObservers();
   removeUIControls("nkBdnEditorWindow", "");
-  // nkBdnEditorEditorWindowClosed();
 }
-
-// /*-
-// @returns <>
-// */
-// proc nkBdnEditorEditorWindowClosed() {
-//   print("nkBdnEditorEditorWindowClosed\n"); // debug
-//   removeUIControls("nkBdnEditorEditorWindow", "");
-//   setEditorWindowVisibility(false);
-// }
 
 /*-
 @returns <>
 */
 proc resetWindowMenuItemSelected() {
   // print("resetWindowMenuItemSelected\n"); // debug
-  // windowPrefRemove("window", "nkBdnEditorEditorWindow");
   windowPrefRemove("window", "nkBdnEditorWindow");
   nkBdnEditor();
 }
-
-// /*-
-// @returns <>
-// */
-// proc closeMenuItemSelected() {
-//   print("closeMenuItemSelected\n"); // debug
-//   string $nkBdnEditorEditorWindow = getUIControl("nkBdnEditorEditorWindow", "nkBdnEditorEditorWindow");
-//   print("  nkBdnEditorEditorWindow:" + $nkBdnEditorEditorWindow + "\n"); // debug
-//   windowClose($nkBdnEditorEditorWindow);
-// }
 
 /*-
 @returns <>
@@ -4712,30 +4188,6 @@ proc aboutMenuItemSelected() {
       -t "About - nkBdnEditor";
 }
 
-// /*-
-// @returns <>
-// */
-// proc bdnPluginLoadButtonPressed() {
-//   print("bdnPluginLoadButtonPressed\n"); // debug
-//   loadBdnPlugin();
-// }
-
-// /*-
-// @returns <>
-// */
-// proc bdnPluginUnloadButtonPressed() {
-//   print("bdnPluginUnloadButtonPressed\n"); // debug
-//   unloadBdnPlugin();
-// }
-
-// /*-
-// @returns <>
-// */
-// proc deleteAllButtonPressed() {
-//   print("deleteAllButtonPressed\n"); // debug
-//   deleteAllBdnNodes();
-// }
-
 /*-
 @returns <>
 */
@@ -4766,7 +4218,6 @@ proc bdnNodeListSelected() {
 */
 proc substituteBdnNodesButtonPressed() {
   // print("substituteBdnNodesButtonPressed\n"); // debug
-  // string $altNodes[] = substituteBdnNodes(getSelectedBdnNodes());
   string $altNodes[] = substituteBdnNodes(gatherBdnNodes(false));
   // print("  altNodes:{\n    " + stringArrayToString($altNodes, ",\n    ") + "\n  }\n"); // debug
   select -r $altNodes;
@@ -4777,7 +4228,6 @@ proc substituteBdnNodesButtonPressed() {
 */
 proc restoreBdnNodesButtonPressed() {
   // print("restoreBdnNodesButtonPressed\n"); // debug
-  // string $bdnNodes[] = restoreBdnNodes(getSelectedBdnNodes());
   string $bdnNodes[] = restoreBdnNodes(gatherBdnNodes(false));
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
   select -r $bdnNodes;
@@ -4790,7 +4240,6 @@ proc bdnAttributeInitializeButtonPressed() {
   // print("bdnAttributeInitializeButtonPressed\n"); // debug
   global string $nkBdnEditorDefaultBdnAttribute;
   applyDictToBdnAttributes($nkBdnEditorDefaultBdnAttribute, getSelectedBdnNodes());
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4836,7 +4285,6 @@ proc bdnEnableCheckBoxChanged() {
     "enable",
     qInt("checkBoxGrp", "-v1", $bdnEnableCheckBox)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4850,7 +4298,6 @@ proc bdnResetTimeFieldChanged() {
     "resetTime",
     qFloat("floatFieldGrp", "-v1", $bdnResetTimeField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4864,7 +4311,6 @@ proc bdnFpsFieldChanged() {
     "fps",
     qFloat("floatFieldGrp", "-v1", $bdnFpsField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4878,7 +4324,6 @@ proc bdnOffsetMatrixWeightFieldChanged() {
     "offsetMatrixWeight",
     qFloat("floatFieldGrp", "-v1", $bdnOffsetMatrixWeightField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4892,7 +4337,6 @@ proc bdnDampingFieldChanged() {
     "damping",
     qFloat("floatFieldGrp", "-v1", $bdnDampingField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4906,7 +4350,6 @@ proc bdnElasticityFieldChanged() {
     "elasticity",
     qFloat("floatFieldGrp", "-v1", $bdnElasticityField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4920,7 +4363,6 @@ proc elasticForceFunctionMenuGrpChanged() {
     "elasticForceFunction",
     qIndex("optionMenuGrp", "-sl", $elasticForceFunctionMenuGrp)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4934,7 +4376,6 @@ proc bdnStiffnessFieldChanged() {
     "stiffness",
     qFloat("floatFieldGrp", "-v1", $bdnStiffnessField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4948,7 +4389,6 @@ proc bdnMassFieldChanged() {
     "mass",
     qFloat("floatFieldGrp", "-v1", $bdnMassField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4962,7 +4402,6 @@ proc bdnGravityXFieldChanged() {
     "gravityX",
     qFloat("floatFieldGrp", "-v1", $bdnGravityXField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4976,7 +4415,6 @@ proc bdnGravityYFieldChanged() {
     "gravityY",
     qFloat("floatFieldGrp", "-v1", $bdnGravityYField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -4990,7 +4428,6 @@ proc bdnGravityZFieldChanged() {
     "gravityZ",
     qFloat("floatFieldGrp", "-v1", $bdnGravityZField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5004,7 +4441,6 @@ proc bdnGravityMultiplyFieldChanged() {
     "gravityMultiply",
     qFloat("floatFieldGrp", "-v1", $bdnGravityMultiplyField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5018,7 +4454,6 @@ proc bdnAdditionalForceScaleFieldChanged() {
     "additionalForceScale",
     qFloat("floatFieldGrp", "-v1", $bdnAdditionalForceScaleField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5032,7 +4467,6 @@ proc bdnEnableTurbulenceCheckBoxChanged() {
     "enableTurbulence",
     qInt("checkBoxGrp", "-v1", $bdnEnableTurbulenceCheckBox)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5046,7 +4480,6 @@ proc bdnTurbulenceSeedFieldChanged() {
     "turbulenceSeed",
     qInt("intFieldGrp", "-v1", $bdnTurbulenceSeedField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5060,7 +4493,6 @@ proc bdnTurbulenceStrengthFieldChanged() {
     "turbulenceStrength",
     qFloat("floatFieldGrp", "-v1", $bdnTurbulenceStrengthField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5074,7 +4506,6 @@ proc bdnTurbulenceVectorChangeScaleFieldChanged() {
     "turbulenceVectorChangeScale",
     qFloat("floatFieldGrp", "-v1", $bdnTurbulenceVectorChangeScaleField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5088,7 +4519,6 @@ proc bdnTurbulenceVectorChangeMaxFieldChanged() {
     "turbulenceVectorChangeMax",
     qFloat("floatFieldGrp", "-v1", $bdnTurbulenceVectorChangeMaxField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5102,7 +4532,6 @@ proc bdnEnableAngleLimitCheckBoxChanged() {
     "enableAngleLimit",
     qInt("checkBoxGrp", "-v1", $bdnEnableAngleLimitCheckBox)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5116,7 +4545,6 @@ proc bdnAngleLimitFieldChanged() {
     "angleLimit",
     qFloat("floatFieldGrp", "-v1", $bdnAngleLimitField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5130,7 +4558,6 @@ proc bdnRadiusFieldChanged() {
     "radius",
     qFloat("floatFieldGrp", "-v1", $bdnRadiusField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5144,7 +4571,6 @@ proc bdnIterationsFieldChanged() {
     "iterations",
     qInt("intFieldGrp", "-v1", $bdnIterationsField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5158,7 +4584,6 @@ proc bdnEnableGroundColCheckBoxChanged() {
     "enableGroundCol",
     qInt("checkBoxGrp", "-v1", $bdnEnableGroundColCheckBox)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5172,7 +4597,6 @@ proc bdnGroundHeightFieldChanged() {
     "groundHeight",
     qFloat("floatFieldGrp", "-v1", $bdnGroundHeightField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5186,7 +4610,6 @@ proc bdnMeshColCutoffFieldChanged() {
     "meshColCutoff",
     qFloat("floatFieldGrp", "-v1", $bdnMeshColCutoffField)
   );
-  // updateBdnAttributeUI();
 }
 
 /*-
@@ -5194,8 +4617,6 @@ proc bdnMeshColCutoffFieldChanged() {
 */
 proc bdnRelatedNodeTabChanged() {
   // print("bdnRelatedNodeTabChanged\n"); // debug
-  // string $bdnRelatedNodeTab = getUIControl("nkBdnEditorWindow", "bdnRelatedNodeTab");
-  // print("  bdnRelatedNodeTab:" + $bdnRelatedNodeTab + "\n");
   updateBdnRelatedNodeList(true);
 }
 
@@ -5209,8 +4630,6 @@ proc generateDynamicsUnitButtonPressed() {
   string $dynamicsUnitBranchInvertAimVectorCheckBox = getUIControl("nkBdnEditorWindow", "dynamicsUnitBranchInvertAimVectorCheckBox");
   string $dynamicsUnitEndJointOffsetField = getUIControl("nkBdnEditorWindow", "dynamicsUnitEndJointOffsetField");
 
-  // string $bdnBaseName = getBdnBaseName();
-  // string $bdnBaseName = "";
   string $sourceNodes[] = gatherNodes({"transform"}, false, true, "");
   int $branchAimVectorIndex = qIndex("radioButtonGrp", "-sl", $dynamicsUnitBranchAimVectorRadioButton);
   int $branchUpVectorIndex = qIndex("radioButtonGrp", "-sl", $dynamicsUnitBranchUpVectorRadioButton);
@@ -5223,7 +4642,6 @@ proc generateDynamicsUnitButtonPressed() {
   $branchUpVector[$branchUpVectorIndex] = 1.0;
 
   string $dynamicsNodes[] = generateDynamicsUnit(
-    // $bdnBaseName,
     $sourceNodes,
     $branchAimVector,
     $branchUpVector,
@@ -5318,14 +4736,11 @@ proc createColliderCapsuleButtonPressed() {
   // print("createColliderCapsuleButtonPressed\n"); // debug
   string $createMultipleCollidersCheckBox = getUIControl("nkBdnEditorWindow", "createMultipleCollidersCheckBox");
 
-  // string $bdnBaseName = getBdnBaseName();
-  // string $bdnBaseName = "";
   string $sourceNodes[];
   if (qInt("checkBox", "-v", $createMultipleCollidersCheckBox)) {
     $sourceNodes = gatherNodes({"transform"}, false, true, "");
     // print("  sourceNodes:{\n    " + stringArrayToString($sourceNodes, ",\n    ") + "\n  }\n"); // debug
   }
-  // string $colliderNodes[] = createCapsuleCollider($bdnBaseName, $sourceNodes, true);
   string $colliderNodes[] = createCapsuleCollider($sourceNodes, true);
   // print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
   select -r $colliderNodes;
@@ -5338,13 +4753,10 @@ proc createColliderInfinitePlaneButtonPressed() {
   // print("createColliderInfinitePlaneButtonPressed\n"); // debug
   string $createMultipleCollidersCheckBox = getUIControl("nkBdnEditorWindow", "createMultipleCollidersCheckBox");
 
-  // string $bdnBaseName = getBdnBaseName();
-  // string $bdnBaseName = "";
   string $sourceNodes[];
   if (qInt("checkBox", "-v", $createMultipleCollidersCheckBox)) {
     $sourceNodes = gatherNodes({"transform"}, false, true, "");
   }
-  // string $colliderNodes[] = createInfinitePlaneCollider($bdnBaseName, $sourceNodes);
   string $colliderNodes[] = createInfinitePlaneCollider($sourceNodes);
   // print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
   select -r $colliderNodes;
@@ -5357,13 +4769,10 @@ proc createColliderSphereButtonPressed() {
   // print("createColliderSphereButtonPressed\n"); // debug
   string $createMultipleCollidersCheckBox = getUIControl("nkBdnEditorWindow", "createMultipleCollidersCheckBox");
 
-  // string $bdnBaseName = getBdnBaseName();
-  // string $bdnBaseName = "";
   string $sourceNodes[];
   if (qInt("checkBox", "-v", $createMultipleCollidersCheckBox)) {
     $sourceNodes = gatherNodes({"transform"}, false, true, "");
   }
-  // string $colliderNodes[] = createSphereCollider($bdnBaseName, $sourceNodes);
   string $colliderNodes[] = createSphereCollider($sourceNodes);
   // print("  colliderNodes:{\n    " + stringArrayToString($colliderNodes, ",\n    ") + "\n  }\n"); // debug
   select -r $colliderNodes;
@@ -5531,7 +4940,6 @@ proc capsuleColliderRadiusAFieldChanged() {
     "colliderRadiusA",
     qFloat("floatFieldGrp", "-v1", $capsuleColliderRadiusAField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5545,7 +4953,6 @@ proc capsuleColliderRadiusBFieldChanged() {
     "colliderRadiusB",
     qFloat("floatFieldGrp", "-v1", $capsuleColliderRadiusBField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5559,7 +4966,6 @@ proc capsuleColliderLengthFieldChanged() {
     "colliderLength",
     qFloat("floatFieldGrp", "-v1", $capsuleColliderLengthField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5573,7 +4979,6 @@ proc capsuleColliderOffsetFieldChanged() {
     "colliderOffset",
     qFloat("floatFieldGrp", "-v1", $capsuleColliderOffsetField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5587,7 +4992,6 @@ proc capsuleColliderPivotMenuGrpChanged() {
     "colliderPivot",
     qIndex("optionMenuGrp", "-sl", $capsuleColliderPivotMenuGrp)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5629,7 +5033,6 @@ proc infinitePlaneColliderWidthFieldChanged() {
     "colliderWidth",
     qFloat("floatFieldGrp", "-v1", $infinitePlaneColliderWidthField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5643,7 +5046,6 @@ proc infinitePlaneColliderHeightFieldChanged() {
     "colliderHeight",
     qFloat("floatFieldGrp", "-v1", $infinitePlaneColliderHeightField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5685,7 +5087,6 @@ proc sphereColliderRadiusFieldChanged() {
     "colliderRadius",
     qFloat("floatFieldGrp", "-v1", $sphereColliderRadiusField)
   );
-  // updateColliderAttributeUI();
 }
 
 /*-
@@ -5896,7 +5297,6 @@ proc offsetNodeListSelected() {
 */
 proc connectOffsetNodeButtonPressed() {
   // print("connectOffsetNodeButtonPressed\n"); // debug
-  // select -r (getSelectedOffsetNodes());
   connectOffset(
     gatherNodes({"transform"}, false, true, ""),
     getSelectedBdnNodes()
@@ -5908,7 +5308,6 @@ proc connectOffsetNodeButtonPressed() {
 */
 proc disconnectOffsetNodeButtonPressed() {
   // print("disconnectOffsetNodeButtonPressed\n"); // debug
-  // select -r (getSelectedOffsetNodes());
   disconnectOffset(
     getSelectedOffsetNodes(),
     getSelectedBdnNodes()
@@ -5970,186 +5369,17 @@ proc rebindButtonPressed() {
   rebind(getSelectedBindNodes());
 }
 
-// /*-
-// @returns <>
-// */
-// proc toggleEditorWindowCheckBoxChanged() {
-//   print("toggleEditorWindowCheckBoxChanged\n"); // debug
-//   string $toggleEditorWindowCheckBox = getUIControl("nkBdnEditorWindow", "toggleEditorWindowCheckBox");
-//   // $toggleEditorWindowCheckBox = `substitute "||" $toggleEditorWindowCheckBox "|"`;
-//   // print("toggleEditorWindowCheckBox:" + $toggleEditorWindowCheckBox + "\n");
-//   // string $isChecked = qInt("iconTextCheckBox", "-v", $toggleEditorWindowCheckBox);
-//   // string $isChecked = `iconTextCheckBox -q -v $toggleEditorWindowCheckBox`;
-//   // string $isChecked = `eval "iconTextCheckBox" "-q" "-v" $toggleEditorWindowCheckBox`;
-//   // print("isChecked:" + $isChecked + "\n");
-//   setEditorWindowVisibility(
-//     qInt("iconTextCheckBox", "-v", $toggleEditorWindowCheckBox)
-//   );
-//   // setEditorWindowVisibility(`iconTextCheckBox -q -v $toggleEditorWindowCheckBox`);
-// }
-
-// /*-
-// @returns <>
-// */
-// proc selectTimeNodeButtonPressed() {
-//   print("selectTimeNodeButtonPressed\n"); // debug
-//   string $timeNodes[];
-//   string $timeNode = getTimeNode();
-//   if (`objExists $timeNode`) {
-//     $timeNodes[`size $timeNodes`] = $timeNode;
-//   }
-//   select -r $timeNode;
-// }
-
-// /*-
-// @returns <>
-// */
-// proc selectBdnNodesFromDynamicsJointsButtonPressed() {
-//   print("selectBdnNodesFromDynamicsJointsButtonPressed\n"); // debug
-// }
-
-// /*-
-// @returns <>
-// */
-// proc selectTargetJointsFromDynamicsJointsButtonPressed() {
-//   print("selectTargetJointsFromDynamicsJointsButtonPressed\n"); // debug
-// }
-
-// /*-
-// @returns <>
-// */
-// proc controlNodeTextPressed() {
-//   // print("controlNodeTextPressed\n"); // debug
-//   string $controlNodeText = getUIControl("nkBdnEditorWindow", "controlNodeText");
-//   eString("textFieldButtonGrp", "-tx", nodesAsCSV({"transform"}, true, true, "", false), $controlNodeText);
-// }
-
-// /*-
-// @returns <>
-// */
-// proc generateTargetButtonPressed() {
-//   print("generateTargetButtonPressed\n"); // debug
-//   // string $controlNodeText = getUIControl("nkBdnEditorWindow", "controlNodeText");
-//   // string $generateTargetJointCheckBox = getUIControl("nkBdnEditorWindow", "generateTargetJointCheckBox");
-//   // string $generateEndJointCheckBox = getUIControl("nkBdnEditorWindow", "generateEndJointCheckBox");
-//   // string $dynamicsUnitEndJointOffsetField = getUIControl("nkBdnEditorWindow", "dynamicsUnitEndJointOffsetField");
-//   string $dynamicsUnitBranchAimVectorRadioButton = getUIControl("nkBdnEditorWindow", "dynamicsUnitBranchAimVectorRadioButton");
-//   string $dynamicsUnitBranchUpVectorRadioButton = getUIControl("nkBdnEditorWindow", "dynamicsUnitBranchUpVectorRadioButton");
-//   string $dynamicsUnitBranchInvertAimVectorCheckBox = getUIControl("nkBdnEditorWindow", "dynamicsUnitBranchInvertAimVectorCheckBox");
-//   // string $generateRadiusSphereCheckBox = getUIControl("nkBdnEditorWindow", "generateRadiusSphereCheckBox");
-
-//   string $bdnBaseName = getBdnBaseName();
-//   // string $sourceNodes[] = csvAsNodes(qString("textFieldButtonGrp", "-tx", $controlNodeText));
-//   string $sourceNodes[] = gatherNodes({"transform"}, false, true, "");
-//   // int $generateTargetJoint = qInt("checkBox", "-v", $generateTargetJointCheckBox);
-//   // int $generateEndJoint = qInt("checkBox", "-v", $generateEndJointCheckBox);
-//   int $branchAimVectorIndex = qIndex("radioButtonGrp", "-sl", $dynamicsUnitBranchAimVectorRadioButton);
-//   int $branchUpVectorIndex = qIndex("radioButtonGrp", "-sl", $dynamicsUnitBranchUpVectorRadioButton);
-//   int $branchInvertAimVector = qInt("checkBox", "-v", $dynamicsUnitBranchInvertAimVectorCheckBox);
-//   // float $endJointOffset[] = qFloatArray("floatFieldGrp", "-v", $dynamicsUnitEndJointOffsetField);
-//   // int $generateRadiusSphere = qInt("checkBox", "-v", $generateRadiusSphereCheckBox);
-
-//   float $branchAimVector[] = {0.0, 0.0, 0.0};
-//   float $branchUpVector[] = {0.0, 0.0, 0.0};
-//   $branchAimVector[$branchAimVectorIndex] = ($branchInvertAimVector) ? -1.0 : 1.0;
-//   $branchUpVector[$branchUpVectorIndex] = 1.0;
-
-//   string $targetNodes[] = generateTarget(
-//     $bdnBaseName,
-//     $sourceNodes,
-//     // $generateTargetJoint,
-//     // $generateEndJoint,
-//     $branchAimVector,
-//     $branchUpVector
-//     // $endJointOffset,
-//     // $generateRadiusSphere
-//   );
-//   print("  targetNodes:{\n    " + stringArrayToString($targetNodes, ",\n    ") + "\n  }\n"); // debug
-//   select -r $targetNodes;
-// }
-
-// /*-
-// @returns <>
-// */
-// proc reparentIdtButtonPressed() {
-//   print("reparentIdtButtonPressed\n"); // debug
-// }
-
-// /*-
-// @returns <>
-// */
-// proc saveColliderSetButtonPressed() {
-//   print("saveColliderSetButtonPressed\n"); // debug
-// }
-
-// /*-
-// @returns <>
-// */
-// proc loadColliderSetButtonPressed() {
-//   print("loadColliderSetButtonPressed\n"); // debug
-// }
-
-// /*-
-// @returns <>
-// */
-// proc bdnNodeTextPressed() {
-//   print("bdnNodeTextPressed\n"); // debug
-//   if (!isBdnPluginLoaded()) return;
-
-//   string $bdnNodeText = getUIControl("nkBdnEditorWindow", "bdnNodeText");
-//   eString("textFieldButtonGrp", "-tx", nodesAsCSV({"boneDynamicsNode"}, true, true, "", false), $bdnNodeText);
-// }
-
-// /*-
-// @returns <>
-// */
-// proc appendColliderToBdnButtonPressed() {
-//   print("appendColliderToBdnButtonPressed\n"); // debug
-//   string $bdnNodeText = getUIControl("nkBdnEditorWindow", "bdnNodeText");
-
-//   appendCollider(
-//     gatherColliderNodes(true),
-//     csvAsNodes(qString("textFieldButtonGrp", "-tx", $bdnNodeText))
-//   );
-// }
-
-// /*-
-// @returns <>
-// */
-// proc removeColliderFromBdnButtonPressed() {
-//   print("removeColliderFromBdnButtonPressed\n"); // debug
-//   string $bdnNodeText = getUIControl("nkBdnEditorWindow", "bdnNodeText");
-
-//   removeCollider(
-//     gatherColliderNodes(true),
-//     csvAsNodes(qString("textFieldButtonGrp", "-tx", $bdnNodeText))
-//   );
-// }
-
 // -----------------------------------------------------------------------------
 // ウィンドウ定義
 // -----------------------------------------------------------------------------
 /*-
 @returns <>
 */
-// proc buildEditorWindow() {
-//   print("buildEditorWindow\n"); // debug
-//   windowClose("nkBdnEditorEditorWindow");
 proc buildMainWindow() {
   // print("buildMainWindow\n"); // debug
   windowClose("nkBdnEditorWindow");
 
-  // string $nkBdnEditorEditorWindow = `window
-  //     -mxb false
-  //     -mnb false
-  //     -p (getUIControl("nkBdnEditorWindow", "nkBdnEditorWindow"))
-  //     -s true
-  //     -t "Editor - nkBdnEditor"
-  //     "nkBdnEditorEditorWindow"`;
   string $nkBdnEditorWindow = `window
-      // -dc "topLeft" "left"
-      // -ds
-      // -nde false
       -mxb false
       -mnb false
       -s true
@@ -6166,9 +5396,6 @@ proc buildMainWindow() {
               -l "Reset Window"
               "resetWindowMenuItem"`;
           menuItem -d true;
-          // string $closeMenuItem = `menuItem
-          //     -l "Close"
-          //     "closeMenuItem"`;
           string $quitMenuItem = `menuItem
               -l "Quit"
               "quitMenuItem"`;
@@ -6194,32 +5421,6 @@ proc buildMainWindow() {
           "outerPane"`;
 
         string $bdnForm = `formLayout "bdnForm"`;
-          // string $bdnGeneralFrame = `frameLayout -bgs true -cll false -cl false -l "General" -mh 4 -mw 8 "bdnGeneralFrame"`;
-          //   string $bdnGeneralColumn = `columnLayout -adj true -cat "both" 0 -rs 4 "bdnGeneralColumn"`;
-          //     // string $bdnBaseNameText = `textFieldGrp
-          //     //     -adj 2
-          //     //     -cat 2 "right" -5
-          //     //     -cw2 90 10
-          //     //     -l "BDN BaseName"
-          //     //     -tx ""
-          //     //     "bdnBaseNameText"`;
-          //     string $bdnPluginRow = `rowLayout
-          //         -adj 2
-          //         -cw2 90 10
-          //         -cat 1 "both" 0
-          //         -cat 2 "both" 0
-          //         -nc 2
-          //         "bdnPluginRow"`;
-          //       text -al "right" -l "Plug-in";
-          //       string $bdnPluginForm = `formLayout "bdnPluginForm"`;
-          //         string $bdnPluginLoadButton = `button -l "Load" "bdnPluginLoadButton"`;
-          //         string $bdnPluginUnloadButton = `button -l "Unload" "bdnPluginUnloadButton"`;
-          //       setParent ..;
-          //     setParent ..;
-          //     string $deleteAllButton = `button -l "Delete All" "deleteAllButton"`;
-          //   setParent ..;
-          // setParent ..;
-
           string $bdnListFrame = `frameLayout -bgs true -cll false -cl false -l "BoneDynamicsNode List" -mh 4 -mw 8 "bdnListFrame"`;
             string $bdnListPane = `paneLayout
                 -cn "horizontal2"
@@ -6228,7 +5429,6 @@ proc buildMainWindow() {
                 "bdnListPane"`;
 
               string $bdnListForm = `formLayout "bdnListForm"`;
-                // string $bdnNodeLabel = `text -al "left" -l "BoneDynamicsNode" "bdnNodeLabel"`;
                 string $bdnListToolRow = `rowLayout -adj 1 -nc 2 "bdnListToolRow"`;
                   separator -st "none" -vis false;
                   string $selectBdnNodesButton = `iconTextButton
@@ -6238,7 +5438,6 @@ proc buildMainWindow() {
                       "selectBdnNodesButton"`;
                 setParent ..;
                 string $bdnNodeList = `textScrollList -ams true -ekf false "bdnNodeList"`;
-                // string $selectBdnNodesButton = `button -l "Select Objects" "selectBdnNodesButton"`;
                 string $substituteBdnNodesButton = `button -ann "Substitute all boneDynamicsNodes with alternative nodes to remove dependence on plug-ins" -l "Substitute" "substituteBdnNodesButton"`;
                 string $restoreBdnNodesButton = `button -ann "Restore all alternative nodes to boneDynamicsNode" -l "Restore" "restoreBdnNodesButton"`;
               setParent ..;
@@ -6411,10 +5610,6 @@ proc buildMainWindow() {
                           -v1 1
                           "bdnAdditionalForceScaleField"`;
                       separator -h 2 -nbg false -st "none";
-                      // string $bdnEnableTurbulenceCheckBox = `checkBox
-                      //     -l "Enable Turbulence"
-                      //     -v false
-                      //     "bdnEnableTurbulenceCheckBox"`;
                       string $bdnEnableTurbulenceCheckBox = `checkBoxGrp
                           -adj 2
                           -cw2 170 50
@@ -6460,10 +5655,6 @@ proc buildMainWindow() {
                           -v1 0.1
                           "bdnTurbulenceVectorChangeMaxField"`;
                       separator -h 2 -nbg false -st "none";
-                      // string $bdnEnableAngleLimitCheckBox = `checkBox
-                      //     -l "Enable Angle Limit"
-                      //     -v false
-                      //     "bdnEnableAngleLimitCheckBox"`;
                       string $bdnEnableAngleLimitCheckBox = `checkBoxGrp
                           -adj 2
                           -cw2 170 50
@@ -6497,14 +5688,8 @@ proc buildMainWindow() {
                           -cw2 170 50
                           -l "Iterations"
                           -nf 1
-                          // -pre 3
-                          // -tze false
                           -v1 5
                           "bdnIterationsField"`;
-                      // string $bdnEnableGroundColCheckBox = `checkBox
-                      //     -l "Enable Ground Col"
-                      //     -v false
-                      //     "bdnEnableGroundColCheckBox"`;
                       string $bdnEnableGroundColCheckBox = `checkBoxGrp
                           -adj 2
                           -cw2 170 50
@@ -6563,10 +5748,6 @@ proc buildMainWindow() {
                         -nrb 3
                         -sl 2
                         "dynamicsUnitBranchUpVectorRadioButton"`;
-                    // string $dynamicsUnitBranchInvertAimVectorCheckBox = `checkBox
-                    //     -l "Invert Aim Vector"
-                    //     -v false
-                    //     "dynamicsUnitBranchInvertAimVectorCheckBox"`;
                     string $dynamicsUnitBranchInvertAimVectorCheckBox = `checkBoxGrp
                         -adj 2
                         -cw2 90 50
@@ -6592,7 +5773,7 @@ proc buildMainWindow() {
 
               string $dynamicsUnitListFrame = `frameLayout -bgs true -cll false -cl false -l "Joint List" -mh 4 -mw 8 "dynamicsUnitListFrame"`;
                 string $dynamicsUnitListForm = `formLayout "dynamicsUnitListForm"`;
-                // string $proxyForm = `formLayout "proxyForm"`;
+
                   string $proxyNodeListToolRow = `rowLayout -adj 2 -nc 5 "proxyNodeListToolRow"`;
                     string $proxyNodeListLabel = `text -al "left" -l "Proxy" "proxyNodeListLabel"`;
                     separator -st "none" -vis false;
@@ -6613,10 +5794,7 @@ proc buildMainWindow() {
                         "selectProxyNodesButton"`;
                   setParent ..;
                   string $proxyNodeList = `textScrollList -ams true -ekf false "proxyNodeList"`;
-                  // string $selectProxyNodesButton = `button -l "Select Objects" "selectProxyNodesButton"`;
-                // setParent ..;
 
-                // string $targetForm = `formLayout "targetForm"`;
                   string $targetNodeListToolRow = `rowLayout -adj 2 -nc 5 "targetNodeListToolRow"`;
                     string $targetNodeListLabel = `text -al "left" -l "Target" "targetNodeListLabel"`;
                     separator -st "none" -vis false;
@@ -6637,8 +5815,7 @@ proc buildMainWindow() {
                         "selectTargetNodesButton"`;
                   setParent ..;
                   string $targetNodeList = `textScrollList -ams true -ekf false "targetNodeList"`;
-                  // string $selectTargetNodesButton = `button -l "Select Objects" "selectTargetNodesButton"`;
-                // setParent ..;
+
                 setParent ..;
               setParent ..;
             setParent ..;
@@ -6684,7 +5861,6 @@ proc buildMainWindow() {
                     setParent ..;
                     string $influencedColliderNodeList = `textScrollList -ams true -ekf false "influencedColliderNodeList"`;
                     string $removeColliderButton = `button -l "Remove >" "removeColliderButton"`;
-                    // string $selectInfluencedColliderNodesButton = `button -l "Select Objects" "selectInfluencedColliderNodesButton"`;
 
                     string $allColliderNodeListToolRow = `rowLayout -adj 2 -nc 8 "allColliderNodeListToolRow"`;
                       string $allColliderNodeLabel = `text -al "left" -l "All" "allColliderNodeLabel"`;
@@ -6718,7 +5894,6 @@ proc buildMainWindow() {
                     setParent ..;
                     string $allColliderNodeList = `textScrollList -ams true -ekf false "allColliderNodeList"`;
                     string $appendColliderButton = `button -l "< Append" "appendColliderButton"`;
-                    // string $selectAllColliderNodesButton = `button -l "Select Objects" "selectAllColliderNodesButton"`;
                   setParent ..;
 
                   string $colliderAttributeForm = `formLayout "colliderAttributeForm"`;
@@ -6885,6 +6060,7 @@ proc buildMainWindow() {
                       setParent ..;
                     setParent ..;
                   setParent ..;
+
                 setParent ..;
               setParent ..;
             setParent ..;
@@ -6892,7 +6068,6 @@ proc buildMainWindow() {
             string $meshForm = `formLayout "meshForm"`;
               string $meshListFrame = `frameLayout -bgs true -cll false -cl false -l "Mesh List" -mh 4 -mw 8 "meshListFrame"`;
                 string $meshListForm = `formLayout "meshListForm"`;
-                  // string $meshNodeLabel = `text -al "left" -l "Mesh Node" "meshNodeLabel"`;
                   string $meshNodeListToolRow = `rowLayout -adj 1 -nc 4 "meshNodeListToolRow"`;
                     separator -st "none" -vis false;
                     string $showMeshNodesButton = `iconTextButton
@@ -6914,7 +6089,6 @@ proc buildMainWindow() {
                   string $meshNodeList = `textScrollList -ams true -ekf false "meshNodeList"`;
                   string $appendMeshNodesButton = `button -l "Append" "appendMeshNodesButton"`;
                   string $removeMeshNodesButton = `button -l "Remove" "removeMeshNodesButton"`;
-                  // string $selectMeshNodesButton = `button -l "Select Objects" "selectMeshNodesButton"`;
                 setParent ..;
               setParent ..;
             setParent ..;
@@ -6922,7 +6096,6 @@ proc buildMainWindow() {
             string $forceForm = `formLayout "forceForm"`;
               string $forceListFrame = `frameLayout -bgs true -cll false -cl false -l "Force List" -mh 4 -mw 8 "forceListFrame"`;
                 string $forceListForm = `formLayout "forceListForm"`;
-                  // string $forceNodeLabel = `text -al "left" -l "Force Node" "forceNodeLabel"`;
                   string $forceNodeListToolRow = `rowLayout -adj 1 -nc 4 "forceNodeListToolRow"`;
                     separator -st "none" -vis false;
                     string $showForceNodesButton = `iconTextButton
@@ -6944,8 +6117,6 @@ proc buildMainWindow() {
                   string $forceNodeList = `textScrollList -ams true -ekf false "forceNodeList"`;
                   string $connectForceNodeButton = `button -l "Connect" "connectForceNodeButton"`;
                   string $disconnectForceNodeButton = `button -l "Disconnect" "disconnectForceNodeButton"`;
-                  // string $selectForceNodesButton = `button -l "Select Objects" "selectForceNodesButton"`;
-
                   string $forceFrame = `frameLayout -bgs false -cll false -cl false -l "Force" -nbg true "forceFrame"`;
                     string $forceColumn = `columnLayout -adj true -rs 4 "forceColumn"`;
                       string $forceVectorRadioButton = `radioButtonGrp
@@ -7000,7 +6171,6 @@ proc buildMainWindow() {
             string $bakeForm = `formLayout "bakeForm"`;
               string $bakeListFrame = `frameLayout -bgs true -cll false -cl false -l "Bind List" -mh 4 -mw 8 "bakeListFrame"`;
                 string $bakeListForm = `formLayout "bakeListForm"`;
-                  // string $bindNodeLabel = `text -al "left" -l "Bind Node" "bindNodeLabel"`;
                   string $bindNodeListToolRow = `rowLayout -adj 1 -nc 4 "bindNodeListToolRow"`;
                     separator -st "none" -vis false;
                     string $showBindNodesButton = `iconTextButton
@@ -7020,7 +6190,6 @@ proc buildMainWindow() {
                         "selectBindNodesButton"`;
                   setParent ..;
                   string $bindNodeList = `textScrollList -ams true -ekf false "bindNodeList"`;
-                  // string $selectBindNodesButton = `button -l "Select Objects" "selectBindNodesButton"`;
 
                   string $bakeFrame = `frameLayout -bgs false -cll false -cl false -l "Bake" -nbg true "bakeFrame"`;
                     string $bakeColumn = `columnLayout -adj true -rs 4 "bakeColumn"`;
@@ -7044,21 +6213,16 @@ proc buildMainWindow() {
                       string $rebindButton = `button -ann "Delete all keys and reconnect" -l "Rebind" "rebindButton"`;
                     setParent ..;
                   setParent ..;
+
                 setParent ..;
               setParent ..;
             setParent ..;
+
           setParent ..;
         setParent ..;
 
       setParent ..;
     setParent ..;
-
-  // dockControl
-  //   -aa "left" -aa "right"
-  //   -a "right"
-  //   -content $nkBdnEditorEditorWindow
-  //   -ds (getUIControl("nkBdnEditorWindow", "nkBdnEditorWindow"))
-  //   -fl false;
 
   tabLayout -e -tli 1 "Dynamics Unit" $bdnRelatedNodeTab;
   tabLayout -e -tli 2 "Collider" $bdnRelatedNodeTab;
@@ -7079,35 +6243,16 @@ proc buildMainWindow() {
       $outerForm;
 
   formLayout -e
-      // -af $bdnGeneralFrame "top" 0
-      // -af $bdnGeneralFrame "left" 0
-      // -af $bdnGeneralFrame "right" 0
-      // -ac $bdnListFrame "top" 2 $bdnGeneralFrame
       -af $bdnListFrame "top" 0
       -af $bdnListFrame "left" 0
       -af $bdnListFrame "right" 0
       -af $bdnListFrame "bottom" 0
       $bdnForm;
 
-  // formLayout -e
-  //     -af $bdnPluginLoadButton "top" 0
-  //     -af $bdnPluginLoadButton "left" 0
-  //     -ap $bdnPluginLoadButton "right" 2 50
-  //     -af $bdnPluginUnloadButton "top" 0
-  //     -ap $bdnPluginUnloadButton "left" 2 50
-  //     -af $bdnPluginUnloadButton "right" 0
-  //     $bdnPluginForm;
-
   formLayout -e
-      // -af $bdnNodeLabel "top" 0
-      // -af $bdnNodeLabel "left" 0
-      // -af $bdnNodeLabel "right" 0
       -af $bdnListToolRow "top" 0
       -af $bdnListToolRow "left" 0
       -af $bdnListToolRow "right" 0
-      // -af $selectBdnNodesButton "left" 0
-      // -af $selectBdnNodesButton "right" 0
-      // -af $selectBdnNodesButton "bottom" 2
       -af $substituteBdnNodesButton "left" 0
       -ap $substituteBdnNodesButton "right" 2 50
       -af $substituteBdnNodesButton "bottom" 4
@@ -7145,12 +6290,6 @@ proc buildMainWindow() {
       $dynamicsUnitForm;
 
   formLayout -e
-      // -af $proxyNodeListLabel "top" 0
-      // -af $proxyNodeListLabel "left" 0
-      // -ap $proxyNodeListLabel "right" 2 50
-      // -af $selectProxyNodesButton "left" 0
-      // -ap $selectProxyNodesButton "right" 2 50
-      // -af $selectProxyNodesButton "bottom" 0
       -af $proxyNodeListToolRow "top" 0
       -af $proxyNodeListToolRow "left" 0
       -ap $proxyNodeListToolRow "right" 2 50
@@ -7159,12 +6298,6 @@ proc buildMainWindow() {
       -ap $proxyNodeList "right" 2 50
       -af $proxyNodeList "bottom" 0
 
-      // -af $targetNodeListLabel "top" 0
-      // -ap $targetNodeListLabel "left" 2 50
-      // -af $targetNodeListLabel "right" 0
-      // -ap $selectTargetNodesButton "left" 2 50
-      // -af $selectTargetNodesButton "right" 0
-      // -af $selectTargetNodesButton "bottom" 0
       -af $targetNodeListToolRow "top" 0
       -ap $targetNodeListToolRow "left" 2 50
       -af $targetNodeListToolRow "right" 0
@@ -7188,15 +6321,9 @@ proc buildMainWindow() {
       -af $influencedColliderNodeListToolRow "top" 0
       -af $influencedColliderNodeListToolRow "left" 0
       -ap $influencedColliderNodeListToolRow "right" 2 50
-      // -af $influencedColliderNodeLabel "top" 0
-      // -af $influencedColliderNodeLabel "left" 0
-      // -ap $influencedColliderNodeLabel "right" 2 50
       -af $removeColliderButton "left" 0
       -ap $removeColliderButton "right" 2 50
       -af $removeColliderButton "bottom" 4
-      // -af $selectInfluencedColliderNodesButton "left" 0
-      // -ap $selectInfluencedColliderNodesButton "right" 2 50
-      // -af $selectInfluencedColliderNodesButton "bottom" 2
       -ac $influencedColliderNodeList "top" 0 $influencedColliderNodeListToolRow
       -af $influencedColliderNodeList "left" 0
       -ap $influencedColliderNodeList "right" 2 50
@@ -7205,15 +6332,9 @@ proc buildMainWindow() {
       -af $allColliderNodeListToolRow "top" 0
       -ap $allColliderNodeListToolRow "left" 2 50
       -af $allColliderNodeListToolRow "right" 0
-      // -af $allColliderNodeLabel "top" 0
-      // -ap $allColliderNodeLabel "left" 2 50
-      // -af $allColliderNodeLabel "right" 0
       -ap $appendColliderButton "left" 2 50
       -af $appendColliderButton "right" 0
       -af $appendColliderButton "bottom" 4
-      // -ap $selectAllColliderNodesButton "left" 2 50
-      // -af $selectAllColliderNodesButton "right" 0
-      // -af $selectAllColliderNodesButton "bottom" 2
       -ac $allColliderNodeList "top" 0 $allColliderNodeListToolRow
       -ap $allColliderNodeList "left" 2 50
       -af $allColliderNodeList "right" 0
@@ -7238,12 +6359,6 @@ proc buildMainWindow() {
       -af $meshNodeListToolRow "top" 0
       -af $meshNodeListToolRow "left" 0
       -af $meshNodeListToolRow "right" 0
-      // -af $meshNodeLabel "top" 0
-      // -af $meshNodeLabel "left" 0
-      // -af $meshNodeLabel "right" 0
-      // -af $selectMeshNodesButton "left" 0
-      // -af $selectMeshNodesButton "right" 0
-      // -af $selectMeshNodesButton "bottom" 0
       -af $appendMeshNodesButton "left" 0
       -ap $appendMeshNodesButton "right" 2 50
       -af $appendMeshNodesButton "bottom" 0
@@ -7271,12 +6386,6 @@ proc buildMainWindow() {
       -af $forceNodeListToolRow "top" 0
       -af $forceNodeListToolRow "left" 0
       -af $forceNodeListToolRow "right" 0
-      // -af $forceNodeLabel "top" 0
-      // -af $forceNodeLabel "left" 0
-      // -af $forceNodeLabel "right" 0
-      // -af $selectForceNodesButton "left" 0
-      // -af $selectForceNodesButton "right" 0
-      // -af $selectForceNodesButton "bottom" 0
       -af $connectForceNodeButton "left" 0
       -ap $connectForceNodeButton "right" 2 50
       -ac $connectForceNodeButton "bottom" 4 $forceFrame
@@ -7327,12 +6436,6 @@ proc buildMainWindow() {
       -af $bindNodeListToolRow "top" 0
       -af $bindNodeListToolRow "left" 0
       -af $bindNodeListToolRow "right" 0
-      // -af $bindNodeLabel "top" 0
-      // -af $bindNodeLabel "left" 0
-      // -af $bindNodeLabel "right" 0
-      // -af $selectBindNodesButton "left" 0
-      // -af $selectBindNodesButton "right" 0
-      // -ac $selectBindNodesButton "bottom" 4 $bakeFrame
       -ac $bindNodeList "top" 0 $bindNodeListToolRow
       -af $bindNodeList "left" 0
       -af $bindNodeList "right" 0
@@ -7341,19 +6444,13 @@ proc buildMainWindow() {
 
   window -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"nkBdnEditorWindow\");" $nkBdnEditorWindow;
   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"resetWindowMenuItem\");" $resetWindowMenuItem;
-  // menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"closeMenuItem\");" $closeMenuItem;
   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"quitMenuItem\");" $quitMenuItem;
   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"refreshMenuItem\");" $refreshMenuItem;
   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"aboutMenuItem\");" $aboutMenuItem;
 
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnPluginLoadButton\");" $bdnPluginLoadButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnPluginUnloadButton\");" $bdnPluginUnloadButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"deleteAllButton\");" $deleteAllButton;
-
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBdnNodesButton\");" $selectBdnNodesButton;
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"bdnNodeList\");" $bdnNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"bdnNodeList\");" $bdnNodeList;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBdnNodesButton\");" $selectBdnNodesButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"substituteBdnNodesButton\");" $substituteBdnNodesButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"restoreBdnNodesButton\");" $restoreBdnNodesButton;
 
@@ -7400,14 +6497,12 @@ proc buildMainWindow() {
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectProxyNodesButton\");" $selectProxyNodesButton;
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"proxyNodeList\");" $proxyNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"proxyNodeList\");" $proxyNodeList;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectProxyNodesButton\");" $selectProxyNodesButton;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"showTargetNodesButton\");" $showTargetNodesButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"hideTargetNodesButton\");" $hideTargetNodesButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectTargetNodesButton\");" $selectTargetNodesButton;
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"targetNodeList\");" $targetNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"targetNodeList\");" $targetNodeList;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectTargetNodesButton\");" $selectTargetNodesButton;
 
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"createColliderCapsuleButton\");" $createColliderCapsuleButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"createColliderInfinitePlaneButton\");" $createColliderInfinitePlaneButton;
@@ -7419,7 +6514,6 @@ proc buildMainWindow() {
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"influencedColliderNodeList\");" $influencedColliderNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"influencedColliderNodeList\");" $influencedColliderNodeList;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"removeColliderButton\");" $removeColliderButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectInfluencedColliderNodesButton\");" $selectInfluencedColliderNodesButton;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"allColliderExportButton\");" $allColliderExportButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"allColliderImportButton\");" $allColliderImportButton;
@@ -7429,7 +6523,6 @@ proc buildMainWindow() {
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"allColliderNodeList\");" $allColliderNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"allColliderNodeList\");" $allColliderNodeList;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"appendColliderButton\");" $appendColliderButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectAllColliderNodesButton\");" $selectAllColliderNodesButton;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"capsuleColliderInitializeButton\");" $capsuleColliderInitializeButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"capsuleColliderCopyButton\");" $capsuleColliderCopyButton;
@@ -7465,7 +6558,6 @@ proc buildMainWindow() {
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"meshNodeList\");" $meshNodeList;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"appendMeshNodesButton\");" $appendMeshNodesButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"removeMeshNodesButton\");" $removeMeshNodesButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectMeshNodesButton\");" $selectMeshNodesButton;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"showForceNodesButton\");" $showForceNodesButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"hideForceNodesButton\");" $hideForceNodesButton;
@@ -7474,7 +6566,6 @@ proc buildMainWindow() {
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"forceNodeList\");" $forceNodeList;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"connectForceNodeButton\");" $connectForceNodeButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"disconnectForceNodeButton\");" $disconnectForceNodeButton;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectForceNodesButton\");" $selectForceNodesButton;
   radioButtonGrp -e -onc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"onc\", \"forceVectorRadioButton\");" $forceVectorRadioButton;
   checkBoxGrp -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"invertForceVectorCheckBox\");" $invertForceVectorCheckBox;
 
@@ -7491,14 +6582,11 @@ proc buildMainWindow() {
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBindNodesButton\");" $selectBindNodesButton;
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"bindNodeList\");" $bindNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"bindNodeList\");" $bindNodeList;
-  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBindNodesButton\");" $selectBindNodesButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bakeButton\");" $bakeButton;
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"rebindButton\");" $rebindButton;
 
   appendUIControls({
-    // $nkBdnEditorEditorWindow,
     $nkBdnEditorWindow,
-    // $bdnBaseNameText,
 
     $bdnNodeList,
     $bdnEnableCheckBox,
@@ -7569,394 +6657,10 @@ proc buildMainWindow() {
 
   loadBdnPlugin();
   subscribeMainWindowObservers();
-  // initializeEditorParameters();
   updateBdnNodeList();
-  // showWindow $nkBdnEditorEditorWindow;
-  // setFocus $nkBdnEditorEditorWindow;
   showWindow $nkBdnEditorWindow;
   setFocus $nkBdnEditorWindow;
 }
-
-/*-
-@returns <>
-*/
-// proc buildMainWindow() {
-//   print("buildMainWindow\n"); // debug
-//   windowClose("nkBdnEditorWindow");
-
-//   // if (`uiTemplate -ex "nkBdnEditorTemplateNarrow"`) deleteUI -uit "nkBdnEditorTemplateNarrow";
-//   // if (`uiTemplate -ex "nkBdnEditorTemplateFrameList"`) deleteUI -uit "nkBdnEditorTemplateFrameList";
-//   // if (`uiTemplate -ex "nkBdnEditorTemplateSubFrame"`) deleteUI -uit "nkBdnEditorTemplateSubFrame";
-//   // if (`uiTemplate -ex "nkBdnEditorTemplateFlat"`) deleteUI -uit "nkBdnEditorTemplateFlat";
-//   // uiTemplate "nkBdnEditorTemplateNarrow";
-//   // uiTemplate "nkBdnEditorTemplateFrameList";
-//   // uiTemplate "nkBdnEditorTemplateSubFrame";
-//   // uiTemplate "nkBdnEditorTemplateFlat";
-//   // columnLayout -dt "nkBdnEditorTemplateNarrow" -adj true -rs 0;
-//   // frameLayout -dt "nkBdnEditorTemplateFrameList" -bgs true -cll true -cl true -mh 0 -mw 4;
-//   // columnLayout -dt "nkBdnEditorTemplateFrameList" -adj true -rs 0;
-//   // frameLayout -dt "nkBdnEditorTemplateSubFrame" -bgs true -cll true -cl true -mh 4 -mw 0;
-//   // columnLayout -dt "nkBdnEditorTemplateSubFrame" -adj true -rs 4;
-//   // frameLayout -dt "nkBdnEditorTemplateFlat" -bgs true -cll true -cl true -mh 4 -mw 4;
-//   // columnLayout -dt "nkBdnEditorTemplateFlat" -adj true -rs 4;
-
-//   string $nkBdnEditorWindow = `window
-//       // -dc "topLeft" "left"
-//       // -ds
-//       // -nde false
-//       -mxb false
-//       -mnb false
-//       -s false
-//       -t "nkBdnEditor"
-//       "nkBdnEditorWindow"`;
-//     string $outerForm = `formLayout "outerForm"`;
-//       string $menuBar = `menuBarLayout
-//           // -bgc 0.25 0.5 0.25
-//           "menuBar"`;
-//         string $fileMenu = `menu
-//             -l "File"
-//             "fileMenu"`;
-//           string $resetWindowMenuItem = `menuItem
-//               -l "Reset Window"
-//               "resetWindowMenuItem"`;
-//           menuItem -d true;
-//           string $quitMenuItem = `menuItem
-//               -l "Quit"
-//               "quitMenuItem"`;
-//         string $helpMenu = `menu
-//             -hm true
-//             -l "Help"
-//             "helpMenu"`;
-//           string $aboutMenuItem = `menuItem
-//               -l "About nkBdnEditor"
-//               "aboutMenuItem"`;
-//       setParent ..;
-
-//       string $topToolRow = `rowLayout
-//           -adj 1
-//           // -bgc 0.5 0.25 0.25
-//           -nc 2
-//           "topToolRow"`;
-//         separator -st "none" -vis false;
-//         string $toggleEditorWindowCheckBox = `iconTextCheckBox
-//             -ann "Toggle editor window"
-//             // -bgc 0.36 0.36 0.36
-//             -fla true
-//             -i "passSetRelationEditor.png"
-//             // -l "Connection Editor"
-//             -st "iconOnly"
-//             -v false
-//             // -w 23
-//             "toggleEditorWindowCheckBox"`;
-//       setParent ..;
-
-//       // string $column = `columnLayout -adj true -rs 3 "column"`;
-//       //   string $button = `button -l "Button" "button"`;
-//       // setParent ..;
-
-//       // setUITemplate -pst "nkBdnEditorTemplateNarrow";
-//       // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//       // string $scroll = `scrollLayout -cr true -pe true -vsb true -w 277 "scroll"`;
-//       string $innerForm = `formLayout "innerForm"`;
-//         string $column = `columnLayout -adj true -rs 4 "column"`;
-
-//           // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//           // string $generalFrame = `frameLayout -l "General" -cl false "generalFrame"`;
-//             string $generalColumn = `columnLayout -adj true -cat "both" 0 -rs 4 "generalColumn"`;
-//               string $bdnBaseNameText = `textFieldGrp
-//                   -adj 2
-//                   // -ann "Suffix of BDN root node"
-//                   -cat 2 "right" -5
-//                   -cw2 90 10
-//                   -l "BDN BaseName:"
-//                   -tx ""
-//                   "bdnBaseNameText"`;
-//               // separator;
-//               // string $loadPluginButton = `button
-//               //     -l "Load Plug-in"
-//               //     "loadPluginButton"`;
-//               // string $unloadPluginButton = `button
-//               //     -l "Unload Plug-in"
-//               //     "unloadPluginButton"`;
-//               string $bdnPluginRow = `rowLayout
-//                   -adj 2
-//                   // -ann "Set boneDynamicsNode.mll loading status"
-//                   // -bgc 0 0 0.4
-//                   -cw2 90 10
-//                   -cat 1 "both" 0
-//                   -cat 2 "both" 0
-//                   // -cat 3 "both" 0
-//                   -nc 2
-//                   "bdnPluginRow"`;
-//                 text -al "right" -l "Plug-in:";
-//                 string $bdnPluginForm = `formLayout "bdnPluginForm"`;
-//                   string $bdnPluginLoadButton = `button -l "Load" "bdnPluginLoadButton"`;
-//                   string $bdnPluginUnloadButton = `button -l "Unload" "bdnPluginUnloadButton"`;
-//                 setParent ..;
-//               setParent ..;
-//               // separator;
-//               string $deleteAllButton = `button
-//                   -l "Delete All"
-//                   "deleteAllButton"`;
-//             setParent ..;
-//           // setParent ..;
-
-//           // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//           // string $selectFrame = `frameLayout -l "Select" -cl false "selectFrame"`;
-//           //   string $selectColumn = `columnLayout "selectColumn"`;
-//           //     string $selectTimeNodeButton = `button
-//           //         -l "Time node"
-//           //         "selectTimeNodeButton"`;
-//           //     string $selectBdnNodesFromDynamicsJointsButton = `button
-//           //         -l "BDN nodes from dynamics joints"
-//           //         "selectBdnNodesFromDynamicsJointsButton"`;
-//           //     string $selectTargetJointsFromDynamicsJointsButton = `button
-//           //         -l "Target joints from dynamics joints"
-//           //         "selectTargetJointsFromDynamicsJointsButton"`;
-//           //   setParent ..;
-//           // setParent ..;
-
-//           // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//           string $buildTab = `tabLayout -bs "none" -stb false "buildTab"`;
-
-//           // string $dynamicsUnitFrame = `frameLayout -l "Dynamics Unit" -cl false "dynamicsUnitFrame"`;
-//             string $dynamicsUnitColumn = `columnLayout -adj true -rs 4 "dynamicsUnitColumn"`;
-//               // string $controlNodeText = `textFieldButtonGrp
-//               //     -adj 2
-//               //     -bl "<"
-//               //     -ct3 "both" "both" "both"
-//               //     -cw3 90 10 20
-//               //     -l "Control Nodes:"
-//               //     -tx ""
-//               //     "controlNodeText"`;
-//               // text -al "left" -l "Selected control nodes is the target";
-//               // string $generateTargetJointCheckBox = `checkBox
-//               //     -l "Generate Target Joint"
-//               //     -v false
-//               //     "generateTargetJointCheckBox"`;
-//               // string $generateEndJointCheckBox = `checkBox
-//               //     -l "Generate End Joint"
-//               //     -v false
-//               //     "generateEndJointCheckBox"`;
-//               // string $generateModeRadioButton = `radioButtonGrp
-//               //     -cw3 90 75 75
-//               //     -l "Mode:"
-//               //     -la2 "Hierarchy" "Selection"
-//               //     -nrb 2
-//               //     -sl 1
-//               //     "generateModeRadioButton"`;
-//               // separator;
-//               string $dynamicsUnitBranchColumn = `columnLayout -adj true -rs 4 "dynamicsUnitBranchColumn"`;
-//                 text -al "left" -l "Branch Handling:";
-//                 string $dynamicsUnitBranchAimVectorRadioButton = `radioButtonGrp
-//                     -cw4 90 50 50 50
-//                     -l "Aim Vector:"
-//                     -la3 "X" "Y" "Z"
-//                     -nrb 3
-//                     -sl 1
-//                     "dynamicsUnitBranchAimVectorRadioButton"`;
-//                 string $dynamicsUnitBranchUpVectorRadioButton = `radioButtonGrp
-//                     -cw4 90 50 50 50
-//                     -l "Up Vector:"
-//                     -la3 "X" "Y" "Z"
-//                     -nrb 3
-//                     -sl 2
-//                     "dynamicsUnitBranchUpVectorRadioButton"`;
-//                 string $dynamicsUnitBranchInvertAimVectorCheckBox = `checkBox
-//                     -l "Invert Aim Vector"
-//                     -v false
-//                     "dynamicsUnitBranchInvertAimVectorCheckBox"`;
-//               setParent ..;
-//               separator;
-//               string $dynamicsUnitEndJointOffsetField = `floatFieldGrp
-//                   -adj 0
-//                   -cw4 90 49 49 49
-//                   -l "End Joint Offset:"
-//                   -nf 3
-//                   -pre 3
-//                   -tze true
-//                   -v1 1.0 -v2 0.0 -v3 0.0
-//                   "dynamicsUnitEndJointOffsetField"`;
-//               // string $generateRadiusSphereCheckBox = `checkBox
-//               //     -l "Generate Radius Sphere"
-//               //     -v false
-//               //     "generateRadiusSphereCheckBox"`;
-//               // string $constraintTypeRadioButton = `radioButtonGrp
-//               //     -cw3 90 60 60
-//               //     -l "Constraint Type:"
-//               //     -la2 "Parent" "Orient"
-//               //     -nrb 2
-//               //     -sl 1
-//               //     "constraintTypeRadioButton"`;
-//               string $generateDynamicsUnitButton = `button -l "Generate Dynamics Unit" "generateDynamicsUnitButton"`;
-//               // string $generateTargetButton = `button -l "Generate Target" "generateTargetButton"`;
-//               // separator;
-//               // string $reparentIdtButton = `button -l "Reparent SPC" "reparentIdtButton"`;
-//             setParent ..;
-//           // setParent ..;
-
-//           // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//           // string $colliderFrame = `frameLayout -l "Collider" -cl false "colliderFrame"`;
-//             string $colliderColumn = `columnLayout
-//                 -adj true
-//                 // -ann "If a transform node is selected, it will be created and constrained by the transformation of the selected node. If it is not selected, it will be created at the origin."
-//                 -rs 4
-//                 "colliderColumn"`;
-//               string $createColliderInfinitePlaneButton = `button -l "Infinite Plane" "createColliderInfinitePlaneButton"`;
-//               string $createColliderSphereButton = `button -l "Sphere" "createColliderSphereButton"`;
-//               string $createColliderCapsuleButton = `button -l "Capsule" "createColliderCapsuleButton"`;
-//               // separator;
-//               // string $saveColliderSetButton = `button
-//               //     -l "Save Collider Set"
-//               //     "saveColliderSetButton"`;
-//               // string $loadColliderSetButton = `button
-//               //     -l "Load Collider Set"
-//               //     "loadColliderSetButton"`;
-//               separator;
-//               string $bdnNodeText = `textFieldButtonGrp
-//                   -adj 2
-//                   -bl "<"
-//                   -ct3 "both" "both" "both"
-//                   -cw3 90 10 20
-//                   -l "BDN Nodes:"
-//                   -tx ""
-//                   "bdnNodeText"`;
-//               string $appendColliderToBdnButton = `button
-//                   -l "Append Collider to BDN"
-//                   "appendColliderToBdnButton"`;
-//               string $removeColliderFromBdnButton = `button
-//                   -l "Remove Collider from BDN"
-//                   "removeColliderFromBdnButton"`;
-//             setParent ..;
-//           // setParent ..;
-
-//           // setUITemplate -pst "nkBdnEditorTemplateFlat";
-
-//           // string $bakeFrame = `frameLayout -l "Bake" -cl false "bakeFrame"`;
-//             string $bakeColumn = `columnLayout -adj true -rs 4 "bakeColumn"`;
-//               string $bakeTimeRangeRadioButton = `radioButtonGrp
-//                   -cw3 90 78 78
-//                   -l "Time Range:"
-//                   -la2 "Time Slider" "Start/End"
-//                   -nrb 2
-//                   -sl 1
-//                   "bakeTimeRangeRadioButton"`;
-//               string $bakeStartEndField = `floatFieldGrp
-//                   -adj 0
-//                   -cw3 90 74 74
-//                   -l "Start/End:"
-//                   -nf 2
-//                   -pre 3
-//                   -tze true
-//                   -v1 0.0 -v2 30.0
-//                   "bakeStartEndField"`;
-//               string $bakeButton = `button
-//                   -l "Bake Selected"
-//                   "bakeButton"`;
-//             setParent ..;
-//           // setParent ..;
-
-//         setParent ..;
-//       setParent ..;
-//     setParent ..;
-
-//   // setUITemplate -ppt;
-
-//   tabLayout -e -tli 1 "Dynamics Unit" $buildTab;
-//   tabLayout -e -tli 2 "Collider" $buildTab;
-//   tabLayout -e -tli 3 "Bake" $buildTab;
-
-//   formLayout -e
-//       -af $menuBar "top" 0
-//       -af $menuBar "left" 0
-//       -af $menuBar "right" 0
-//       -ac $topToolRow "top" 0 $menuBar
-//       -af $topToolRow "left" 5
-//       -af $topToolRow "right" 5
-//       // -ac $scroll "top" 0 $topToolRow
-//       // -af $scroll "left" 0
-//       // -af $scroll "right" 0
-//       // -af $scroll "bottom" 0
-//       -ac $innerForm "top" 0 $topToolRow
-//       -af $innerForm "left" 0
-//       -af $innerForm "right" 0
-//       -af $innerForm "bottom" 0
-//       $outerForm;
-
-//   formLayout -e
-//       -af $column "top" 0
-//       -af $column "left" 5
-//       -af $column "right" 5
-//       -af $column "bottom" 0
-//       $innerForm;
-
-//   formLayout -e
-//       -af $bdnPluginLoadButton "top" 0
-//       -af $bdnPluginLoadButton "left" 0
-//       -ap $bdnPluginLoadButton "right" 2 50
-//       -af $bdnPluginUnloadButton "top" 0
-//       -ap $bdnPluginUnloadButton "left" 2 50
-//       -af $bdnPluginUnloadButton "right" 0
-//       $bdnPluginForm;
-
-//   window -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"nkBdnEditorWindow\");" $nkBdnEditorWindow;
-//   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"resetWindowMenuItem\");" $resetWindowMenuItem;
-//   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"quitMenuItem\");" $quitMenuItem;
-//   menuItem -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"aboutMenuItem\");" $aboutMenuItem;
-
-//   iconTextCheckBox -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"toggleEditorWindowCheckBox\");" $toggleEditorWindowCheckBox;
-
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnPluginLoadButton\");" $bdnPluginLoadButton;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnPluginUnloadButton\");" $bdnPluginUnloadButton;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"deleteAllButton\");" $deleteAllButton;
-
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectTimeNodeButton\");" $selectTimeNodeButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBdnNodesFromDynamicsJointsButton\");" $selectBdnNodesFromDynamicsJointsButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectTargetJointsFromDynamicsJointsButton\");" $selectTargetJointsFromDynamicsJointsButton;
-
-//   // textFieldButtonGrp -e -bc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"bc\", \"controlNodeText\");" $controlNodeText;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"generateDynamicsUnitButton\");" $generateDynamicsUnitButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"generateTargetButton\");" $generateTargetButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"reparentIdtButton\");" $reparentIdtButton;
-
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"createColliderInfinitePlaneButton\");" $createColliderInfinitePlaneButton;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"createColliderSphereButton\");" $createColliderSphereButton;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"createColliderCapsuleButton\");" $createColliderCapsuleButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"saveColliderSetButton\");" $saveColliderSetButton;
-//   // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"loadColliderSetButton\");" $loadColliderSetButton;
-//   textFieldButtonGrp -e -bc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"bc\", \"bdnNodeText\");" $bdnNodeText;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"appendColliderToBdnButton\");" $appendColliderToBdnButton;
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"removeColliderFromBdnButton\");" $removeColliderFromBdnButton;
-
-//   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bakeButton\");" $bakeButton;
-
-//   appendUIControls({
-//     $nkBdnEditorWindow,
-//     $toggleEditorWindowCheckBox,
-//     $bdnBaseNameText,
-//     // $controlNodeText,
-//     // $generateTargetJointCheckBox,
-//     // $generateEndJointCheckBox,
-//     $dynamicsUnitBranchAimVectorRadioButton,
-//     $dynamicsUnitBranchUpVectorRadioButton,
-//     $dynamicsUnitBranchInvertAimVectorCheckBox,
-//     $dynamicsUnitEndJointOffsetField,
-//     // $generateRadiusSphereCheckBox,
-//     // $constraintTypeRadioButton,
-//     $bdnNodeText,
-//     $bakeTimeRangeRadioButton,
-//     $bakeStartEndField
-//   });
-
-//   subscribeMainWindowObservers();
-//   showWindow $nkBdnEditorWindow;
-//   setFocus $nkBdnEditorWindow;
-// }
 
 // -----------------------------------------------------------------------------
 // イベントコントローラ
@@ -7977,20 +6681,14 @@ global proc nkBdnEditorEventController(
   // print("  event  :" + $event + "\n"); // debug
   // print("  control:" + $control + "\n"); // debug
   switch ($window) {
-    // case "nkBdnEditorEditorWindow":
     case "nkBdnEditorWindow":
       switch ($event) {
         case "c":
           switch ($control) {
             case "resetWindowMenuItem": resetWindowMenuItemSelected(); break;
-            // case "closeMenuItem": closeMenuItemSelected(); break;
             case "quitMenuItem": quitMenuItemSelected(); break;
             case "refreshMenuItem": refreshMenuItemSelected(); break;
             case "aboutMenuItem": aboutMenuItemSelected(); break;
-
-            // case "bdnPluginLoadButton": bdnPluginLoadButtonPressed(); break;
-            // case "bdnPluginUnloadButton": bdnPluginUnloadButtonPressed(); break;
-            // case "deleteAllButton": deleteAllButtonPressed(); break;
 
             case "selectBdnNodesButton": selectBdnNodesButtonPressed(); break;
             case "substituteBdnNodesButton": substituteBdnNodesButtonPressed(); break;
@@ -8065,7 +6763,6 @@ global proc nkBdnEditorEventController(
           break;
         case "cc":
           switch ($control) {
-            // case "nkBdnEditorEditorWindow": nkBdnEditorEditorWindowClosed(); break;
             case "nkBdnEditorWindow": nkBdnEditorWindowClosed(); break;
             case "bdnRelatedNodeTab": bdnRelatedNodeTabChanged(); break;
 
@@ -8159,55 +6856,6 @@ global proc nkBdnEditorEventController(
         default: break;
       }
       break;
-    // case "nkBdnEditorWindow":
-    //   switch ($event) {
-    //     case "bc":
-    //       switch ($control) {
-    //         // case "controlNodeText": controlNodeTextPressed(); break;
-    //         case "bdnNodeText": bdnNodeTextPressed(); break;
-    //         default: break;
-    //       }
-    //       break;
-    //     case "c":
-    //       switch ($control) {
-    //         case "resetWindowMenuItem": resetWindowMenuItemSelected(); break;
-    //         case "quitMenuItem": quitMenuItemSelected(); break;
-    //         case "aboutMenuItem": aboutMenuItemSelected(); break;
-
-    //         case "bdnPluginLoadButton": bdnPluginLoadButtonPressed(); break;
-    //         case "bdnPluginUnloadButton": bdnPluginUnloadButtonPressed(); break;
-    //         case "deleteAllButton": deleteAllButtonPressed(); break;
-
-    //         // case "selectTimeNodeButton": selectTimeNodeButtonPressed(); break;
-    //         // case "selectBdnNodesFromDynamicsJointsButton": selectBdnNodesFromDynamicsJointsButtonPressed(); break;
-    //         // case "selectTargetJointsFromDynamicsJointsButton": selectTargetJointsFromDynamicsJointsButtonPressed(); break;
-
-    //         case "generateDynamicsUnitButton": generateDynamicsUnitButtonPressed(); break;
-    //         // case "generateTargetButton": generateTargetButtonPressed(); break;
-    //         // case "reparentIdtButton": reparentIdtButtonPressed(); break;
-
-    //         case "createColliderInfinitePlaneButton": createColliderInfinitePlaneButtonPressed(); break;
-    //         case "createColliderSphereButton": createColliderSphereButtonPressed(); break;
-    //         case "createColliderCapsuleButton": createColliderCapsuleButtonPressed(); break;
-    //         // case "saveColliderSetButton": saveColliderSetButtonPressed(); break;
-    //         // case "loadColliderSetButton": loadColliderSetButtonPressed(); break;
-    //         case "appendColliderToBdnButton": appendColliderToBdnButtonPressed(); break;
-    //         case "removeColliderFromBdnButton": removeColliderFromBdnButtonPressed(); break;
-
-    //         case "bakeButton": bakeButtonPressed(); break;
-    //         default: break;
-    //       }
-    //       break;
-    //     case "cc":
-    //       switch ($control) {
-    //         case "nkBdnEditorWindow": nkBdnEditorWindowClosed(); break;
-    //         case "toggleEditorWindowCheckBox": toggleEditorWindowCheckBoxChanged(); break;
-    //         default: break;
-    //       }
-    //       break;
-    //     default: break;
-    //   }
-    //   break;
     default: break;
   }
 }
@@ -8218,23 +6866,6 @@ global proc nkBdnEditorEventController(
 // -----------------------------------------------------------------------------
 // ドメインオブザーバ
 // -----------------------------------------------------------------------------
-// /*-
-// @param $state <boolean>
-// @returns <>
-// */
-// global proc nkBdnEditorEditorWindowVisibilityChanged(string $state) {
-//   print("nkBdnEditorEditorWindowVisibilityChanged\n"); // debug
-//   print("  state:" + $state + "\n"); // debug
-//   if ($state) {
-//     initializeEditorParameters();
-//     buildEditorWindow();
-//   }
-//   else {
-//     closeEditorWindow();
-//   }
-//   updateToggleEditorWindowCheckBox($state);
-// }
-
 /*-
 @returns <>
 */
@@ -8364,7 +6995,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "0.4.0";
+  return "1.0.0";
 }
 
 /*-
@@ -8382,8 +7013,6 @@ global proc nkBdnEditor() {
   buildMainWindow();
   registerEventJob();
 }
-
-// initializeEditorWindowParameters();
 
 /*
 eval ("source \"" + `getenv "MAYA_APP_DIR"` + "/dev/nkBdnEditor/nkBdnEditor.mel\"");
@@ -8592,22 +7221,6 @@ proc test3() {
   string $m2t = "|pTorus1";
   string $m2 = "|pTorus1|pTorusShape1";
 
-  // // initBDNNode
-  // {
-  //   catchQuiet(`loadPlugin "boneDynamicsNode"`);
-  //   testNewScene();
-  //   // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
-
-  //   $n = longNameOf(`createNode -ss "transform"`);
-
-  //   $r = assertStringEqual($n, initBDNNode($n)); if (`size $r`) warning $r;
-  //   $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-  //   $r = assertStringEqual("type=\"bdn\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
-  //   $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
-
-  //   if (`objExists $n`) delete $n;
-  // }
-
   // initGroupNode
   {
     catchQuiet(`loadPlugin "boneDynamicsNode"`);
@@ -8742,12 +7355,6 @@ proc test3() {
     testNewScene();
     // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
 
-    // $n = longNameOf(`createNode -ss "transform"`);
-    // initBDNNode($n);
-    // $r = assertStringEqual("bdn", getBdnType($n)); if (`size $r`) warning $r;
-    // $r = assertTrue(isBdnType($n, "bdn")); if (`size $r`) warning $r;
-    // if (`objExists $n`) delete $n;
-
     $n = longNameOf(`createNode -ss "transform"`);
     initGroupNode($n, "x");
     $r = assertStringEqual("group", getBdnType($n)); if (`size $r`) warning $r;
@@ -8803,12 +7410,6 @@ proc test3() {
     testNewScene();
     // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
 
-    // $n = longNameOf(`createNode -ss "transform"`);
-    // initBDNNode($n);
-    // $r = assertStringEqual("", getGroupType($n)); if (`size $r`) warning $r;
-    // $r = assertFalse(isGroupType($n, "x")); if (`size $r`) warning $r;
-    // if (`objExists $n`) delete $n;
-
     $n = longNameOf(`createNode -ss "transform"`);
     initGroupNode($n, "x");
     $r = assertStringEqual("x", getGroupType($n)); if (`size $r`) warning $r;
@@ -8828,12 +7429,6 @@ proc test3() {
     testNewScene();
     // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
 
-    // $n = longNameOf(`createNode -ss "transform"`);
-    // initBDNNode($n);
-    // $r = assertStringEqual("", getSpaceType($n)); if (`size $r`) warning $r;
-    // $r = assertFalse(isSpaceType($n, "x")); if (`size $r`) warning $r;
-    // if (`objExists $n`) delete $n;
-
     $n = longNameOf(`createNode -ss "transform"`);
     initGroupNode($n, "x");
     $r = assertStringEqual("", getSpaceType($n)); if (`size $r`) warning $r;
@@ -8852,14 +7447,6 @@ proc test3() {
     catchQuiet(`loadPlugin "boneDynamicsNode"`);
     testNewScene();
     // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
-
-    // $n = longNameOf(`createNode -ss "transform"`);
-    // initBDNNode($n);
-    // $r = assertStringEqual("", getJointKind($n)); if (`size $r`) warning $r;
-    // $r = assertFalse(isJointKind($n, "x")); if (`size $r`) warning $r;
-    // $r = assertStringEqual("", getJointType($n)); if (`size $r`) warning $r;
-    // $r = assertFalse(isJointType($n, "y")); if (`size $r`) warning $r;
-    // if (`objExists $n`) delete $n;
 
     $n = longNameOf(`createNode -ss "transform"`);
     initSpaceNode($n, "x");
@@ -8883,12 +7470,6 @@ proc test3() {
     catchQuiet(`loadPlugin "boneDynamicsNode"`);
     testNewScene();
     // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
-
-    // $n = longNameOf(`createNode -ss "transform"`);
-    // initBDNNode($n);
-    // $r = assertStringEqual("", getColliderType($n)); if (`size $r`) warning $r;
-    // $r = assertFalse(isColliderType($n, "x")); if (`size $r`) warning $r;
-    // if (`objExists $n`) delete $n;
 
     $n = longNameOf(`createNode -ss "transform"`);
     initSpaceNode($n, "x");
@@ -9448,26 +8029,6 @@ proc test4() {
 proc test5() {
   print("test5 start\n");
   string $r;
-
-  // // appendColliderAffectedBy
-  // {
-  //   // catchQuiet(`loadPlugin "boneDynamicsNode"`);
-  //   testNewScene();
-  //   catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
-
-  //   string $s1 = longNameOf(`createNode -ss "transform"`);
-  //   string $s2 = longNameOf(`createNode -ss "transform"`);
-  //   string $dest = longNameOf(`createNode -ss "transform"`);
-
-  //   $r = assertFalse(existsAttribute($dest, "colliderAffectedBy")); if (`size $r`) warning $r;
-  //   appendColliderAffectedBy({$s1, $s2}, $dest);
-  //   $r = assertTrue(existsAttribute($dest, "colliderAffectedBy")); if (`size $r`) warning $r;
-  //   $r = assertStringArrayEqual({$s1, $s2}, getSourceConnections($dest, {"colliderAffectedBy"}, "", {}, {})); if (`size $r`) warning $r;
-
-  //   if (`objExists $s1`) delete $s1;
-  //   if (`objExists $s2`) delete $s2;
-  //   if (`objExists $dest`) delete $dest;
-  // }
 
   print("test5 end\n");
 }
