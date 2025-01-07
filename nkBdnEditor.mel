@@ -98,7 +98,7 @@ proc int unloadBdnPlugin() {
     print("// nkBdnEditor: boneDynamicsNode unloaded\n");
   }
   else {
-    warning -n "nkBdnEditor: Plugin unload failed: bondDynamicsNode exists in the scene.";
+    warning -n "nkBdnEditor: Plugin unload failed: boneDynamicsNode exists in the scene.";
   }
   return !isBdnPluginLoaded();
 }
@@ -191,12 +191,12 @@ proc int unlockTransformAttributes(string $node, int $tFlag, int $rFlag, int $sF
 /*-
 @param $n <string>
 @param $groupType <string>
-| 値         | 種類               |
-| ---------- | ------------------ |
-| `bdn`      | BDNグループ        |
-| `proxy`    | プロキシグループ   |
-| `target`   | ターゲットグループ |
-| `collider` | コライダーグループ |
+| 値         | 種類                 |
+| ---------- | -------------------- |
+| `bdn`      | BDNグループ          |
+| `dynamics` | ダイナミクスグループ |
+| `target`   | ターゲットグループ   |
+| `collider` | コライダーグループ   |
 @returns <string>
 */
 proc string initGroupNode(string $n, string $groupType) {
@@ -213,11 +213,11 @@ proc string initGroupNode(string $n, string $groupType) {
 /*-
 @param $n <string>
 @param $spaceType <string>
-| 値         | 種類       |
-| ---------- | ---------- |
-| `proxy`    | プロキシ   |
-| `target`   | ターゲット |
-| `collider` | コライダー |
+| 値         | 種類         |
+| ---------- | ------------ |
+| `dynamics` | ダイナミクス |
+| `target`   | ターゲット   |
+| `collider` | コライダー   |
 @returns <string>
 */
 proc string initSpaceNode(string $n, string $spaceType) {
@@ -251,10 +251,10 @@ proc string initAltNode(string $n, string $sourceName) {
 /*-
 @param $n <string>
 @param $jointKind <string>
-| 値       | 種類           |
-| -------- | -------------- |
-| `proxy`  | ダイナミクス用 |
-| `target` | 目標姿勢用     |
+| 値         | 種類           |
+| ---------- | -------------- |
+| `dynamics` | ダイナミクス用 |
+| `target`   | 目標姿勢用     |
 @param $jointType <string>
 | 値       | 種類 |
 | -------- | ---- |
@@ -548,16 +548,16 @@ proc mergeEditableBdnGroupNodes() {
     string $sourceBdnGroupShortName = toShortName($bdnGroupNode);
     // print("  sourceBdnGroupShortName:" + $sourceBdnGroupShortName + "\n"); // debug
 
-    string $sourceProxyGroupNode = getSecondLevelNode($sourceBdnGroupShortName, "Proxy_GRP", false, true);
-    // print("  sourceProxyGroupNode:" + $sourceProxyGroupNode + "\n"); // debug
-    if (isGroupType($sourceProxyGroupNode, "proxy")) {
-      string $destProxyGroupNode = getSecondLevelNode($destBdnGroupShortName, "Proxy_GRP", true, true);
-      if (!isGroupType($destProxyGroupNode, "proxy")) {
-        initGroupNode($destProxyGroupNode, "proxy");
+    string $sourceDynamicsGroupNode = getSecondLevelNode($sourceBdnGroupShortName, "Dynamics_GRP", false, true);
+    // print("  sourceDynamicsGroupNode:" + $sourceDynamicsGroupNode + "\n"); // debug
+    if (isGroupType($sourceDynamicsGroupNode, "dynamics")) {
+      string $destDynamicsGroupNode = getSecondLevelNode($destBdnGroupShortName, "Dynamics_GRP", true, true);
+      if (!isGroupType($destDynamicsGroupNode, "dynamics")) {
+        initGroupNode($destDynamicsGroupNode, "dynamics");
       }
       setParentNode(
-        collectChildNodes($sourceProxyGroupNode),
-        $destProxyGroupNode
+        collectChildNodes($sourceDynamicsGroupNode),
+        $destDynamicsGroupNode
       );
     }
 
@@ -1152,7 +1152,7 @@ proc string[] restoreBdnNodes(string $altNodes[]) {
 @param $parentId <string>
 @returns <string[]>
 */
-global proc string[] nkBdnEditorGenerateProxyScript(
+global proc string[] nkBdnEditorGenerateDynamicsScript(
   string $sourceId,
   string $parentId
 ) {
@@ -1166,7 +1166,7 @@ global proc string[] nkBdnEditorGenerateProxyScript(
     // print("parentNode:" + $parentNode + "\n"); // debug
     string $name = toShortName($sourceNode);
     if (!`objExists $parentNode`) {
-      $parentNode = initSpaceNode(createTransform($name + "_Proxy_SPC", $parentNode, true, $sourceNode, {}), "proxy");
+      $parentNode = initSpaceNode(createTransform($name + "_Dynamics_SPC", $parentNode, true, $sourceNode, {}), "dynamics");
 
       // ノード接続
       addAttr -at "message" -ln "bdnBindSource" $parentNode;
@@ -1175,7 +1175,7 @@ global proc string[] nkBdnEditorGenerateProxyScript(
         connectMessage($parentSourceNode, $parentNode, "bdnBindSource");
       }
     }
-    string $node = initJointNode(createJoint($name + "_Proxy", $parentNode, true, $sourceNode, {}), "proxy", "normal");
+    string $node = initJointNode(createJoint($name + "_Dynamics", $parentNode, true, $sourceNode, {}), "dynamics", "normal");
     $nodeId = toUUID($node);
 
     // ノード接続
@@ -1275,18 +1275,18 @@ proc string[] splitSkeletonBranch(
             $childNode
             $dummyAimNode`;
 
-        string $branchIdtNode = initSpaceNode(createTransform($name + "_Branch_SPC", "", true, $dummyAimNode, {}), $jointKind);
-        string $branchJointNode = initJointNode(createJoint($name + "_Branch", $branchIdtNode, true, $branchIdtNode, {}), $jointKind, "normal");
+        string $branchSpcNode = initSpaceNode(createTransform($name + "_Branch_SPC", "", true, $dummyAimNode, {}), $jointKind);
+        string $branchJointNode = initJointNode(createJoint($name + "_Branch", $branchSpcNode, true, $branchSpcNode, {}), $jointKind, "normal");
         setParentNode({$childNode}, $branchJointNode);
-        $newNodes[`size $newNodes`] = $branchIdtNode;
+        $newNodes[`size $newNodes`] = $branchSpcNode;
         $newNodes[`size $newNodes`] = $branchJointNode;
 
         delete $dummyAimNode;
 
         // ノード接続
-        addAttr -at "message" -ln "bdnBindSource" $branchIdtNode;
+        addAttr -at "message" -ln "bdnBindSource" $branchSpcNode;
         addAttr -at "message" -ln "bdnBindTarget" $branchJointNode;
-        connectMessage($node, $branchIdtNode, "bdnBindSource");
+        connectMessage($node, $branchSpcNode, "bdnBindSource");
         // `$branchJointNode`はソース無し
       }
     }
@@ -1498,16 +1498,16 @@ proc string[] generateTarget(
   );
   $targetSkeletonNodes = splitSkeletonBranch($targetSkeletonNodes, $branchAimVector, $branchUpVector);
 
-  string $targetIdtNodes[] = collectRootNodes($targetSkeletonNodes);
-  $targetIdtNodes = setParentNode($targetIdtNodes, $targetGrpNode);
-  // print("  targetIdtNodes:{\n    " + stringArrayToString($targetIdtNodes, ",\n    ") + "\n  }\n"); // debug
-  setOutlinerColor($targetIdtNodes, {0.0, 0.0, 1.0});
-  for ($targetIdtNode in $targetIdtNodes) {
+  string $targetSpcNodes[] = collectRootNodes($targetSkeletonNodes);
+  $targetSpcNodes = setParentNode($targetSpcNodes, $targetGrpNode);
+  // print("  targetSpcNodes:{\n    " + stringArrayToString($targetSpcNodes, ",\n    ") + "\n  }\n"); // debug
+  setOutlinerColor($targetSpcNodes, {0.0, 0.0, 1.0});
+  for ($targetSpcNode in $targetSpcNodes) {
     $targetNodes = stringArrayCatenate(
       $targetNodes,
-      collectDescendantNodes($targetIdtNode, "", {}, false, "")
+      collectDescendantNodes($targetSpcNode, "", {}, false, "")
     );
-    string $jointNodes[] = collectDescendantNodes($targetIdtNode, "", {"joint"}, true, "");
+    string $jointNodes[] = collectDescendantNodes($targetSpcNode, "", {"joint"}, true, "");
     batchSetFloatAttribute($jointNodes, "radius", 1.0);
     setOverrideColor($jointNodes, 6);
     freezeTransform($jointNodes, {});
@@ -1518,21 +1518,21 @@ proc string[] generateTarget(
   for ($targetNode in $targetNodes) {
     if (!isJointKind($targetNode, "target")) continue;
 
-    string $proxyNode;
+    string $dynamicsNode;
     string $sourceNodes[] = getSourceConnections($targetNode, {"bdnSource"}, "", {}, {});
     if (`size $sourceNodes` != 1) continue;
 
     string $sourceNode = $sourceNodes[0];
     string $jointNodes[] = getDestConnections($sourceNode, {"message"}, "", {}, {});
     for ($jointNode in $jointNodes) {
-      if (isJointKind($jointNode, "proxy")) {
-        $proxyNode = $jointNode;
+      if (isJointKind($jointNode, "dynamics")) {
+        $dynamicsNode = $jointNode;
         break;
       }
     }
-    if (!isJointKind($proxyNode, "proxy")) continue;
+    if (!isJointKind($dynamicsNode, "dynamics")) continue;
 
-    string $bdnNodes[] = getSourceConnections($proxyNode, {"rotate"}, "", {}, {});
+    string $bdnNodes[] = getSourceConnections($dynamicsNode, {"rotate"}, "", {}, {});
     if (`size $bdnNodes` != 1) continue;
 
     string $bdnNode = $bdnNodes[0];
@@ -1569,31 +1569,31 @@ proc string[] generateDynamicsUnit(
   if (!isBdnPluginLoaded()) loadBdnPlugin();
   if (!isBdnPluginLoaded()) return $dynamicsNodes;
 
-  string $proxyGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Proxy_GRP", true, true), "proxy");
+  string $dynamicsGrpNode = initGroupNode(getSecondLevelNode("BDN_GRP", "Dynamics_GRP", true, true), "dynamics");
   initGroupNode(getTopLevelNode("BDN_GRP", false, true), "bdn");
-  // print("  proxyGrpNode:" + $proxyGrpNode + "\n"); // debug
-  if (!`objExists $proxyGrpNode`) return $dynamicsNodes;
+  // print("  dynamicsGrpNode:" + $dynamicsGrpNode + "\n"); // debug
+  if (!`objExists $dynamicsGrpNode`) return $dynamicsNodes;
 
-  string $proxySkeletonNodes[] = collectHierarchyNodes(
+  string $dynamicsSkeletonNodes[] = collectHierarchyNodes(
     $sourceNodes,
     "",
     {"transform"},
     false,
-    "nkBdnEditorGenerateProxyScript"
+    "nkBdnEditorGenerateDynamicsScript"
   );
-  $proxySkeletonNodes = splitSkeletonBranch($proxySkeletonNodes, $branchAimVector, $branchUpVector);
-  $proxySkeletonNodes = generateEndJoint($proxySkeletonNodes, $endJointOffset);
+  $dynamicsSkeletonNodes = splitSkeletonBranch($dynamicsSkeletonNodes, $branchAimVector, $branchUpVector);
+  $dynamicsSkeletonNodes = generateEndJoint($dynamicsSkeletonNodes, $endJointOffset);
 
-  string $proxyIdtNodes[] = collectRootNodes($proxySkeletonNodes);
-  $proxyIdtNodes = setParentNode($proxyIdtNodes, $proxyGrpNode);
-  // print("  proxyIdtNodes:{\n    " + stringArrayToString($proxyIdtNodes, ",\n    ") + "\n  }\n"); // debug
-  setOutlinerColor($proxyIdtNodes, {1.0, 0.0, 0.0});
-  for ($proxyIdtNode in $proxyIdtNodes) {
+  string $dynamicsSpcNodes[] = collectRootNodes($dynamicsSkeletonNodes);
+  $dynamicsSpcNodes = setParentNode($dynamicsSpcNodes, $dynamicsGrpNode);
+  // print("  dynamicsSpcNodes:{\n    " + stringArrayToString($dynamicsSpcNodes, ",\n    ") + "\n  }\n"); // debug
+  setOutlinerColor($dynamicsSpcNodes, {1.0, 0.0, 0.0});
+  for ($dynamicsSpcNode in $dynamicsSpcNodes) {
     $dynamicsNodes = stringArrayCatenate(
       $dynamicsNodes,
-      collectDescendantNodes($proxyIdtNode, "", {}, false, "")
+      collectDescendantNodes($dynamicsSpcNode, "", {}, false, "")
     );
-    string $jointNodes[] = collectDescendantNodes($proxyIdtNode, "", {"joint"}, true, "");
+    string $jointNodes[] = collectDescendantNodes($dynamicsSpcNode, "", {"joint"}, true, "");
     batchSetFloatAttribute($jointNodes, "radius", 0.5);
     setOverrideColor($jointNodes, 13);
     freezeTransform($jointNodes, {});
@@ -3225,15 +3225,15 @@ proc bakeBind(string $sourceNodes[], string $timeRange) {
   for ($sourceNode in $sourceNodes) {
     if (!isType($sourceNode, {"transform"}, false)) continue;
 
-    string $proxyNode;
+    string $dynamicsNode;
     string $destNodes[] = getDestConnections($sourceNode, {"message"}, "", {}, {});
     for ($destNode in $destNodes) {
-      if (isJointKind($destNode, "proxy")) {
-        $proxyNode = $destNode;
+      if (isJointKind($destNode, "dynamics")) {
+        $dynamicsNode = $destNode;
         break;
       }
     }
-    if (isJointKind($proxyNode, "proxy")) {
+    if (isJointKind($dynamicsNode, "dynamics")) {
       $bindNodes[`size $bindNodes`] = $sourceNode;
     }
   }
@@ -3275,31 +3275,31 @@ proc rebind(string $sourceNodes[]) {
 
   for ($sourceNode in $sourceNodes) {
     // print("  sourceNode:" + $sourceNode + "\n"); // debug
-    string $proxyNode;
+    string $dynamicsNode;
     string $orcstNode;
     string $msgDestNodes[] = getDestConnections($sourceNode, {"message"}, "", {}, {});
     for ($destNode in $msgDestNodes) {
-      if (isJointKind($destNode, "proxy")) {
-        $proxyNode = $destNode;
+      if (isJointKind($destNode, "dynamics")) {
+        $dynamicsNode = $destNode;
         break;
       }
     }
-    if (!isJointKind($proxyNode, "proxy")) continue;
+    if (!isJointKind($dynamicsNode, "dynamics")) continue;
 
     string $pimDestNodes[] = getDestConnections($sourceNode, {"parentInverseMatrix"}, "orientConstraint", {}, {});
     for ($destNode in $pimDestNodes) {
       if (getMultiAttributeSize($destNode, "target") == 0) continue;
 
       string $tpmSourceNodes[] = getSourceConnections($destNode, {"target[0].targetParentMatrix"}, "", {}, {});
-      if (stringArrayFind($proxyNode, 0, $tpmSourceNodes) >= 0) {
+      if (stringArrayFind($dynamicsNode, 0, $tpmSourceNodes) >= 0) {
         $orcstNode = $destNode;
         break;
       }
     }
     if (!isType($orcstNode, {"orientConstraint"}, true)) continue;
 
-    // print("    proxyNode:" + $proxyNode + "\n"); // debug
-    // print("    orcstNode:" + $orcstNode + "\n"); // debug
+    // print("    dynamicsNode:" + $dynamicsNode + "\n"); // debug
+    // print("    orcstNode   :" + $orcstNode + "\n"); // debug
 
     string $rotateSourceNodes[] = getSourceConnections($sourceNode, {"rx", "ry", "rz"}, "", {}, {});
     // print("    rotateSourceNodes:{\n      " + stringArrayToString($rotateSourceNodes, ",\n      ") + "\n    }\n"); // debug
@@ -3440,12 +3440,12 @@ proc string[] getSelectedBdnNodes() {
 /*-
 @returns <string[]>
 */
-proc string[] getSelectedProxyNodes() {
-  // print("getSelectedProxyNodes\n"); // debug
-  string $proxyNodeList = getUIControl("nkBdnEditorWindow", "proxyNodeList");
-  string $proxyNodes[] = qStringArray("textScrollList", "-sut", $proxyNodeList);
-  // print("  proxyNodes:{\n    " + stringArrayToString($proxyNodes, ",\n    ") + "\n  }\n"); // debug
-  return $proxyNodes;
+proc string[] getSelectedDynamicsNodes() {
+  // print("getSelectedDynamicsNodes\n"); // debug
+  string $dynamicsNodeList = getUIControl("nkBdnEditorWindow", "dynamicsNodeList");
+  string $dynamicsNodes[] = qStringArray("textScrollList", "-sut", $dynamicsNodeList);
+  // print("  dynamicsNodes:{\n    " + stringArrayToString($dynamicsNodes, ",\n    ") + "\n  }\n"); // debug
+  return $dynamicsNodes;
 }
 
 /*-
@@ -3830,8 +3830,8 @@ proc updateForceAttributeUI() {
 */
 proc string makeListItemLabel(string $node) {
   string $label;
-  if (isNodeReferenced($node)) $label += "<R>";
-  if (isBdnType($node, "alt")) $label += "<A>";
+  if (isNodeReferenced($node)) $label += "^";
+  if (isBdnType($node, "alt")) $label += "#";
   $label += toShortName($node);
   return $label;
 }
@@ -3840,25 +3840,25 @@ proc string makeListItemLabel(string $node) {
 @param $bdnNodes <string[]>
 @returns <>
 */
-proc updateProxyNodeList(string $bdnNodes[]) {
-  // print("updateProxyNodeList\n"); // debug
+proc updateDynamicsNodeList(string $bdnNodes[]) {
+  // print("updateDynamicsNodeList\n"); // debug
   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  string $proxyNodeList = getUIControl("nkBdnEditorWindow", "proxyNodeList");
+  string $dynamicsNodeList = getUIControl("nkBdnEditorWindow", "dynamicsNodeList");
 
-  string $proxyNodes[];
+  string $dynamicsNodes[];
   for ($bdnNode in $bdnNodes) {
-    $proxyNodes = stringArrayCatenate(
-      $proxyNodes,
+    $dynamicsNodes = stringArrayCatenate(
+      $dynamicsNodes,
       getDestConnections($bdnNode, {"outputRotate"}, "", {}, {})
     );
   }
 
-  executeUIControl("textScrollList", "-ra", $proxyNodeList);
-  for ($proxyNode in $proxyNodes) {
+  executeUIControl("textScrollList", "-ra", $dynamicsNodeList);
+  for ($dynamicsNode in $dynamicsNodes) {
     textScrollList -e
-        -a (makeListItemLabel($proxyNode))
-        -utg $proxyNode
-        $proxyNodeList;
+        -a (makeListItemLabel($dynamicsNode))
+        -utg $dynamicsNode
+        $dynamicsNodeList;
   }
 }
 
@@ -4045,11 +4045,11 @@ proc updateBindNodeList(string $bdnNodes[]) {
 
   string $bindNodes[];
   for ($bdnNode in $bdnNodes) {
-    string $proxyNodes[] = getDestConnections($bdnNode, {"outputRotate"}, "", {}, {});
-    for ($proxyNode in $proxyNodes) {
+    string $dynamicsNodes[] = getDestConnections($bdnNode, {"outputRotate"}, "", {}, {});
+    for ($dynamicsNode in $dynamicsNodes) {
       $bindNodes = stringArrayCatenate(
         $bindNodes,
-        getSourceConnections($proxyNode, {"bdnBindTarget"}, "", {}, {})
+        getSourceConnections($dynamicsNode, {"bdnBindTarget"}, "", {}, {})
       );
     }
   }
@@ -4078,7 +4078,7 @@ proc updateBdnRelatedNodeList(int $shouldUpdateAllColliderNodeList) {
 
   string $bdnNodes[] = getSelectedBdnNodes();
   if ($selectedTabIndex == 0) {
-    updateProxyNodeList($bdnNodes);
+    updateDynamicsNodeList($bdnNodes);
     updateTargetNodeList($bdnNodes);
   }
   else if ($selectedTabIndex == 1) {
@@ -4654,40 +4654,40 @@ proc generateDynamicsUnitButtonPressed() {
 /*-
 @returns <>
 */
-proc showProxyNodesButtonPressed() {
-  // print("showProxyNodesButtonPressed\n"); // debug
-  batchSetIntAttribute(getSelectedProxyNodes(), "visibility", true);
+proc showDynamicsNodesButtonPressed() {
+  // print("showDynamicsNodesButtonPressed\n"); // debug
+  batchSetIntAttribute(getSelectedDynamicsNodes(), "visibility", true);
 }
 
 /*-
 @returns <>
 */
-proc hideProxyNodesButtonPressed() {
-  // print("hideProxyNodesButtonPressed\n"); // debug
-  batchSetIntAttribute(getSelectedProxyNodes(), "visibility", false);
+proc hideDynamicsNodesButtonPressed() {
+  // print("hideDynamicsNodesButtonPressed\n"); // debug
+  batchSetIntAttribute(getSelectedDynamicsNodes(), "visibility", false);
 }
 
 /*-
 @returns <>
 */
-proc selectProxyNodesButtonPressed() {
-  // print("selectProxyNodesButtonPressed\n"); // debug
-  select -r (getSelectedProxyNodes());
+proc selectDynamicsNodesButtonPressed() {
+  // print("selectDynamicsNodesButtonPressed\n"); // debug
+  select -r (getSelectedDynamicsNodes());
 }
 
 /*-
 @returns <>
 */
-proc proxyNodeListDoubleClicked() {
-  // print("proxyNodeListDoubleClicked\n"); // debug
-  select -r (getSelectedProxyNodes());
+proc dynamicsNodeListDoubleClicked() {
+  // print("dynamicsNodeListDoubleClicked\n"); // debug
+  select -r (getSelectedDynamicsNodes());
 }
 
 /*-
 @returns <>
 */
-proc proxyNodeListSelected() {
-  // print("proxyNodeListSelected\n"); // debug
+proc dynamicsNodeListSelected() {
+  // print("dynamicsNodeListSelected\n"); // debug
 }
 
 /*-
@@ -5774,26 +5774,26 @@ proc buildMainWindow() {
               string $dynamicsUnitListFrame = `frameLayout -bgs true -cll false -cl false -l "Joint List" -mh 4 -mw 8 "dynamicsUnitListFrame"`;
                 string $dynamicsUnitListForm = `formLayout "dynamicsUnitListForm"`;
 
-                  string $proxyNodeListToolRow = `rowLayout -adj 2 -nc 5 "proxyNodeListToolRow"`;
-                    string $proxyNodeListLabel = `text -al "left" -l "Proxy" "proxyNodeListLabel"`;
+                  string $dynamicsNodeListToolRow = `rowLayout -adj 2 -nc 5 "dynamicsNodeListToolRow"`;
+                    string $dynamicsNodeListLabel = `text -al "left" -l "Dynamics" "dynamicsNodeListLabel"`;
                     separator -st "none" -vis false;
-                    string $showProxyNodesButton = `iconTextButton
+                    string $showDynamicsNodesButton = `iconTextButton
                         -ann "Show"
                         -i "ghostingVisible.png"
                         -w 23
-                        "showProxyNodesButton"`;
-                    string $hideProxyNodesButton = `iconTextButton
+                        "showDynamicsNodesButton"`;
+                    string $hideDynamicsNodesButton = `iconTextButton
                         -ann "Hide"
                         -i "ghostingHidden.png"
                         -w 23
-                        "hideProxyNodesButton"`;
-                    string $selectProxyNodesButton = `iconTextButton
+                        "hideDynamicsNodesButton"`;
+                    string $selectDynamicsNodesButton = `iconTextButton
                         -ann "Select"
                         -i "pickObjByType.png"
                         -w 23
-                        "selectProxyNodesButton"`;
+                        "selectDynamicsNodesButton"`;
                   setParent ..;
-                  string $proxyNodeList = `textScrollList -ams true -ekf false "proxyNodeList"`;
+                  string $dynamicsNodeList = `textScrollList -ams true -ekf false "dynamicsNodeList"`;
 
                   string $targetNodeListToolRow = `rowLayout -adj 2 -nc 5 "targetNodeListToolRow"`;
                     string $targetNodeListLabel = `text -al "left" -l "Target" "targetNodeListLabel"`;
@@ -6290,13 +6290,13 @@ proc buildMainWindow() {
       $dynamicsUnitForm;
 
   formLayout -e
-      -af $proxyNodeListToolRow "top" 0
-      -af $proxyNodeListToolRow "left" 0
-      -ap $proxyNodeListToolRow "right" 2 50
-      -ac $proxyNodeList "top" 0 $proxyNodeListToolRow
-      -af $proxyNodeList "left" 0
-      -ap $proxyNodeList "right" 2 50
-      -af $proxyNodeList "bottom" 0
+      -af $dynamicsNodeListToolRow "top" 0
+      -af $dynamicsNodeListToolRow "left" 0
+      -ap $dynamicsNodeListToolRow "right" 2 50
+      -ac $dynamicsNodeList "top" 0 $dynamicsNodeListToolRow
+      -af $dynamicsNodeList "left" 0
+      -ap $dynamicsNodeList "right" 2 50
+      -af $dynamicsNodeList "bottom" 0
 
       -af $targetNodeListToolRow "top" 0
       -ap $targetNodeListToolRow "left" 2 50
@@ -6492,11 +6492,11 @@ proc buildMainWindow() {
 
   button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"generateDynamicsUnitButton\");" $generateDynamicsUnitButton;
 
-  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"showProxyNodesButton\");" $showProxyNodesButton;
-  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"hideProxyNodesButton\");" $hideProxyNodesButton;
-  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectProxyNodesButton\");" $selectProxyNodesButton;
-  textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"proxyNodeList\");" $proxyNodeList;
-  textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"proxyNodeList\");" $proxyNodeList;
+  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"showDynamicsNodesButton\");" $showDynamicsNodesButton;
+  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"hideDynamicsNodesButton\");" $hideDynamicsNodesButton;
+  iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectDynamicsNodesButton\");" $selectDynamicsNodesButton;
+  textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"dynamicsNodeList\");" $dynamicsNodeList;
+  textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"dynamicsNodeList\");" $dynamicsNodeList;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"showTargetNodesButton\");" $showTargetNodesButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"hideTargetNodesButton\");" $hideTargetNodesButton;
@@ -6622,7 +6622,7 @@ proc buildMainWindow() {
     $dynamicsUnitBranchUpVectorRadioButton,
     $dynamicsUnitBranchInvertAimVectorCheckBox,
     $dynamicsUnitEndJointOffsetField,
-    $proxyNodeList,
+    $dynamicsNodeList,
     $targetNodeList,
 
     $createMultipleCollidersCheckBox,
@@ -6702,9 +6702,9 @@ global proc nkBdnEditorEventController(
 
             case "generateDynamicsUnitButton": generateDynamicsUnitButtonPressed(); break;
 
-            case "showProxyNodesButton": showProxyNodesButtonPressed(); break;
-            case "hideProxyNodesButton": hideProxyNodesButtonPressed(); break;
-            case "selectProxyNodesButton": selectProxyNodesButtonPressed(); break;
+            case "showDynamicsNodesButton": showDynamicsNodesButtonPressed(); break;
+            case "hideDynamicsNodesButton": hideDynamicsNodesButtonPressed(); break;
+            case "selectDynamicsNodesButton": selectDynamicsNodesButtonPressed(); break;
 
             case "showTargetNodesButton": showTargetNodesButtonPressed(); break;
             case "hideTargetNodesButton": hideTargetNodesButtonPressed(); break;
@@ -6822,7 +6822,7 @@ global proc nkBdnEditorEventController(
         case "dcc":
           switch ($control) {
             case "bdnNodeList": bdnNodeListDoubleClicked(); break;
-            case "proxyNodeList": proxyNodeListDoubleClicked(); break;
+            case "dynamicsNodeList": dynamicsNodeListDoubleClicked(); break;
             case "targetNodeList": targetNodeListDoubleClicked(); break;
             case "influencedColliderNodeList": influencedColliderNodeListDoubleClicked(); break;
             case "allColliderNodeList": allColliderNodeListDoubleClicked(); break;
@@ -6842,7 +6842,7 @@ global proc nkBdnEditorEventController(
         case "sc":
           switch ($control) {
             case "bdnNodeList": bdnNodeListSelected(); break;
-            case "proxyNodeList": proxyNodeListSelected(); break;
+            case "dynamicsNodeList": dynamicsNodeListSelected(); break;
             case "targetNodeList": targetNodeListSelected(); break;
             case "influencedColliderNodeList": influencedColliderNodeListSelected(); break;
             case "allColliderNodeList": allColliderNodeListSelected(); break;
@@ -6995,7 +6995,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.0.0";
+  return "1.1.0";
 }
 
 /*-
@@ -7141,66 +7141,66 @@ proc test3() {
   string $nodeFilename = $mayaAppDir + "/dev/nkBdnEditor/test/node.ma";
 
   string $bgrp0 = "|i:BDN_GRP0";
-  string $pgrp0 = "|i:BDN_GRP0|Proxy_GRP";
-  string $pspc0 = "|i:BDN_GRP0|Proxy_GRP|Proxy_SPC";
+  string $pgrp0 = "|i:BDN_GRP0|Dynamics_GRP";
+  string $pspc0 = "|i:BDN_GRP0|Dynamics_GRP|Dynamics_SPC";
   string $tgrp0 = "|i:BDN_GRP0|Target_GRP";
   string $tspc0 = "|i:BDN_GRP0|Target_GRP|Target_SPC";
   string $cgrp0 = "|i:BDN_GRP0|Collider_GRP";
   string $cspc0 = "|i:BDN_GRP0|Collider_GRP|Collider_SPC";
   string $bgrp1 = "|j:BDN_GRP1";
-  string $pgrp1 = "|j:BDN_GRP1|Proxy_GRP";
-  string $pspc1 = "|j:BDN_GRP1|Proxy_GRP|Proxy_SPC";
+  string $pgrp1 = "|j:BDN_GRP1|Dynamics_GRP";
+  string $pspc1 = "|j:BDN_GRP1|Dynamics_GRP|Dynamics_SPC";
   string $tgrp1 = "|j:BDN_GRP1|Target_GRP";
   string $tspc1 = "|j:BDN_GRP1|Target_GRP|Target_SPC";
   string $cgrp1 = "|j:BDN_GRP1|Collider_GRP";
   string $cspc1 = "|j:BDN_GRP1|Collider_GRP|Collider_SPC";
   string $bgrp2 = "|k:BDN_GRP2";
-  string $pgrp2 = "|k:BDN_GRP2|Proxy_GRP";
-  string $pspc2 = "|k:BDN_GRP2|Proxy_GRP|Proxy_SPC";
+  string $pgrp2 = "|k:BDN_GRP2|Dynamics_GRP";
+  string $pspc2 = "|k:BDN_GRP2|Dynamics_GRP|Dynamics_SPC";
   string $tgrp2 = "|k:BDN_GRP2|Target_GRP";
   string $tspc2 = "|k:BDN_GRP2|Target_GRP|Target_SPC";
   string $cgrp2 = "|k:BDN_GRP2|Collider_GRP";
   string $cspc2 = "|k:BDN_GRP2|Collider_GRP|Collider_SPC";
 
   string $bgrp0m = "|i:BDN_GRP";
-  string $pgrp0m = "|i:BDN_GRP|Proxy_GRP";
-  string $pspc0m = "|i:BDN_GRP|Proxy_GRP|Proxy_SPC";
+  string $pgrp0m = "|i:BDN_GRP|Dynamics_GRP";
+  string $pspc0m = "|i:BDN_GRP|Dynamics_GRP|Dynamics_SPC";
   string $tgrp0m = "|i:BDN_GRP|Target_GRP";
   string $tspc0m = "|i:BDN_GRP|Target_GRP|Target_SPC";
   string $cgrp0m = "|i:BDN_GRP|Collider_GRP";
   string $cspc0m = "|i:BDN_GRP|Collider_GRP|Collider_SPC";
-  string $pspc1m = "|i:BDN_GRP|Proxy_GRP|Proxy_SPC1";
+  string $pspc1m = "|i:BDN_GRP|Dynamics_GRP|Dynamics_SPC1";
   string $tspc1m = "|i:BDN_GRP|Target_GRP|Target_SPC1";
   string $cspc1m = "|i:BDN_GRP|Collider_GRP|Collider_SPC1";
-  string $pspc2m = "|i:BDN_GRP|Proxy_GRP|Proxy_SPC2";
+  string $pspc2m = "|i:BDN_GRP|Dynamics_GRP|Dynamics_SPC2";
   string $tspc2m = "|i:BDN_GRP|Target_GRP|Target_SPC2";
   string $cspc2m = "|i:BDN_GRP|Collider_GRP|Collider_SPC2";
 
   string $rbgrp0 = "|referenced:a:BDN_GRP0";
-  string $rpgrp0 = "|referenced:a:BDN_GRP0|referenced:Proxy_GRP";
-  string $rpspc0 = "|referenced:a:BDN_GRP0|referenced:Proxy_GRP|referenced:Proxy_SPC";
+  string $rpgrp0 = "|referenced:a:BDN_GRP0|referenced:Dynamics_GRP";
+  string $rpspc0 = "|referenced:a:BDN_GRP0|referenced:Dynamics_GRP|referenced:Dynamics_SPC";
   string $rtgrp0 = "|referenced:a:BDN_GRP0|referenced:Target_GRP";
   string $rtspc0 = "|referenced:a:BDN_GRP0|referenced:Target_GRP|referenced:Target_SPC";
   string $rcgrp0 = "|referenced:a:BDN_GRP0|referenced:Collider_GRP";
   string $rcspc0 = "|referenced:a:BDN_GRP0|referenced:Collider_GRP|referenced:Collider_SPC";
   string $rbgrp1 = "|referenced:b:BDN_GRP1";
-  string $rpgrp1 = "|referenced:b:BDN_GRP1|referenced:Proxy_GRP";
-  string $rpspc1 = "|referenced:b:BDN_GRP1|referenced:Proxy_GRP|referenced:Proxy_SPC";
+  string $rpgrp1 = "|referenced:b:BDN_GRP1|referenced:Dynamics_GRP";
+  string $rpspc1 = "|referenced:b:BDN_GRP1|referenced:Dynamics_GRP|referenced:Dynamics_SPC";
   string $rtgrp1 = "|referenced:b:BDN_GRP1|referenced:Target_GRP";
   string $rtspc1 = "|referenced:b:BDN_GRP1|referenced:Target_GRP|referenced:Target_SPC";
   string $rcgrp1 = "|referenced:b:BDN_GRP1|referenced:Collider_GRP";
   string $rcspc1 = "|referenced:b:BDN_GRP1|referenced:Collider_GRP|referenced:Collider_SPC";
   string $rbgrp2 = "|referenced:c:BDN_GRP2";
-  string $rpgrp2 = "|referenced:c:BDN_GRP2|referenced:Proxy_GRP";
-  string $rpspc2 = "|referenced:c:BDN_GRP2|referenced:Proxy_GRP|referenced:Proxy_SPC";
+  string $rpgrp2 = "|referenced:c:BDN_GRP2|referenced:Dynamics_GRP";
+  string $rpspc2 = "|referenced:c:BDN_GRP2|referenced:Dynamics_GRP|referenced:Dynamics_SPC";
   string $rtgrp2 = "|referenced:c:BDN_GRP2|referenced:Target_GRP";
   string $rtspc2 = "|referenced:c:BDN_GRP2|referenced:Target_GRP|referenced:Target_SPC";
   string $rcgrp2 = "|referenced:c:BDN_GRP2|referenced:Collider_GRP";
   string $rcspc2 = "|referenced:c:BDN_GRP2|referenced:Collider_GRP|referenced:Collider_SPC";
 
-  string $bdn1 = "CTL_joint1_Proxy_BDN";
-  string $bdn2 = "CTL_joint2_Proxy_BDN";
-  string $bdn3 = "CTL_joint3_Proxy_BDN";
+  string $bdn1 = "CTL_joint1_Dynamics_BDN";
+  string $bdn2 = "CTL_joint2_Dynamics_BDN";
+  string $bdn3 = "CTL_joint3_Dynamics_BDN";
 
   string $ccp = "|BDN_GRP|Collider_GRP|CapsuleCollider_SPC";
   string $cc = "|BDN_GRP|Collider_GRP|CapsuleCollider_SPC|CapsuleCollider";
