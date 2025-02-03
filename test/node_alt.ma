@@ -1,19 +1,18 @@
 //Maya ASCII 2022 scene
-//Name: node.ma
-//Last modified: Sun, Jan 26, 2025 01:53:36 AM
+//Name: node_alt.ma
+//Last modified: Mon, Jan 27, 2025 05:22:46 AM
 //Codeset: 932
 requires maya "2022";
 requires -nodeType "floatMath" "lookdevKit" "1.0";
 requires "stereoCamera" "10.0";
 requires "mtoa" "5.0.0.4";
-requires -nodeType "boneDynamicsNode" "boneDynamicsNode" "0.4.0";
 currentUnit -l centimeter -a degree -t ntsc;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202405021833-753375ecb3";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "72E63B49-4CE5-1FE1-96AD-DCB26E8F759B";
+fileInfo "UUID" "55534D20-4BDA-2135-5489-65B5E93EB9BB";
 createNode transform -s -n "persp";
 	rename -uid "347D49AD-41AE-7D45-9720-76BE579D0AB5";
 	setAttr ".v" no;
@@ -3262,19 +3261,19 @@ createNode mesh -n "meshColliderShape2" -p "meshCollider2";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "512EE26C-4848-B2D7-E3B4-63B02200AF56";
+	rename -uid "1188980E-49AF-5F04-244B-169BA7ED1722";
 	setAttr -s 2 ".lnk";
 	setAttr -s 2 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "33F70F3C-41DF-2A36-967F-41AAA99FCC8C";
+	rename -uid "A951DD1C-42F2-7ECA-41F6-9CB6A4699F4F";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "6B735C1E-417E-DC33-3F87-92ACC131E25F";
+	rename -uid "7B4036BC-4483-9BD2-19BD-07AE383F4EA7";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "8B44086C-47AE-9CC8-8BD2-7B934A83C3DC";
+	rename -uid "F89FB11B-4202-F80F-D1F8-6DAF283B940D";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "F8B6C60E-4A73-3712-7C8E-7490F59A09DD";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "FA49EAC7-4A27-8139-1DC4-20AECDFB0A16";
+	rename -uid "C4957D50-42ED-9C6E-C873-E8BD759AD17D";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "71B6D7E0-4309-884E-8CED-24AB1EDAD685";
 	setAttr ".g" yes;
@@ -3295,7 +3294,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|persp\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
 		+ "            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 1\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n"
 		+ "            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n"
-		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 809\n            -height 1092\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n"
+		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1015\n            -height 1092\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n"
 		+ "            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 0\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n"
 		+ "            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -isSet 0\n            -isSetMember 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n"
 		+ "            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -selectCommand \"print(\\\"\\\")\" \n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            -renderFilterIndex 0\n            -selectionOrder \"chronological\" \n            -expandAttribute 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n"
@@ -3322,59 +3321,14 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "                -depthOfFieldPreview 1\n                -maxConstantTransparency 1\n                -rendererOverrideName \"stereoOverrideVP2\" \n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n"
 		+ "                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n"
 		+ "                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
-		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 809\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 809\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1015\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1015\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
 	rename -uid "C444A304-4C43-C7D9-BC58-2AB88E9CFFAA";
 	setAttr ".b" -type "string" "playbackOptions -min 0 -max 30 -ast 0 -aet 30 ";
 	setAttr ".st" 6;
-createNode boneDynamicsNode -n "CTL_joint_A1_Dynamics_BDN";
-	rename -uid "9A4A92CE-4346-F6BB-7968-A3916E1A89E7";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_A2_Dynamics_BDN";
-	rename -uid "10E4E74B-4DCB-1C57-AB14-9DA2E241C79A";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_A3_Dynamics_BDN";
-	rename -uid "6CA8C72B-43A7-EF8E-F4DD-61B7D77FCBEB";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B1_Dynamics_BDN";
-	rename -uid "732647AE-4B83-13A1-B04D-B5A62F0FE983";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B2_Dynamics_BDN";
-	rename -uid "24602713-4182-90CF-5D9E-90B946C77992";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_Branch_BDN";
-	rename -uid "5D67FA38-4D3C-3AFB-A500-0DAB7115D07F";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_BDN";
-	rename -uid "04597C33-48E5-8259-BB48-6A88C787769B";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_Branch_BDN";
-	rename -uid "F57F2560-4DD1-7FD9-422B-EAB996ED1C5F";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_BDN";
-	rename -uid "1E758D7C-4463-EF5A-ACA9-D19CA50B96D0";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
 createNode makeNurbSphere -n "makeNurbSphere1";
 	rename -uid "C0C04776-47D2-07B6-BDCA-64BDEC92886B";
 	setAttr ".ax" -type "double3" 0 1 0 ;
@@ -3526,6 +3480,911 @@ createNode polyTorus -n "polyTorus2";
 createNode transformGeometry -n "transformGeometry2";
 	rename -uid "24CCC9BE-4E6C-FDF5-B8EF-C882084CE62A";
 	setAttr ".txf" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 3 0 -10 1;
+createNode unknown -n "CTL_joint_A1_Dynamics_BDN_ALT";
+	rename -uid "423D6587-4656-E5C1-E75F-B2867529924C";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_A1_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".ofmtx";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".damp";
+	setAttr -k on ".elas";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_A2_Dynamics_BDN_ALT";
+	rename -uid "99FE91C3-49E7-9656-CEBD-00BB5772C841";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_A2_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".ofmtx";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_A3_Dynamics_BDN_ALT";
+	rename -uid "1466235A-4772-17EB-6628-16A9131313A2";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_A3_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".ofmtx";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B1_Dynamics_BDN_ALT";
+	rename -uid "D2A14A9C-4B90-9DF3-DA9B-A8A876055D84";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B1_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B2_Dynamics_BDN_ALT";
+	rename -uid "247DB642-44E8-0E24-FAE4-56B604013F69";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B2_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B3_Dynamics_BDN_ALT";
+	rename -uid "501A9910-4AA6-1A5C-0CA0-CA98CA8703F8";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B3_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B3_Dynamics_Branch_BDN_ALT";
+	rename -uid "8D7BCFC2-4B72-AADC-34E7-6782AC2E80E6";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B3_Dynamics_Branch_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B5_Dynamics_BDN_ALT";
+	rename -uid "10B51637-49F1-FCA9-A44D-3FA48EFD28EB";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B5_Dynamics_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
+createNode unknown -n "CTL_joint_B5_Dynamics_Branch_BDN_ALT";
+	rename -uid "2A08AC75-4BF6-0D2B-3AAF-F7BBCB78A1FF";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -ci true -k true -sn "en" -ln "enable" -dv 1 -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "t" -ln "time" -at "time";
+	addAttr -ci true -k true -sn "rt" -ln "resetTime" -at "time";
+	addAttr -ci true -k true -sn "fps" -ln "fps" -dv 30 -min 1 -at "double";
+	addAttr -ci true -k true -sn "ofmtx" -ln "offsetMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "ofmtxw" -ln "offsetMatrixWeight" -dv 1 -min 0 -max 
+		1 -at "double";
+	addAttr -ci true -sn "bt" -ln "boneTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "btx" -ln "boneTranslateX" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "bty" -ln "boneTranslateY" -at "double" -p "boneTranslate";
+	addAttr -ci true -k true -sn "btz" -ln "boneTranslateZ" -at "double" -p "boneTranslate";
+	addAttr -ci true -sn "bjo" -ln "boneJointOrient" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bjox" -ln "boneJointOrientX" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoy" -ln "boneJointOrientY" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bjoz" -ln "boneJointOrientZ" -at "doubleAngle" -p "boneJointOrient";
+	addAttr -ci true -k true -sn "bpmtx" -ln "boneParentMatrix" -at "matrix";
+	addAttr -ci true -k true -sn "bpimtx" -ln "boneParentInverseMatrix" -at "matrix";
+	addAttr -ci true -sn "bs" -ln "boneScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bsx" -ln "boneScaleX" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsy" -ln "boneScaleY" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -k true -sn "bsz" -ln "boneScaleZ" -dv 1 -at "double" -p "boneScale";
+	addAttr -ci true -sn "bis" -ln "boneInverseScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "bisx" -ln "boneInverseScaleX" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisy" -ln "boneInverseScaleY" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -k true -sn "bisz" -ln "boneInverseScaleZ" -dv 1 -at "double" -p "boneInverseScale";
+	addAttr -ci true -sn "et" -ln "endTranslate" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "etx" -ln "endTranslateX" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "ety" -ln "endTranslateY" -at "double" -p "endTranslate";
+	addAttr -ci true -k true -sn "etz" -ln "endTranslateZ" -at "double" -p "endTranslate";
+	addAttr -ci true -sn "es" -ln "endScale" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "esx" -ln "endScaleX" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esy" -ln "endScaleY" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -k true -sn "esz" -ln "endScaleZ" -dv 1 -at "double" -p "endScale";
+	addAttr -ci true -sn "ro" -ln "rotationOffset" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "rox" -ln "rotationOffsetX" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roy" -ln "rotationOffsetY" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "roz" -ln "rotationOffsetZ" -at "doubleAngle" -p "rotationOffset";
+	addAttr -ci true -k true -sn "damp" -ln "damping" -dv 0.1 -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "elas" -ln "elasticity" -dv 30 -min 0 -at "double";
+	addAttr -ci true -k true -sn "eff" -ln "elasticForceFunction" -min 0 -max 2 -en 
+		"Linear:Quadratic:Cubic" -at "enum";
+	addAttr -ci true -k true -sn "stif" -ln "stiffness" -min 0 -max 1 -at "double";
+	addAttr -ci true -k true -sn "m" -ln "mass" -dv 1 -min 0.001 -at "double";
+	addAttr -ci true -sn "g" -ln "gravity" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "gx" -ln "gravityX" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gy" -ln "gravityY" -dv -980 -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gz" -ln "gravityZ" -at "double" -p "gravity";
+	addAttr -ci true -k true -sn "gm" -ln "gravityMultiply" -min 0 -max 1 -at "double";
+	addAttr -ci true -sn "af" -ln "additionalForce" -at "double3" -nc 3;
+	addAttr -ci true -k true -sn "afx" -ln "additionalForceX" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afy" -ln "additionalForceY" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afz" -ln "additionalForceZ" -at "double" -p "additionalForce";
+	addAttr -ci true -k true -sn "afs" -ln "additionalForceScale" -dv 1 -min 0 -at "double";
+	addAttr -ci true -k true -sn "enw" -ln "enableTurbulence" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "wsd" -ln "turbulenceSeed" -min 0 -at "long";
+	addAttr -ci true -k true -sn "wst" -ln "turbulenceStrength" -dv 10 -min 0 -at "double";
+	addAttr -ci true -k true -sn "wvcs" -ln "turbulenceVectorChangeScale" -dv 0.05 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "wvcm" -ln "turbulenceVectorChangeMax" -dv 0.1 -min 
+		0 -at "double";
+	addAttr -ci true -k true -sn "eal" -ln "enableAngleLimit" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "al" -ln "angleLimit" -dv 60 -min 0 -max 360 -at "double";
+	addAttr -ci true -k true -sn "r" -ln "radius" -min 0 -at "double";
+	addAttr -ci true -k true -sn "iter" -ln "iterations" -dv 5 -min 0 -max 10 -at "long";
+	addAttr -ci true -k true -sn "gc" -ln "enableGroundCol" -min 0 -max 1 -at "bool";
+	addAttr -ci true -k true -sn "gh" -ln "groundHeight" -at "double";
+	addAttr -ci true -m -sn "sc" -ln "sphereCollider" -at "compound" -nc 2;
+	addAttr -ci true -k true -sn "scmtx" -ln "sphereColMatrix" -at "matrix" -p "sphereCollider";
+	addAttr -ci true -k true -sn "scrad" -ln "sphereColRadius" -min 0 -at "double" -p "sphereCollider";
+	addAttr -ci true -m -sn "cc" -ln "capsuleCollider" -at "compound" -nc 4;
+	addAttr -ci true -k true -sn "ccmtxa" -ln "capsuleColMatrixA" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccmtxb" -ln "capsuleColMatrixB" -at "matrix" -p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccrada" -ln "capsuleColRadiusA" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -k true -sn "ccradb" -ln "capsuleColRadiusB" -min 0 -at "double" 
+		-p "capsuleCollider";
+	addAttr -ci true -m -sn "pc" -ln "infinitePlaneCollider" -at "compound" -nc 1;
+	addAttr -ci true -k true -sn "pcmtx" -ln "infinitePlaneColMatrix" -at "matrix" -p "infinitePlaneCollider";
+	addAttr -ci true -m -sn "mc" -ln "meshCollider" -dt "mesh";
+	addAttr -ci true -k true -sn "mcc" -ln "meshColCutoff" -dv 10 -min 0 -at "double";
+	addAttr -w false -sn "outr" -ln "outputRotate" -at "double3" -nc 3;
+	addAttr -ci true -sn "outrx" -ln "outputRotateX" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outry" -ln "outputRotateY" -at "doubleAngle" -p "outputRotate";
+	addAttr -ci true -sn "outrz" -ln "outputRotateZ" -at "doubleAngle" -p "outputRotate";
+	setAttr -l on ".bdnData" -type "string" "type=\"alt\";sourceName=\"CTL_joint_B5_Dynamics_Branch_BDN\";bdnVersion=\"0.4.0\";";
+	setAttr -k on ".t";
+	setAttr -k on ".bpmtx";
+	setAttr -k on ".bpimtx";
+	setAttr -k on ".r";
+	setAttr -k on ".sc[0].scmtx";
+	setAttr -k on ".sc[0].scrad";
+	setAttr -k on ".cc[0].ccmtxa";
+	setAttr -k on ".cc[0].ccmtxb";
+	setAttr -k on ".cc[0].ccrada";
+	setAttr -k on ".cc[0].ccradb";
+	setAttr -k on ".pc[0].pcmtx";
+	setAttr -s 2 ".mc";
 select -ne :time1;
 	setAttr -av -cb on ".cch";
 	setAttr -av -k on ".fzn";
@@ -4874,20 +5733,20 @@ connectAttr "CTL_joint_A1_SPC_PRCST.ctz" "CTL_joint_A1_SPC.tz" -l on;
 connectAttr "CTL_joint_A1_SPC_PRCST.crx" "CTL_joint_A1_SPC.rx" -l on;
 connectAttr "CTL_joint_A1_SPC_PRCST.cry" "CTL_joint_A1_SPC.ry" -l on;
 connectAttr "CTL_joint_A1_SPC_PRCST.crz" "CTL_joint_A1_SPC.rz" -l on;
-connectAttr "CTL_joint_A1_Dynamics_BDN.outr" "CTL_joint_A1_Dynamics.r";
+connectAttr "CTL_joint_A1_Dynamics_BDN_ALT.outr" "CTL_joint_A1_Dynamics.r";
 connectAttr "CTL_joint_A1.msg" "CTL_joint_A1_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_A2_Dynamics_BDN.outr" "CTL_joint_A2_Dynamics.r";
+connectAttr "CTL_joint_A2_Dynamics_BDN_ALT.outr" "CTL_joint_A2_Dynamics.r";
 connectAttr "CTL_joint_A1_Dynamics.s" "CTL_joint_A2_Dynamics.is";
 connectAttr "CTL_joint_A2.msg" "CTL_joint_A2_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_A3_Dynamics_BDN.outr" "CTL_joint_A3_Dynamics.r";
+connectAttr "CTL_joint_A3_Dynamics_BDN_ALT.outr" "CTL_joint_A3_Dynamics.r";
 connectAttr "CTL_joint_A2_Dynamics.s" "CTL_joint_A3_Dynamics.is";
 connectAttr "CTL_joint_A3.msg" "CTL_joint_A3_Dynamics.bdnBindTarget";
 connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A3_Dynamics_End.is";
-connectAttr "CTL_joint_A3_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_End_RadiusShape.rd"
+connectAttr "CTL_joint_A3_Dynamics_BDN_ALT.r" "CTL_joint_A3_Dynamics_End_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_A2_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_RadiusShape.rd"
+connectAttr "CTL_joint_A2_Dynamics_BDN_ALT.r" "CTL_joint_A3_Dynamics_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_A1_Dynamics_BDN.r" "CTL_joint_A2_Dynamics_RadiusShape.rd"
+connectAttr "CTL_joint_A1_Dynamics_BDN_ALT.r" "CTL_joint_A2_Dynamics_RadiusShape.rd"
 		;
 connectAttr "CTL_joint_A1_SPC.ro" "CTL_joint_A1_SPC_PRCST.cro";
 connectAttr "CTL_joint_A1_SPC.pim" "CTL_joint_A1_SPC_PRCST.cpim";
@@ -4913,38 +5772,38 @@ connectAttr "CTL_joint_B1_SPC_PRCST.ctz" "CTL_joint_B1_SPC.tz" -l on;
 connectAttr "CTL_joint_B1_SPC_PRCST.crx" "CTL_joint_B1_SPC.rx" -l on;
 connectAttr "CTL_joint_B1_SPC_PRCST.cry" "CTL_joint_B1_SPC.ry" -l on;
 connectAttr "CTL_joint_B1_SPC_PRCST.crz" "CTL_joint_B1_SPC.rz" -l on;
-connectAttr "CTL_joint_B1_Dynamics_BDN.outr" "CTL_joint_B1_Dynamics.r";
+connectAttr "CTL_joint_B1_Dynamics_BDN_ALT.outr" "CTL_joint_B1_Dynamics.r";
 connectAttr "CTL_joint_B1.msg" "CTL_joint_B1_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_B2_Dynamics_BDN.outr" "CTL_joint_B2_Dynamics.r";
+connectAttr "CTL_joint_B2_Dynamics_BDN_ALT.outr" "CTL_joint_B2_Dynamics.r";
 connectAttr "CTL_joint_B1_Dynamics.s" "CTL_joint_B2_Dynamics.is";
 connectAttr "CTL_joint_B2.msg" "CTL_joint_B2_Dynamics.bdnBindTarget";
 connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B3_Dynamics_Branch_SPC.bdnBindSource"
 		;
-connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.outr" "CTL_joint_B3_Dynamics_Branch.r"
+connectAttr "CTL_joint_B3_Dynamics_Branch_BDN_ALT.outr" "CTL_joint_B3_Dynamics_Branch.r"
 		;
-connectAttr "CTL_joint_B3_Dynamics_BDN.outr" "CTL_joint_B3_Dynamics.r";
+connectAttr "CTL_joint_B3_Dynamics_BDN_ALT.outr" "CTL_joint_B3_Dynamics.r";
 connectAttr "CTL_joint_B3_Dynamics_Branch.s" "CTL_joint_B3_Dynamics.is";
 connectAttr "CTL_joint_B3.msg" "CTL_joint_B3_Dynamics.bdnBindTarget";
 connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_End.is";
-connectAttr "CTL_joint_B3_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_End_RadiusShape.rd"
+connectAttr "CTL_joint_B3_Dynamics_BDN_ALT.r" "CTL_joint_B3_Dynamics_End_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.r" "CTL_joint_B3_Dynamics_RadiusShape.rd"
+connectAttr "CTL_joint_B3_Dynamics_Branch_BDN_ALT.r" "CTL_joint_B3_Dynamics_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_B2_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_Branch_RadiusShape.rd"
+connectAttr "CTL_joint_B2_Dynamics_BDN_ALT.r" "CTL_joint_B3_Dynamics_Branch_RadiusShape.rd"
 		;
 connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B5_Dynamics_Branch_SPC.bdnBindSource"
 		;
-connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.outr" "CTL_joint_B5_Dynamics_Branch.r"
+connectAttr "CTL_joint_B5_Dynamics_Branch_BDN_ALT.outr" "CTL_joint_B5_Dynamics_Branch.r"
 		;
-connectAttr "CTL_joint_B5_Dynamics_BDN.outr" "CTL_joint_B5_Dynamics.r";
+connectAttr "CTL_joint_B5_Dynamics_BDN_ALT.outr" "CTL_joint_B5_Dynamics.r";
 connectAttr "CTL_joint_B5_Dynamics_Branch.s" "CTL_joint_B5_Dynamics.is";
 connectAttr "CTL_joint_B5.msg" "CTL_joint_B5_Dynamics.bdnBindTarget";
 connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_End.is";
-connectAttr "CTL_joint_B5_Dynamics_BDN.r" "CTL_joint_B5_Dynamics_End_RadiusShape.rd"
+connectAttr "CTL_joint_B5_Dynamics_BDN_ALT.r" "CTL_joint_B5_Dynamics_End_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.r" "CTL_joint_B5_Dynamics_RadiusShape.rd"
+connectAttr "CTL_joint_B5_Dynamics_Branch_BDN_ALT.r" "CTL_joint_B5_Dynamics_RadiusShape.rd"
 		;
-connectAttr "CTL_joint_B1_Dynamics_BDN.r" "CTL_joint_B2_Dynamics_RadiusShape.rd"
+connectAttr "CTL_joint_B1_Dynamics_BDN_ALT.r" "CTL_joint_B2_Dynamics_RadiusShape.rd"
 		;
 connectAttr "CTL_joint_B1_SPC.ro" "CTL_joint_B1_SPC_PRCST.cro";
 connectAttr "CTL_joint_B1_SPC.pim" "CTL_joint_B1_SPC_PRCST.cpim";
@@ -5108,219 +5967,6 @@ relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defau
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
-connectAttr "CTL_joint_A1_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A1_Dynamics.jo" "CTL_joint_A1_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A1_Dynamics.pm" "CTL_joint_A1_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A1_Dynamics.pim" "CTL_joint_A1_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A1_Dynamics_BDN.t";
-connectAttr "CTL_joint_A1_Target.r" "CTL_joint_A1_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A1_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A1_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A1_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A1_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A1_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A1_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A1_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_A1_Dynamics_BDN_damping.o" "CTL_joint_A1_Dynamics_BDN.damp"
-		;
-connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.o" "CTL_joint_A1_Dynamics_BDN.elas"
-		;
-connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A2_Dynamics.jo" "CTL_joint_A2_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A2_Dynamics.pm" "CTL_joint_A2_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A2_Dynamics.pim" "CTL_joint_A2_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A2_Dynamics_BDN.t";
-connectAttr "CTL_joint_A2_Target.r" "CTL_joint_A2_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A2_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A2_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A2_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A2_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A2_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A2_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A2_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A3_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A3_Dynamics.jo" "CTL_joint_A3_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A3_Dynamics.pm" "CTL_joint_A3_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A3_Dynamics.pim" "CTL_joint_A3_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A3_Dynamics_End.t" "CTL_joint_A3_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A3_Dynamics_BDN.t";
-connectAttr "CTL_joint_A3_Target.r" "CTL_joint_A3_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A3_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A3_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A3_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A3_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A3_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A3_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A3_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_B1_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B1_Dynamics.jo" "CTL_joint_B1_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B1_Dynamics.pm" "CTL_joint_B1_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B1_Dynamics.pim" "CTL_joint_B1_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B1_Dynamics_BDN.t";
-connectAttr "CTL_joint_B1_Target.r" "CTL_joint_B1_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B1_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B1_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B1_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B1_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B1_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B1_Dynamics_BDN.af";
-connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B2_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B2_Dynamics.jo" "CTL_joint_B2_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B2_Dynamics.pm" "CTL_joint_B2_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B2_Dynamics.pim" "CTL_joint_B2_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B2_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B2_Dynamics_BDN.t";
-connectAttr "CTL_joint_B2_Target.r" "CTL_joint_B2_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B2_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B2_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B2_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B2_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B2_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B2_Dynamics_BDN.af";
-connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B3_Dynamics_Branch_BDN.bt"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.jo" "CTL_joint_B3_Dynamics_Branch_BDN.bjo"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.pm" "CTL_joint_B3_Dynamics_Branch_BDN.bpmtx"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.pim" "CTL_joint_B3_Dynamics_Branch_BDN.bpimtx"
-		;
-connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_Branch_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B3_Dynamics_Branch_BDN.t";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.pc[0].pcmtx"
-		;
-connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_Branch_BDN.af";
-connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B3_Dynamics.jo" "CTL_joint_B3_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B3_Dynamics.pm" "CTL_joint_B3_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B3_Dynamics.pim" "CTL_joint_B3_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B3_Dynamics_End.t" "CTL_joint_B3_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B3_Dynamics_BDN.t";
-connectAttr "CTL_joint_B3_Target.r" "CTL_joint_B3_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_BDN.af";
-connectAttr "CTL_joint_B5_Dynamics_Branch.t" "CTL_joint_B5_Dynamics_Branch_BDN.bt"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.jo" "CTL_joint_B5_Dynamics_Branch_BDN.bjo"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.pm" "CTL_joint_B5_Dynamics_Branch_BDN.bpmtx"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.pim" "CTL_joint_B5_Dynamics_Branch_BDN.bpimtx"
-		;
-connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_Branch_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B5_Dynamics_Branch_BDN.t";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.pc[0].pcmtx"
-		;
-connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_Branch_BDN.af";
-connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B5_Dynamics.jo" "CTL_joint_B5_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B5_Dynamics.pm" "CTL_joint_B5_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B5_Dynamics.pim" "CTL_joint_B5_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B5_Dynamics_End.t" "CTL_joint_B5_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B5_Dynamics_BDN.t";
-connectAttr "CTL_joint_B5_Target.r" "CTL_joint_B5_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_BDN.af";
 connectAttr "CapsuleCollider.colliderRadiusA" "makeNurbSphere1.r";
 connectAttr "CapsuleCollider_sweepAStartUc.o" "makeNurbSphere1.ssw";
 connectAttr "CapsuleCollider_sweepAEndUc.o" "makeNurbSphere1.esw";
@@ -5370,7 +6016,7 @@ connectAttr "CTL_joint_A1_Target.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[4].
 		;
 connectAttr "CTL_RootGlobal.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[5].dn";
 connectAttr "SphereCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[6].dn";
-connectAttr "CTL_joint_A1_Dynamics_BDN.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
+connectAttr "CTL_joint_A1_Dynamics_BDN_ALT.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
 		;
 connectAttr "CTL_joint_A2_Dynamics.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
 		;
@@ -5385,6 +6031,228 @@ connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.msg" "MayaNodeEditorSavedTabsI
 connectAttr "CTL_joint_A1_Dynamics_BDN_damping.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[13].dn"
 		;
 connectAttr "polyTorus2.out" "transformGeometry2.ig";
+connectAttr "CTL_joint_A1_Dynamics.t" "CTL_joint_A1_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_A1_Dynamics.jo" "CTL_joint_A1_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_A1_Dynamics.pm" "CTL_joint_A1_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_A1_Dynamics.pim" "CTL_joint_A1_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A1_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_A1_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_A1_Target.r" "CTL_joint_A1_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A1_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A1_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A1_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A1_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A1_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_A1_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A1_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A1_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A1_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A1_Dynamics_BDN_ALT.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A1_Dynamics_BDN_ALT.ofmtx";
+connectAttr "CTL_joint_A1_Dynamics_BDN_damping.o" "CTL_joint_A1_Dynamics_BDN_ALT.damp"
+		;
+connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.o" "CTL_joint_A1_Dynamics_BDN_ALT.elas"
+		;
+connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A2_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_A2_Dynamics.jo" "CTL_joint_A2_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_A2_Dynamics.pm" "CTL_joint_A2_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_A2_Dynamics.pim" "CTL_joint_A2_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A2_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_A2_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_A2_Target.r" "CTL_joint_A2_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A2_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A2_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A2_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A2_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A2_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_A2_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A2_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A2_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A2_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A2_Dynamics_BDN_ALT.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A2_Dynamics_BDN_ALT.ofmtx";
+connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A3_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_A3_Dynamics.jo" "CTL_joint_A3_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_A3_Dynamics.pm" "CTL_joint_A3_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_A3_Dynamics.pim" "CTL_joint_A3_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_A3_Dynamics_End.t" "CTL_joint_A3_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_A3_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_A3_Target.r" "CTL_joint_A3_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A3_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A3_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A3_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A3_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A3_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_A3_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A3_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A3_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A3_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A3_Dynamics_BDN_ALT.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A3_Dynamics_BDN_ALT.ofmtx";
+connectAttr "CTL_joint_B1_Dynamics.t" "CTL_joint_B1_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_B1_Dynamics.jo" "CTL_joint_B1_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_B1_Dynamics.pm" "CTL_joint_B1_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_B1_Dynamics.pim" "CTL_joint_B1_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B1_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B1_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_B1_Target.r" "CTL_joint_B1_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B1_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B1_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B1_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B1_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B1_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B1_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B1_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B1_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B1_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B1_Dynamics_BDN_ALT.af";
+connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B2_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_B2_Dynamics.jo" "CTL_joint_B2_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_B2_Dynamics.pm" "CTL_joint_B2_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_B2_Dynamics.pim" "CTL_joint_B2_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B2_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B2_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_B2_Target.r" "CTL_joint_B2_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B2_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B2_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B2_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B2_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B2_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B2_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B2_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B2_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B2_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B2_Dynamics_BDN_ALT.af";
+connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_B3_Dynamics.jo" "CTL_joint_B3_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_B3_Dynamics.pm" "CTL_joint_B3_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_B3_Dynamics.pim" "CTL_joint_B3_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_B3_Dynamics_End.t" "CTL_joint_B3_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B3_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_B3_Target.r" "CTL_joint_B3_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_BDN_ALT.af";
+connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.bt"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.jo" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.bjo"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.pm" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.bpmtx"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.pim" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.bpimtx"
+		;
+connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.t";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.sc[0].scmtx"
+		;
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_Branch_BDN_ALT.af";
+connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_BDN_ALT.bt";
+connectAttr "CTL_joint_B5_Dynamics.jo" "CTL_joint_B5_Dynamics_BDN_ALT.bjo";
+connectAttr "CTL_joint_B5_Dynamics.pm" "CTL_joint_B5_Dynamics_BDN_ALT.bpmtx";
+connectAttr "CTL_joint_B5_Dynamics.pim" "CTL_joint_B5_Dynamics_BDN_ALT.bpimtx";
+connectAttr "CTL_joint_B5_Dynamics_End.t" "CTL_joint_B5_Dynamics_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B5_Dynamics_BDN_ALT.t";
+connectAttr "CTL_joint_B5_Target.r" "CTL_joint_B5_Dynamics_BDN_ALT.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_BDN_ALT.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_BDN_ALT.af";
+connectAttr "CTL_joint_B5_Dynamics_Branch.t" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.bt"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.jo" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.bjo"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.pm" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.bpmtx"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.pim" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.bpimtx"
+		;
+connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.et";
+connectAttr ":time1.o" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.t";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.sc[0].scmtx"
+		;
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_Branch_BDN_ALT.af";
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "CapsuleCollider_SphereAShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "CapsuleCollider_SphereBShape.iog" ":initialShadingGroup.dsm" -na;
@@ -5393,4 +6261,4 @@ connectAttr "InfinitePlaneColliderShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "SphereColliderShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "meshColliderShape1.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "meshColliderShape2.iog" ":initialShadingGroup.dsm" -na;
-// End of node.ma
+// End of node_alt.ma

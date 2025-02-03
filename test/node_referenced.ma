@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
-//Name: node.ma
-//Last modified: Sun, Jan 26, 2025 01:53:36 AM
+//Name: node_referenced.ma
+//Last modified: Sun, Jan 26, 2025 01:53:43 AM
 //Codeset: 932
 requires maya "2022";
 requires -nodeType "floatMath" "lookdevKit" "1.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202405021833-753375ecb3";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "72E63B49-4CE5-1FE1-96AD-DCB26E8F759B";
+fileInfo "UUID" "A710C7F1-4FF5-92DA-D5F7-AD8BB9B9235B";
 createNode transform -s -n "persp";
 	rename -uid "347D49AD-41AE-7D45-9720-76BE579D0AB5";
 	setAttr ".v" no;
@@ -5393,4 +5393,4 @@ connectAttr "InfinitePlaneColliderShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "SphereColliderShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "meshColliderShape1.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "meshColliderShape2.iog" ":initialShadingGroup.dsm" -na;
-// End of node.ma
+// End of node_referenced.ma

@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: collider.ma
-//Last modified: Sun, Jan 05, 2025 02:07:42 AM
+//Last modified: Mon, Feb 03, 2025 05:03:29 PM
 //Codeset: 932
 requires maya "2022";
 requires -nodeType "floatMath" "lookdevKit" "1.0";
@@ -12,7 +12,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202405021833-753375ecb3";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "069AF9F9-425E-6B72-C4F9-DBB55721BC69";
+fileInfo "UUID" "5F7835E2-4FE6-6972-4AC7-7E8653B59553";
 createNode transform -s -n "persp";
 	rename -uid "358FA051-4BA1-34DE-E048-51819EB8096E";
 	setAttr ".v" no;
@@ -107,15 +107,15 @@ createNode joint -n "joint4" -p "joint3";
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.63793248704859862;
 createNode transform -n "BDN_GRP";
-	rename -uid "303E1928-4BF6-9DFF-3698-3DBE2C381B4F";
+	rename -uid "E9D9302E-4096-1672-C6C3-DDAD70CE0ED5";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"bdn\";";
+	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"bdn\";toolVersion=\"1.2.0\";";
 createNode transform -n "Collider_GRP" -p "BDN_GRP";
-	rename -uid "B023BA53-4D88-B28A-D522-1E9E2F7CEBB5";
+	rename -uid "6518BA43-498E-1B65-2372-03BCA682D359";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"collider\";";
 createNode transform -n "joint1_CapsuleCollider_SPC" -p "Collider_GRP";
-	rename -uid "BA8B4097-42EA-D058-1FE0-EDBD070E6EB7";
+	rename -uid "21FA167D-42F9-857F-D597-648EC718D9F6";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -ci true -sn "colliderAimTarget" -ln "colliderAimTarget" -dt "string";
@@ -127,8 +127,14 @@ createNode transform -n "joint1_CapsuleCollider_SPC" -p "Collider_GRP";
 	addAttr -uap -ci true -k true -sn "colliderOffset" -ln "colliderOffset" -at "double";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr ".t" -type "double3" 0 0 -4 ;
+	setAttr -av ".tx";
+	setAttr -av ".ty";
+	setAttr -av ".tz";
+	setAttr ".r" -type "double3" 0 -59.999999999999993 0 ;
+	setAttr -av ".rx";
+	setAttr -av ".ry";
+	setAttr -av ".rz";
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource" -type "string" "|joint1";
 	setAttr -l on ".colliderAimTarget";
@@ -138,8 +144,9 @@ createNode transform -n "joint1_CapsuleCollider_SPC" -p "Collider_GRP";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode transform -n "joint1_CapsuleCollider" -p "joint1_CapsuleCollider_SPC";
-	rename -uid "ADE7201A-4D12-B4B1-8680-4D926C08AAEE";
+	rename -uid "9BFF5BAC-4EF9-EB60-12D5-04A54E3CD9D6";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 -min 
 		0.001 -at "double";
 	addAttr -ci true -k true -sn "colliderRadiusB" -ln "colliderRadiusB" -dv 0.5 -min 
@@ -150,9 +157,14 @@ createNode transform -n "joint1_CapsuleCollider" -p "joint1_CapsuleCollider_SPC"
 		"A:Center:B" -at "enum";
 	addAttr -ci true -h true -k true -sn "colliderMatrixA" -ln "colliderMatrixA" -at "matrix";
 	addAttr -ci true -h true -k true -sn "colliderMatrixB" -ln "colliderMatrixB" -at "matrix";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr ".r" -type "double3" 20 29.999999999999996 10 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"capsule\";";
+	setAttr -s 26 ".colliderAffectedBy";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
 	setAttr -k on ".colliderLength";
@@ -160,9 +172,8 @@ createNode transform -n "joint1_CapsuleCollider" -p "joint1_CapsuleCollider_SPC"
 	setAttr -k on ".colliderPivot";
 	setAttr -k on ".colliderMatrixA";
 	setAttr -k on ".colliderMatrixB";
-	setAttr -s 26 ".colliderAffectedBy";
 createNode transform -n "joint1_CapsuleCollider_SphereA" -p "joint1_CapsuleCollider";
-	rename -uid "25A54639-4875-57B7-46D0-1CAD3CEE0768";
+	rename -uid "08B959F9-4BB9-76FB-46A8-ED863035BE85";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -173,6 +184,9 @@ createNode transform -n "joint1_CapsuleCollider_SphereA" -p "joint1_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -181,6 +195,8 @@ createNode transform -n "joint1_CapsuleCollider_SphereA" -p "joint1_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -188,10 +204,8 @@ createNode transform -n "joint1_CapsuleCollider_SphereA" -p "joint1_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint1_CapsuleCollider_SphereAShape" -p "joint1_CapsuleCollider_SphereA";
-	rename -uid "7FE6404A-4A42-AEA7-A5B8-D986F3F8F128";
+	rename -uid "DE3175AE-4D18-2F07-5C26-28AC0A5BD3BB";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -208,7 +222,7 @@ createNode nurbsSurface -n "joint1_CapsuleCollider_SphereAShape" -p "joint1_Caps
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "joint1_CapsuleCollider_SphereB" -p "joint1_CapsuleCollider";
-	rename -uid "EA4753BF-48DE-9DAF-5F4C-4FABC14AD8C0";
+	rename -uid "C5C091AE-48E9-B3DA-174C-DEB152697361";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -219,6 +233,9 @@ createNode transform -n "joint1_CapsuleCollider_SphereB" -p "joint1_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -227,6 +244,8 @@ createNode transform -n "joint1_CapsuleCollider_SphereB" -p "joint1_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -234,10 +253,8 @@ createNode transform -n "joint1_CapsuleCollider_SphereB" -p "joint1_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint1_CapsuleCollider_SphereBShape" -p "joint1_CapsuleCollider_SphereB";
-	rename -uid "B92301C3-4015-13D0-5324-2D98E5BAA9C0";
+	rename -uid "AAC5F49D-45B1-F3A1-49B0-44890A4C3658";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -254,7 +271,7 @@ createNode nurbsSurface -n "joint1_CapsuleCollider_SphereBShape" -p "joint1_Caps
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "joint1_CapsuleCollider_CircleA" -p "joint1_CapsuleCollider";
-	rename -uid "48288232-454D-3A67-9839-EF8BC9EF70C8";
+	rename -uid "8A64BA64-4998-57CC-99E0-7EAA3194FD83";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -265,6 +282,9 @@ createNode transform -n "joint1_CapsuleCollider_CircleA" -p "joint1_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -273,6 +293,8 @@ createNode transform -n "joint1_CapsuleCollider_CircleA" -p "joint1_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -280,13 +302,11 @@ createNode transform -n "joint1_CapsuleCollider_CircleA" -p "joint1_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "joint1_CapsuleCollider_CircleAShape" -p "joint1_CapsuleCollider_CircleA";
-	rename -uid "3AF14DD8-4C47-EABC-431B-4999771A8013";
+	rename -uid "B3C4DCE9-4083-A534-91AF-ABB90150871F";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "joint1_CapsuleCollider_CircleB" -p "joint1_CapsuleCollider";
-	rename -uid "28DC1466-41C5-F909-5470-4C9112C33576";
+	rename -uid "E748585F-4419-28C2-700A-A5A04AE82459";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -297,6 +317,9 @@ createNode transform -n "joint1_CapsuleCollider_CircleB" -p "joint1_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -305,6 +328,8 @@ createNode transform -n "joint1_CapsuleCollider_CircleB" -p "joint1_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -312,13 +337,11 @@ createNode transform -n "joint1_CapsuleCollider_CircleB" -p "joint1_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "joint1_CapsuleCollider_CircleBShape" -p "joint1_CapsuleCollider_CircleB";
-	rename -uid "8B0C2466-45BD-EF55-8E50-5EAB3C562A0D";
+	rename -uid "422BA6B6-440E-0863-2A6D-B3861B208FFB";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "joint1_CapsuleCollider_Loft" -p "joint1_CapsuleCollider";
-	rename -uid "B3D46BFA-479B-02B2-3034-90AF4BBB7F43";
+	rename -uid "57EC185D-4C9B-DC8B-3C28-64982A8DCD10";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -329,6 +352,9 @@ createNode transform -n "joint1_CapsuleCollider_Loft" -p "joint1_CapsuleCollider
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
@@ -338,6 +364,8 @@ createNode transform -n "joint1_CapsuleCollider_Loft" -p "joint1_CapsuleCollider
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -345,10 +373,8 @@ createNode transform -n "joint1_CapsuleCollider_Loft" -p "joint1_CapsuleCollider
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint1_CapsuleCollider_LoftShape" -p "joint1_CapsuleCollider_Loft";
-	rename -uid "4439D6AB-41B6-FB15-6EC0-F0937EE03EE7";
+	rename -uid "9931E888-4F4F-B05D-7299-A393045ED31A";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -363,7 +389,7 @@ createNode nurbsSurface -n "joint1_CapsuleCollider_LoftShape" -p "joint1_Capsule
 	setAttr ".cpr" 4;
 	setAttr ".cps" 4;
 createNode parentConstraint -n "joint1_CapsuleCollider_SPC_PRCST" -p "joint1_CapsuleCollider_SPC";
-	rename -uid "EA36A88A-4B4B-E25D-A24C-1FBA7E9AB125";
+	rename -uid "48F0D2D4-49BB-6DFE-E6F0-59A7D9F5F2E7";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "joint1W0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -382,37 +408,46 @@ createNode parentConstraint -n "joint1_CapsuleCollider_SPC_PRCST" -p "joint1_Cap
 	setAttr ".rsrr" -type "double3" 0 -59.999999999999993 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "joint3_InfinitePlaneCollider_SPC" -p "Collider_GRP";
-	rename -uid "E6301D79-4390-73BC-F832-2BBE24EBE801";
+	rename -uid "4CA51D5A-48FE-6222-58B1-3A8597578EF9";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderWidth" -ln "colliderWidth" -dv 1 -min 
 		0.001 -at "double";
 	addAttr -uap -ci true -k true -sn "colliderHeight" -ln "colliderHeight" -dv 1 -min 
 		0.001 -at "double";
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr ".t" -type "double3" 1 0 3.4641016150000001 ;
+	setAttr -av ".tx";
+	setAttr -av ".ty";
+	setAttr -av ".tz";
+	setAttr ".r" -type "double3" 0 -150 0 ;
+	setAttr -av ".rx";
+	setAttr -av ".ry";
+	setAttr -av ".rz";
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource" -type "string" "|joint1|joint2|joint3";
 	setAttr -k on ".colliderWidth";
 	setAttr -k on ".colliderHeight";
 createNode transform -n "joint3_InfinitePlaneCollider" -p "joint3_InfinitePlaneCollider_SPC";
-	rename -uid "BD7F3AA7-4871-6003-7E5D-C58993DF7DEA";
+	rename -uid "582DBDDB-4890-1A80-D783-4589E03677B3";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderWidth" -ln "colliderWidth" -dv 1 -min 0.001 
 		-at "double";
 	addAttr -ci true -k true -sn "colliderHeight" -ln "colliderHeight" -dv 1 -min 0.001 
 		-at "double";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr ".t" -type "double3" -0.05 0 -1.5 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"infinitePlane\";";
+	setAttr -s 3 ".colliderAffectedBy";
 	setAttr -k on ".colliderWidth";
 	setAttr -k on ".colliderHeight";
-	setAttr -s 3 ".colliderAffectedBy";
 createNode nurbsSurface -n "joint3_InfinitePlaneColliderShape" -p "joint3_InfinitePlaneCollider";
-	rename -uid "2B012EEC-42E7-0810-8C0C-28A225A0CC6E";
+	rename -uid "A4691C50-4C46-4A17-2F5C-6DB8ECEF8687";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".tw" yes;
@@ -425,7 +460,7 @@ createNode nurbsSurface -n "joint3_InfinitePlaneColliderShape" -p "joint3_Infini
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode parentConstraint -n "joint3_InfinitePlaneCollider_SPC_PRCST" -p "joint3_InfinitePlaneCollider_SPC";
-	rename -uid "311653AD-489E-EBC1-7A4B-1CBDF495C7D7";
+	rename -uid "AE558F7C-48AB-9356-B7BF-D1A9B7914E06";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "joint3W0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -444,31 +479,40 @@ createNode parentConstraint -n "joint3_InfinitePlaneCollider_SPC_PRCST" -p "join
 	setAttr ".rsrr" -type "double3" 0 -149.99999999999997 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "joint4_SphereCollider_SPC" -p "Collider_GRP";
-	rename -uid "37F60475-4F85-B146-75F2-DBBE9ED57FF2";
+	rename -uid "585A0F00-42B8-95B3-5FF8-2793B0AC1AD4";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadius" -ln "colliderRadius" -dv 0.5 
 		-min 0.001 -at "double";
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr ".t" -type "double3" -1.598076211 0 4.9641016149999997 ;
+	setAttr -av ".tx";
+	setAttr -av ".ty";
+	setAttr -av ".tz";
+	setAttr ".r" -type "double3" 0 -150 0 ;
+	setAttr -av ".rx";
+	setAttr -av ".ry";
+	setAttr -av ".rz";
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource" -type "string" "|joint1|joint2|joint3|joint4";
 	setAttr -k on ".colliderRadius";
 createNode transform -n "joint4_SphereCollider" -p "joint4_SphereCollider_SPC";
-	rename -uid "56DA6E68-4D20-7A38-270D-DDA64FB673D0";
+	rename -uid "7F97A26F-40DB-C60D-302B-92B93EB0AF08";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderRadius" -ln "colliderRadius" -dv 0.5 -min 
 		0.001 -at "double";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
-	setAttr ".s" -type "double3" 1.5 1.5 1.5 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"sphere\";";
-	setAttr -k on ".colliderRadius";
-	setAttr -s 2 ".colliderAffectedBy";
-createNode nurbsSurface -n "joint4_SphereColliderShape" -p "joint4_SphereCollider";
-	rename -uid "B86BFA87-441A-521E-4A46-C88FEAD2BFBC";
-	setAttr -k off ".v";
 	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
+	setAttr ".s" -type "double3" 1.5 1.5 1.5 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"sphere\";";
+	setAttr -s 2 ".colliderAffectedBy";
+	setAttr -k on ".colliderRadius";
+createNode nurbsSurface -n "joint4_SphereColliderShape" -p "joint4_SphereCollider";
+	rename -uid "43B8CB3D-4899-AFDA-72A9-F89BF81CE56E";
+	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".tw" yes;
@@ -481,7 +525,7 @@ createNode nurbsSurface -n "joint4_SphereColliderShape" -p "joint4_SphereCollide
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode parentConstraint -n "joint4_SphereCollider_SPC_PRCST" -p "joint4_SphereCollider_SPC";
-	rename -uid "DF7A5DDC-4B1A-1B91-0649-9391826753A4";
+	rename -uid "61ACA137-46B6-B038-D16C-D681FBAF0407";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "joint4W0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -500,7 +544,7 @@ createNode parentConstraint -n "joint4_SphereCollider_SPC_PRCST" -p "joint4_Sphe
 	setAttr ".rsrr" -type "double3" 0 -149.99999999999997 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "joint2_CapsuleCollider_SPC" -p "Collider_GRP";
-	rename -uid "FB78E3FE-41B3-67CA-A8DF-19A9ED3AB8F1";
+	rename -uid "50E9AF87-4FAB-CEE7-F872-F1A5AF3AEA58";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -ci true -sn "colliderAimTarget" -ln "colliderAimTarget" -dt "string";
@@ -512,8 +556,14 @@ createNode transform -n "joint2_CapsuleCollider_SPC" -p "Collider_GRP";
 	addAttr -uap -ci true -k true -sn "colliderOffset" -ln "colliderOffset" -at "double";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr ".t" -type "double3" 2 0 -0.53589838489999997 ;
+	setAttr -av ".tx";
+	setAttr -av ".ty";
+	setAttr -av ".tz";
+	setAttr ".r" -type "double3" 0 255.96375649999999 0 ;
+	setAttr -av ".rx";
+	setAttr -av ".ry";
+	setAttr -av ".rz";
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource" -type "string" "|joint1|joint2";
 	setAttr -l on ".colliderAimTarget" -type "string" "|joint1|joint2|joint3";
@@ -523,8 +573,9 @@ createNode transform -n "joint2_CapsuleCollider_SPC" -p "Collider_GRP";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode transform -n "joint2_CapsuleCollider" -p "joint2_CapsuleCollider_SPC";
-	rename -uid "C0250D72-4DB6-FCBB-04B2-43824F6A3126";
+	rename -uid "A36479EF-4ABE-BAC5-4971-D7BA406A749A";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 -min 
 		0.001 -at "double";
 	addAttr -ci true -k true -sn "colliderRadiusB" -ln "colliderRadiusB" -dv 0.5 -min 
@@ -535,18 +586,22 @@ createNode transform -n "joint2_CapsuleCollider" -p "joint2_CapsuleCollider_SPC"
 		"A:Center:B" -at "enum";
 	addAttr -ci true -h true -k true -sn "colliderMatrixA" -ln "colliderMatrixA" -at "matrix";
 	addAttr -ci true -h true -k true -sn "colliderMatrixB" -ln "colliderMatrixB" -at "matrix";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"capsule\";";
+	setAttr -s 26 ".colliderAffectedBy";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
-	setAttr -k on ".colliderLength" 4.1231056256176597;
+	setAttr -k on ".colliderLength" 4.1231056260000001;
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 	setAttr -k on ".colliderMatrixA";
 	setAttr -k on ".colliderMatrixB";
-	setAttr -s 26 ".colliderAffectedBy";
 createNode transform -n "joint2_CapsuleCollider_SphereA" -p "joint2_CapsuleCollider";
-	rename -uid "C563AFCB-40AB-31EB-3316-6A8A41455FFD";
+	rename -uid "10B7F257-4175-C803-D1CD-2BB868A30520";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -557,6 +612,9 @@ createNode transform -n "joint2_CapsuleCollider_SphereA" -p "joint2_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -566,6 +624,8 @@ createNode transform -n "joint2_CapsuleCollider_SphereA" -p "joint2_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -573,10 +633,8 @@ createNode transform -n "joint2_CapsuleCollider_SphereA" -p "joint2_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint2_CapsuleCollider_SphereAShape" -p "joint2_CapsuleCollider_SphereA";
-	rename -uid "36CDB5F1-4EF4-5D33-18DD-0C890E1DAA8F";
+	rename -uid "5854FBE1-4033-F0ED-4A0F-38A12B220F8B";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -593,7 +651,7 @@ createNode nurbsSurface -n "joint2_CapsuleCollider_SphereAShape" -p "joint2_Caps
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "joint2_CapsuleCollider_SphereB" -p "joint2_CapsuleCollider";
-	rename -uid "501BB26A-419B-279D-272C-938045894CC7";
+	rename -uid "2DEF5707-482A-F739-0CD8-15BA9140EE23";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -604,6 +662,9 @@ createNode transform -n "joint2_CapsuleCollider_SphereB" -p "joint2_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -613,6 +674,8 @@ createNode transform -n "joint2_CapsuleCollider_SphereB" -p "joint2_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -620,10 +683,8 @@ createNode transform -n "joint2_CapsuleCollider_SphereB" -p "joint2_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint2_CapsuleCollider_SphereBShape" -p "joint2_CapsuleCollider_SphereB";
-	rename -uid "3BEAA732-4AD6-9D87-E5DF-D29164F3B637";
+	rename -uid "9A78D94A-41B5-EF2C-DEAA-0F80C60EDA8A";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -640,7 +701,7 @@ createNode nurbsSurface -n "joint2_CapsuleCollider_SphereBShape" -p "joint2_Caps
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "joint2_CapsuleCollider_CircleA" -p "joint2_CapsuleCollider";
-	rename -uid "2907A12A-4973-C061-30EF-CC8E237E9BC7";
+	rename -uid "00A04BC5-4F54-D47B-FE14-7799C6D3D9A1";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -651,6 +712,9 @@ createNode transform -n "joint2_CapsuleCollider_CircleA" -p "joint2_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -660,6 +724,8 @@ createNode transform -n "joint2_CapsuleCollider_CircleA" -p "joint2_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -667,13 +733,11 @@ createNode transform -n "joint2_CapsuleCollider_CircleA" -p "joint2_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "joint2_CapsuleCollider_CircleAShape" -p "joint2_CapsuleCollider_CircleA";
-	rename -uid "C68CC2B2-4912-A469-324E-D2B61C947E6A";
+	rename -uid "7C9F93A7-45A8-1972-7FF1-428C966BE2F3";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "joint2_CapsuleCollider_CircleB" -p "joint2_CapsuleCollider";
-	rename -uid "87AAB13D-49B3-48CB-DB7C-EDA762EDFBBC";
+	rename -uid "448B8D6C-406D-DF46-5550-7F94F7D32A48";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -684,6 +748,9 @@ createNode transform -n "joint2_CapsuleCollider_CircleB" -p "joint2_CapsuleColli
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -693,6 +760,8 @@ createNode transform -n "joint2_CapsuleCollider_CircleB" -p "joint2_CapsuleColli
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -700,13 +769,11 @@ createNode transform -n "joint2_CapsuleCollider_CircleB" -p "joint2_CapsuleColli
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "joint2_CapsuleCollider_CircleBShape" -p "joint2_CapsuleCollider_CircleB";
-	rename -uid "B6BEBDD9-49F6-6CB3-BEDA-3CBFEA2D183B";
+	rename -uid "7B42EA0D-4D89-07DB-0651-159162D62763";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "joint2_CapsuleCollider_Loft" -p "joint2_CapsuleCollider";
-	rename -uid "1052EEEE-4420-DC0A-C824-1E869341EE76";
+	rename -uid "F7548064-403F-F7F8-C30E-97AB9BEF9C7E";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -717,6 +784,9 @@ createNode transform -n "joint2_CapsuleCollider_Loft" -p "joint2_CapsuleCollider
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
@@ -726,6 +796,8 @@ createNode transform -n "joint2_CapsuleCollider_Loft" -p "joint2_CapsuleCollider
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -733,10 +805,8 @@ createNode transform -n "joint2_CapsuleCollider_Loft" -p "joint2_CapsuleCollider
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "joint2_CapsuleCollider_LoftShape" -p "joint2_CapsuleCollider_Loft";
-	rename -uid "0FBFC71C-4125-A4EC-DC8B-7995FB8534E0";
+	rename -uid "06458E6B-4B4A-BC2A-7BE4-3B95CFDAC54F";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -751,7 +821,7 @@ createNode nurbsSurface -n "joint2_CapsuleCollider_LoftShape" -p "joint2_Capsule
 	setAttr ".cpr" 4;
 	setAttr ".cps" 4;
 createNode pointConstraint -n "joint2_CapsuleCollider_SPC_PTCST" -p "joint2_CapsuleCollider_SPC";
-	rename -uid "F968CBD1-4D78-15E6-447D-E490327328CB";
+	rename -uid "515C0A2E-46B4-12AE-0749-0BB4EC041433";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "joint2W0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -768,7 +838,7 @@ createNode pointConstraint -n "joint2_CapsuleCollider_SPC_PTCST" -p "joint2_Caps
 	setAttr ".rst" -type "double3" 2.0000000000000004 0 -0.53589838486224561 ;
 	setAttr -k on ".w0";
 createNode aimConstraint -n "joint2_CapsuleCollider_SPC_AMCST" -p "joint2_CapsuleCollider_SPC";
-	rename -uid "A7BCDCDF-4DEB-5BD1-7E89-56A1A0E0A26D";
+	rename -uid "4CC614B2-45DE-6EF6-E82D-3687E0BE59F5";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "joint3W0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -786,7 +856,7 @@ createNode aimConstraint -n "joint2_CapsuleCollider_SPC_AMCST" -p "joint2_Capsul
 	setAttr ".rsrr" -type "double3" 0 255.96375653207352 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "CapsuleCollider_SPC" -p "Collider_GRP";
-	rename -uid "94191063-4CF9-A3FB-1A35-5DAB15A69121";
+	rename -uid "0C1CF073-469B-F49B-5938-068558DEDF4E";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -ci true -sn "colliderAimTarget" -ln "colliderAimTarget" -dt "string";
@@ -799,8 +869,6 @@ createNode transform -n "CapsuleCollider_SPC" -p "Collider_GRP";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr ".t" -type "double3" -3 0 -2 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource";
 	setAttr -l on ".colliderAimTarget";
@@ -810,8 +878,9 @@ createNode transform -n "CapsuleCollider_SPC" -p "Collider_GRP";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode transform -n "CapsuleCollider" -p "CapsuleCollider_SPC";
-	rename -uid "378C17B4-4AA1-DAD9-2D36-ACABCAB73459";
+	rename -uid "61EF2524-447C-2560-3376-56B1107C4BD5";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 -min 
 		0.001 -at "double";
 	addAttr -ci true -k true -sn "colliderRadiusB" -ln "colliderRadiusB" -dv 0.5 -min 
@@ -822,8 +891,13 @@ createNode transform -n "CapsuleCollider" -p "CapsuleCollider_SPC";
 		"A:Center:B" -at "enum";
 	addAttr -ci true -h true -k true -sn "colliderMatrixA" -ln "colliderMatrixA" -at "matrix";
 	addAttr -ci true -h true -k true -sn "colliderMatrixB" -ln "colliderMatrixB" -at "matrix";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"capsule\";";
+	setAttr -s 26 ".colliderAffectedBy";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
 	setAttr -k on ".colliderLength";
@@ -831,9 +905,8 @@ createNode transform -n "CapsuleCollider" -p "CapsuleCollider_SPC";
 	setAttr -k on ".colliderPivot";
 	setAttr -k on ".colliderMatrixA";
 	setAttr -k on ".colliderMatrixB";
-	setAttr -s 26 ".colliderAffectedBy";
 createNode transform -n "CapsuleCollider_SphereA" -p "CapsuleCollider";
-	rename -uid "4EC3B549-4C50-FD41-68B9-7BAFE8427D51";
+	rename -uid "9B4F5D73-4BEE-1C17-47B7-F3A15C44CB19";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -844,6 +917,9 @@ createNode transform -n "CapsuleCollider_SphereA" -p "CapsuleCollider";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -852,6 +928,8 @@ createNode transform -n "CapsuleCollider_SphereA" -p "CapsuleCollider";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -859,10 +937,8 @@ createNode transform -n "CapsuleCollider_SphereA" -p "CapsuleCollider";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "CapsuleCollider_SphereAShape" -p "CapsuleCollider_SphereA";
-	rename -uid "471EC645-49DF-7727-56A3-5EA0178223B6";
+	rename -uid "BCACAD2B-44BE-5052-6F2B-A489620A6230";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -879,7 +955,7 @@ createNode nurbsSurface -n "CapsuleCollider_SphereAShape" -p "CapsuleCollider_Sp
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "CapsuleCollider_SphereB" -p "CapsuleCollider";
-	rename -uid "A09CBB28-4684-DE20-4922-D38EBB811C09";
+	rename -uid "1602105B-477B-51EF-AC48-26876D0F9711";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -890,6 +966,9 @@ createNode transform -n "CapsuleCollider_SphereB" -p "CapsuleCollider";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -898,6 +977,8 @@ createNode transform -n "CapsuleCollider_SphereB" -p "CapsuleCollider";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -905,10 +986,8 @@ createNode transform -n "CapsuleCollider_SphereB" -p "CapsuleCollider";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "CapsuleCollider_SphereBShape" -p "CapsuleCollider_SphereB";
-	rename -uid "7D8A41B3-4325-99E1-DF91-799DC3B309A1";
+	rename -uid "761F1D90-47FB-3860-05AC-C69CF12689DE";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -925,7 +1004,7 @@ createNode nurbsSurface -n "CapsuleCollider_SphereBShape" -p "CapsuleCollider_Sp
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "CapsuleCollider_CircleA" -p "CapsuleCollider";
-	rename -uid "47CF2AF6-475D-AC69-81AA-379394EE156A";
+	rename -uid "E8E4430F-4B12-409B-1B88-12B4216AAABC";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -936,6 +1015,9 @@ createNode transform -n "CapsuleCollider_CircleA" -p "CapsuleCollider";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -944,6 +1026,8 @@ createNode transform -n "CapsuleCollider_CircleA" -p "CapsuleCollider";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -951,13 +1035,11 @@ createNode transform -n "CapsuleCollider_CircleA" -p "CapsuleCollider";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "CapsuleCollider_CircleAShape" -p "CapsuleCollider_CircleA";
-	rename -uid "018BDEDE-43D7-4D5A-EAF0-86ACE08ED56C";
+	rename -uid "A0F77906-44A6-3F60-FC60-25A2A08217C1";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "CapsuleCollider_CircleB" -p "CapsuleCollider";
-	rename -uid "C717FDE3-4DB7-8883-8870-BAA6C72533C1";
+	rename -uid "1D73DE91-4336-745F-AC71-7D8458A7C5E5";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -968,6 +1050,9 @@ createNode transform -n "CapsuleCollider_CircleB" -p "CapsuleCollider";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
 	setAttr -l on -k off ".rx";
@@ -976,6 +1061,8 @@ createNode transform -n "CapsuleCollider_CircleB" -p "CapsuleCollider";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -983,13 +1070,11 @@ createNode transform -n "CapsuleCollider_CircleB" -p "CapsuleCollider";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsCurve -n "CapsuleCollider_CircleBShape" -p "CapsuleCollider_CircleB";
-	rename -uid "F9D8983B-4F20-969A-95B0-32858DA7F88C";
+	rename -uid "70D1FAC9-4C32-286F-A47B-B8951639B89C";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".tw" yes;
 createNode transform -n "CapsuleCollider_Loft" -p "CapsuleCollider";
-	rename -uid "4658BF81-4B1D-2A48-FF53-7382C680D6F8";
+	rename -uid "BBF9F341-4DB2-2F77-DE46-9FBE95B91BF7";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadiusA" -ln "colliderRadiusA" -dv 0.5 
 		-min 0.001 -at "double";
@@ -1000,6 +1085,9 @@ createNode transform -n "CapsuleCollider_Loft" -p "CapsuleCollider";
 	addAttr -uap -ci true -k true -sn "colliderPivot" -ln "colliderPivot" -min 0 -max 
 		2 -en "A:Center:B" -at "enum";
 	setAttr -l on -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
 	setAttr -l on -k off ".tx";
 	setAttr -l on -k off ".ty";
 	setAttr -l on -k off ".tz";
@@ -1009,6 +1097,8 @@ createNode transform -n "CapsuleCollider_Loft" -p "CapsuleCollider";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"colliderComponent\";";
 	setAttr -k on ".colliderRadiusA";
 	setAttr -k on ".colliderRadiusB";
@@ -1016,10 +1106,8 @@ createNode transform -n "CapsuleCollider_Loft" -p "CapsuleCollider";
 	setAttr -k on ".colliderOffset";
 	setAttr -k on ".colliderPivot";
 createNode nurbsSurface -n "CapsuleCollider_LoftShape" -p "CapsuleCollider_Loft";
-	rename -uid "1721D08B-4BF0-749A-D266-D0A607867CC1";
+	rename -uid "A6CD67B5-4DD4-1902-896B-9BA122E9F92D";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".mb" no;
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
@@ -1034,7 +1122,7 @@ createNode nurbsSurface -n "CapsuleCollider_LoftShape" -p "CapsuleCollider_Loft"
 	setAttr ".cpr" 4;
 	setAttr ".cps" 4;
 createNode transform -n "InfinitePlaneCollider_SPC" -p "Collider_GRP";
-	rename -uid "87D25635-4D1E-F170-AAC2-5E8D4BC3E38D";
+	rename -uid "1ECF355F-4203-3A49-2E65-2EB2E50D9096";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderWidth" -ln "colliderWidth" -dv 1 -min 
@@ -1042,29 +1130,30 @@ createNode transform -n "InfinitePlaneCollider_SPC" -p "Collider_GRP";
 	addAttr -uap -ci true -k true -sn "colliderHeight" -ln "colliderHeight" -dv 1 -min 
 		0.001 -at "double";
 	setAttr ".t" -type "double3" -2 0 2 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource";
 	setAttr -k on ".colliderWidth";
 	setAttr -k on ".colliderHeight";
 createNode transform -n "InfinitePlaneCollider" -p "InfinitePlaneCollider_SPC";
-	rename -uid "99CFACE8-498C-CA86-87D0-D589783D1D2B";
+	rename -uid "D5B19001-40D1-837C-902A-2A84EB53D225";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderWidth" -ln "colliderWidth" -dv 1 -min 0.001 
 		-at "double";
 	addAttr -ci true -k true -sn "colliderHeight" -ln "colliderHeight" -dv 1 -min 0.001 
 		-at "double";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"infinitePlane\";";
+	setAttr -s 3 ".colliderAffectedBy";
 	setAttr -k on ".colliderWidth";
 	setAttr -k on ".colliderHeight";
-	setAttr -s 3 ".colliderAffectedBy";
 createNode nurbsSurface -n "InfinitePlaneColliderShape" -p "InfinitePlaneCollider";
-	rename -uid "5198CC2C-4C69-4EC2-6575-60AA3B2E8A4A";
+	rename -uid "B490F3D4-495A-E300-EE09-C3AC06DC75D8";
 	setAttr -k off ".v";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".tw" yes;
@@ -1077,30 +1166,31 @@ createNode nurbsSurface -n "InfinitePlaneColliderShape" -p "InfinitePlaneCollide
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode transform -n "SphereCollider_SPC" -p "Collider_GRP";
-	rename -uid "60E320CB-400E-8865-364A-25AD0FE79AA0";
+	rename -uid "37F1ABA0-43AF-0BA2-B1E6-0A9F979B73D4";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
 	addAttr -ci true -sn "colliderSource" -ln "colliderSource" -dt "string";
 	addAttr -uap -ci true -k true -sn "colliderRadius" -ln "colliderRadius" -dv 0.5 
 		-min 0.001 -at "double";
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 1 0 ;
 	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"collider\";";
 	setAttr -l on ".colliderSource";
 	setAttr -k on ".colliderRadius";
 createNode transform -n "SphereCollider" -p "SphereCollider_SPC";
-	rename -uid "28396A9E-43BB-6FB3-938A-F1BBA646B3F4";
+	rename -uid "A1E5856C-42E4-001C-7E32-8193B016F9C5";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
 	addAttr -ci true -k true -sn "colliderRadius" -ln "colliderRadius" -dv 0.5 -min 
 		0.001 -at "double";
-	addAttr -s false -ci true -m -sn "colliderAffectedBy" -ln "colliderAffectedBy" -at "message";
-	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"sphere\";";
-	setAttr -k on ".colliderRadius";
-	setAttr -s 2 ".colliderAffectedBy";
-createNode nurbsSurface -n "SphereColliderShape" -p "SphereCollider";
-	rename -uid "21DC85AF-4A55-9CC7-1CA6-B692F9D0A45C";
-	setAttr -k off ".v";
 	setAttr ".ove" yes;
-	setAttr ".ovc" 17;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 1 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 1 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"collider\";colliderType=\"sphere\";";
+	setAttr -s 2 ".colliderAffectedBy";
+	setAttr -k on ".colliderRadius";
+createNode nurbsSurface -n "SphereColliderShape" -p "SphereCollider";
+	rename -uid "BE2B676B-4CCE-5459-489B-1280135227D1";
+	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".tw" yes;
@@ -1113,208 +1203,22 @@ createNode nurbsSurface -n "SphereColliderShape" -p "SphereCollider";
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "4CE49DF5-4D06-4A43-B380-95A7BCBC4B60";
+	rename -uid "39E1C9FF-477D-9FE4-F2C9-049CA88B4E55";
 	setAttr -s 2 ".lnk";
 	setAttr -s 2 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "50D49668-430F-7410-6828-258BC7AD910F";
+	rename -uid "3C4F0DD1-4E6D-E282-08F0-F28BE2678BD6";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "0B701465-406F-8631-12BA-98929427210D";
+	rename -uid "1B71702A-4D08-AEB9-C9A3-CC8549E74D8D";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "8EA641C1-4309-1632-60C3-A586E4DF1082";
+	rename -uid "2F3FDC13-4B9B-C7D0-9F60-DA987670D761";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "31B52486-400B-055F-39FF-29BDF55AD836";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "D67F5128-40AB-6AC9-D181-4D94FED46F93";
+	rename -uid "1BDAE84E-46B0-A005-3D7A-E2B60C7F4237";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "7733D7B2-4FB6-E247-ED89-3AA6714E6F8E";
 	setAttr ".g" yes;
-createNode makeNurbSphere -n "makeNurbSphere1";
-	rename -uid "12BA8E84-426E-714C-3828-57B799971C1D";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbSphere -n "makeNurbSphere2";
-	rename -uid "8FB8AC65-4331-A87D-C93E-EAA97C92FC24";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbCircle -n "makeNurbCircle1";
-	rename -uid "0EF9E761-41D3-B034-131A-F48615DD9696";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode makeNurbCircle -n "makeNurbCircle2";
-	rename -uid "5F660B90-4283-53C9-CD68-2E859139F475";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode loft -n "loft1";
-	rename -uid "46D26AEC-4FB0-837E-85C0-A5A306C9A9CE";
-	setAttr -s 2 ".ic";
-createNode floatMath -n "joint1_CapsuleCollider_halfLength";
-	rename -uid "F7117811-466D-BF19-0E7D-00BAA41D2168";
-	setAttr -l on "._fb" -0.5;
-	setAttr "._cnd" 2;
-createNode floatMath -n "joint1_CapsuleCollider_pivot";
-	rename -uid "FFB2BC3C-4A59-CCB6-325B-359D54CA6842";
-	setAttr "._cnd" 2;
-createNode floatMath -n "joint1_CapsuleCollider_offsetA";
-	rename -uid "7E8D1577-4F84-B83C-779F-75B262100E25";
-createNode floatMath -n "joint1_CapsuleCollider_offsetB";
-	rename -uid "0BAE5563-41B0-E145-B4A4-3C9501309100";
-createNode condition -n "joint1_CapsuleCollider_lengthDir";
-	rename -uid "5AEC01D7-4A72-FFF4-4756-6CA493B965F3";
-	setAttr ".op" 4;
-	setAttr ".ct" -type "float3" -1 0 0 ;
-createNode setRange -n "joint1_CapsuleCollider_sweepRangeA";
-	rename -uid "D60F45BB-4A6D-318A-E880-E88D0B105445";
-	setAttr ".n" -type "float3" -90 90 0 ;
-	setAttr ".m" -type "float3" 90 270 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode setRange -n "joint1_CapsuleCollider_sweepRangeB";
-	rename -uid "B2D31BDD-4B46-D948-FEF2-49A95B1C100C";
-	setAttr ".n" -type "float3" 90 270 0 ;
-	setAttr ".m" -type "float3" -90 90 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode unitConversion -n "joint1_CapsuleCollider_sweepAStartUc";
-	rename -uid "254A86EE-4953-61BF-A9C9-D79E64677DB4";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint1_CapsuleCollider_sweepAEndUc";
-	rename -uid "2B4CE489-401E-714B-F803-7F91B1CF8B0E";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint1_CapsuleCollider_sweepBStartUc";
-	rename -uid "ADE55A1C-42DB-5C9D-1677-7FAA5F4CE415";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint1_CapsuleCollider_sweepBEndUc";
-	rename -uid "382AC3C4-4D40-0127-6E4B-608EA390FB10";
-	setAttr ".cf" 0.01745329;
-createNode makeNurbPlane -n "makeNurbPlane1";
-	rename -uid "3BB08051-4EA8-FB8E-D1A1-32A3CF7D36D6";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-createNode floatMath -n "joint3_InfinitePlaneCollider_ratio";
-	rename -uid "B82F5CEC-4732-F1D3-B04B-A38ED78CFC39";
-	setAttr "._cnd" 3;
-createNode makeNurbSphere -n "makeNurbSphere3";
-	rename -uid "7747C98A-4143-FC1D-ECCF-A696504E990F";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-createNode makeNurbSphere -n "makeNurbSphere4";
-	rename -uid "7B59FC37-41DE-9D39-7CBB-1CB6BD48FDB3";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbSphere -n "makeNurbSphere5";
-	rename -uid "A1959C82-466B-FC22-F2D0-DA8B6BD53852";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbCircle -n "makeNurbCircle3";
-	rename -uid "93299769-4769-6CF5-9936-C9A6DBB2D2B8";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode makeNurbCircle -n "makeNurbCircle4";
-	rename -uid "D74B1136-4863-C0A4-EA4F-E9B4F0854EEB";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode loft -n "loft2";
-	rename -uid "522E204E-40AB-5FE4-A0F5-189FFD43FA2E";
-	setAttr -s 2 ".ic";
-createNode floatMath -n "joint2_CapsuleCollider_halfLength";
-	rename -uid "29C9B5DC-4E9B-B3C3-06C8-E387D90809FB";
-	setAttr -l on "._fb" -0.5;
-	setAttr "._cnd" 2;
-createNode floatMath -n "joint2_CapsuleCollider_pivot";
-	rename -uid "BB204BFC-4C6B-23D4-1A40-D1930CB9903E";
-	setAttr "._cnd" 2;
-createNode floatMath -n "joint2_CapsuleCollider_offsetA";
-	rename -uid "539BACBF-460C-6316-7753-B1AAE13967CF";
-createNode floatMath -n "joint2_CapsuleCollider_offsetB";
-	rename -uid "3B28C901-4071-3C3B-A9A0-5C84EE289E28";
-createNode condition -n "joint2_CapsuleCollider_lengthDir";
-	rename -uid "DD83CE0F-445B-59E5-9AC2-64967C9193F6";
-	setAttr ".op" 4;
-	setAttr ".ct" -type "float3" -1 0 0 ;
-createNode setRange -n "joint2_CapsuleCollider_sweepRangeA";
-	rename -uid "AF4C9926-4214-A43B-2984-18900F2773FF";
-	setAttr ".n" -type "float3" -90 90 0 ;
-	setAttr ".m" -type "float3" 90 270 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode setRange -n "joint2_CapsuleCollider_sweepRangeB";
-	rename -uid "FFCCA14E-497C-E6B8-500A-148681581AAC";
-	setAttr ".n" -type "float3" 90 270 0 ;
-	setAttr ".m" -type "float3" -90 90 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode unitConversion -n "joint2_CapsuleCollider_sweepAStartUc";
-	rename -uid "0729E152-4DB5-4E2C-9131-23B8850D8355";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint2_CapsuleCollider_sweepAEndUc";
-	rename -uid "643802E0-464D-98D4-6FAA-55BEC4E7191C";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint2_CapsuleCollider_sweepBStartUc";
-	rename -uid "88A03B64-4C49-843A-C392-33AFB9765523";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "joint2_CapsuleCollider_sweepBEndUc";
-	rename -uid "48806207-46FE-D90D-2EAE-32BA941A5E36";
-	setAttr ".cf" 0.01745329;
-createNode makeNurbSphere -n "makeNurbSphere6";
-	rename -uid "FE17454D-412F-D89C-A8D7-5AA777D8A06B";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbSphere -n "makeNurbSphere7";
-	rename -uid "D8A84DEA-4E7B-D927-5AA2-FFAABE7D4C88";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-	setAttr ".s" 4;
-createNode makeNurbCircle -n "makeNurbCircle5";
-	rename -uid "0A218A26-492C-B236-4EF4-00BA329374A1";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode makeNurbCircle -n "makeNurbCircle6";
-	rename -uid "F4DB09CB-44E3-C64B-00A9-49A7FE7B7991";
-	setAttr ".nr" -type "double3" 1 0 0 ;
-createNode loft -n "loft3";
-	rename -uid "6714896E-43BA-284E-F5CE-3B9B1698D212";
-	setAttr -s 2 ".ic";
-createNode floatMath -n "CapsuleCollider_halfLength";
-	rename -uid "CDF0748E-4E87-05F3-A7DD-0683F7EF918E";
-	setAttr -l on "._fb" -0.5;
-	setAttr "._cnd" 2;
-createNode floatMath -n "CapsuleCollider_pivot";
-	rename -uid "F080086B-4D8C-61D4-A893-FBBB53CAA748";
-	setAttr "._cnd" 2;
-createNode floatMath -n "CapsuleCollider_offsetA";
-	rename -uid "29CF1C80-4D13-9B84-6662-448C1738AE19";
-createNode floatMath -n "CapsuleCollider_offsetB";
-	rename -uid "A100808C-4292-882C-E643-F48FAEE91D2A";
-createNode condition -n "CapsuleCollider_lengthDir";
-	rename -uid "478A739D-4331-5068-6508-D493E8D01EAA";
-	setAttr ".op" 4;
-	setAttr ".ct" -type "float3" -1 0 0 ;
-createNode setRange -n "CapsuleCollider_sweepRangeA";
-	rename -uid "DC7F7730-48C7-9807-F922-BF977CE21E5B";
-	setAttr ".n" -type "float3" -90 90 0 ;
-	setAttr ".m" -type "float3" 90 270 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode setRange -n "CapsuleCollider_sweepRangeB";
-	rename -uid "39575386-42B7-E615-9215-4B80BF6DEAAD";
-	setAttr ".n" -type "float3" 90 270 0 ;
-	setAttr ".m" -type "float3" -90 90 0 ;
-	setAttr ".on" -type "float3" -1 -1 0 ;
-	setAttr ".om" -type "float3" 1 1 0 ;
-createNode unitConversion -n "CapsuleCollider_sweepAStartUc";
-	rename -uid "D8BA97FD-41A9-CA91-7A7E-15948575DACE";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "CapsuleCollider_sweepAEndUc";
-	rename -uid "A02353F3-420F-4004-132E-DEA62F45B132";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "CapsuleCollider_sweepBStartUc";
-	rename -uid "596BA1BF-48A6-82EC-8137-CD867AC575BA";
-	setAttr ".cf" 0.01745329;
-createNode unitConversion -n "CapsuleCollider_sweepBEndUc";
-	rename -uid "C09048A2-4043-0E80-DF7B-068988F22BFC";
-	setAttr ".cf" 0.01745329;
-createNode makeNurbPlane -n "makeNurbPlane2";
-	rename -uid "4A617AA7-489C-EAB0-8D91-58A5CF4ABD23";
-	setAttr ".ax" -type "double3" 0 1 0 ;
-createNode floatMath -n "InfinitePlaneCollider_ratio";
-	rename -uid "8060B30F-4D58-DBC7-695A-96BBD67BD6E5";
-	setAttr "._cnd" 3;
-createNode makeNurbSphere -n "makeNurbSphere8";
-	rename -uid "F156F446-4E84-A74C-5190-4D8491FF1F5D";
-	setAttr ".ax" -type "double3" 0 1 0 ;
 createNode script -n "uiConfigurationScriptNode";
 	rename -uid "03861449-4A69-053B-6939-74986CCBD9BE";
 	setAttr ".b" -type "string" (
@@ -1332,7 +1236,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|persp\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
 		+ "            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 1\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n"
 		+ "            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n"
-		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 839\n            -height 1092\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n"
+		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 813\n            -height 1092\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n"
 		+ "            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 0\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n"
 		+ "            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -isSet 0\n            -isSetMember 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n"
 		+ "            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -selectCommand \"print(\\\"\\\")\" \n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            -renderFilterIndex 0\n            -selectionOrder \"chronological\" \n            -expandAttribute 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n"
@@ -1348,20 +1252,19 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            clipEditor -e \n                -displayValues 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -initialized 0\n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n"
 		+ "                -showConnectionFromSelected 0\n                -showConnectionToSelected 0\n                -showConstraintLabels 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"nodeEditorPanel\" (localizedPanelLabel(\"Node Editor\")) `;\n\tif ($nodeEditorPanelVisible || $nodeEditorWorkspaceControlOpen) {\n\t\tif (\"\" == $panelName) {\n\t\t\tif ($useSceneConfig) {\n\t\t\t\t$panelName = `scriptedPanel -unParent  -type \"nodeEditorPanel\" -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n"
-		+ "                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -connectionMinSegment 0.03\n                -connectionOffset 0.03\n                -connectionRoundness 0.8\n                -connectionTension -100\n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n"
-		+ "                -hasWatchpoint 0\n                $editorName;\n\t\t\t}\n\t\t} else {\n\t\t\t$label = `panel -q -label $panelName`;\n\t\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -connectionMinSegment 0.03\n                -connectionOffset 0.03\n                -connectionRoundness 0.8\n                -connectionTension -100\n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n"
-		+ "                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\tif (!$useSceneConfig) {\n\t\t\t\tpanel -e -l $label $panelName;\n\t\t\t}\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Editor\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"shapePanel\" (localizedPanelLabel(\"Shape Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tshapePanel -edit -l (localizedPanelLabel(\"Shape Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"posePanel\" (localizedPanelLabel(\"Pose Editor\")) `;\n\tif (\"\" != $panelName) {\n"
-		+ "\t\t$label = `panel -q -label $panelName`;\n\t\tposePanel -edit -l (localizedPanelLabel(\"Pose Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"profilerPanel\" (localizedPanelLabel(\"Profiler Tool\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Profiler Tool\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"contentBrowserPanel\" (localizedPanelLabel(\"Content Browser\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Content Browser\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\n{ string $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -editorChanged \"updateModelPanelBar\" \n                -camera \"|persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"smoothShaded\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -holdOuts 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 0\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n"
-		+ "                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 32768\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -depthOfFieldPreview 1\n                -maxConstantTransparency 1\n                -rendererOverrideName \"stereoOverrideVP2\" \n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n"
-		+ "                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n"
-		+ "                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n"
-		+ "\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
-		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 839\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 839\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\t}\n\t\t} else {\n\t\t\t$label = `panel -q -label $panelName`;\n\t\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
+		+ "\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n"
+		+ "                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\tif (!$useSceneConfig) {\n\t\t\t\tpanel -e -l $label $panelName;\n\t\t\t}\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n"
+		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"shapePanel\" (localizedPanelLabel(\"Shape Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tshapePanel -edit -l (localizedPanelLabel(\"Shape Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"posePanel\" (localizedPanelLabel(\"Pose Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tposePanel -edit -l (localizedPanelLabel(\"Pose Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" != $panelName) {\n"
+		+ "\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n"
+		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"profilerPanel\" (localizedPanelLabel(\"Profiler Tool\")) `;\n"
+		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Profiler Tool\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"contentBrowserPanel\" (localizedPanelLabel(\"Content Browser\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Content Browser\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\n{ string $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -editorChanged \"updateModelPanelBar\" \n                -camera \"|persp\" \n                -useInteractiveMode 0\n"
+		+ "                -displayLights \"default\" \n                -displayAppearance \"smoothShaded\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -holdOuts 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 0\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 32768\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n"
+		+ "                -depthOfFieldPreview 1\n                -maxConstantTransparency 1\n                -rendererOverrideName \"stereoOverrideVP2\" \n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n"
+		+ "                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n"
+		+ "                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
+		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 813\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 813\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
@@ -1373,6 +1276,192 @@ createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
 	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
 	setAttr ".tgi[0].vl" -type "double2" -941.66662924819684 -574.99997715155371 ;
 	setAttr ".tgi[0].vh" -type "double2" 941.66662924819684 573.80950100838288 ;
+createNode makeNurbSphere -n "makeNurbSphere1";
+	rename -uid "DCF6D5E7-4C2E-9ABB-579F-93821DCAA28F";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbSphere -n "makeNurbSphere2";
+	rename -uid "CD99DC04-4BD9-3D2A-3B1F-C684EEE2B52A";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbCircle -n "makeNurbCircle1";
+	rename -uid "25001090-42AF-D6B8-0C7B-1B889E34BB40";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode makeNurbCircle -n "makeNurbCircle2";
+	rename -uid "62027A3B-4D57-AE79-C031-F685D59E4B48";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode loft -n "loft1";
+	rename -uid "352355B8-4BFD-5510-ECA9-FE9835E4219F";
+	setAttr -s 2 ".ic";
+createNode floatMath -n "joint1_CapsuleCollider_halfLength";
+	rename -uid "A29286B7-48DF-074E-563D-85B23030C92A";
+	setAttr -l on "._fb" -0.5;
+	setAttr "._cnd" 2;
+createNode floatMath -n "joint1_CapsuleCollider_pivot";
+	rename -uid "60053625-4EE7-39B8-2584-BE854AA76993";
+	setAttr "._cnd" 2;
+createNode floatMath -n "joint1_CapsuleCollider_offsetA";
+	rename -uid "5D56A668-421E-436C-EFBC-569A6EA1F6AA";
+createNode floatMath -n "joint1_CapsuleCollider_offsetB";
+	rename -uid "A0A7C715-4CA6-869B-1FDA-7080FD6F4390";
+createNode condition -n "joint1_CapsuleCollider_lengthDir";
+	rename -uid "53B17904-4C93-E3E6-1978-96B811E5CB39";
+	setAttr ".op" 4;
+	setAttr ".ct" -type "float3" -1 0 0 ;
+createNode setRange -n "joint1_CapsuleCollider_sweepRangeA";
+	rename -uid "04C91AD3-40C5-DAB3-431E-30A54DAAC3FF";
+	setAttr ".n" -type "float3" -90 90 0 ;
+	setAttr ".m" -type "float3" 90 270 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode setRange -n "joint1_CapsuleCollider_sweepRangeB";
+	rename -uid "981E292D-42C8-7C9A-48C9-4D812AB0E5D0";
+	setAttr ".n" -type "float3" 90 270 0 ;
+	setAttr ".m" -type "float3" -90 90 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode unitConversion -n "joint1_CapsuleCollider_sweepAStartUc";
+	rename -uid "0D221BA3-436A-1601-0F4B-209B7BD87934";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint1_CapsuleCollider_sweepAEndUc";
+	rename -uid "463FE3B3-4326-0E36-D4A6-0D8D2FE903C6";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint1_CapsuleCollider_sweepBStartUc";
+	rename -uid "26BA8725-404E-AF61-524B-75B28DEE9CFF";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint1_CapsuleCollider_sweepBEndUc";
+	rename -uid "2FED23D6-4DEB-FA7B-45F3-B9BD51318819";
+	setAttr ".cf" 0.01745329;
+createNode makeNurbPlane -n "makeNurbPlane1";
+	rename -uid "06A6E641-4DF4-DA63-4108-D2A5EE1D6E44";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+createNode floatMath -n "joint3_InfinitePlaneCollider_ratio";
+	rename -uid "85B870C4-4096-C151-CD91-909ED1924B36";
+	setAttr "._cnd" 3;
+createNode makeNurbSphere -n "makeNurbSphere3";
+	rename -uid "A790F2C8-44C3-8A4C-1882-1EA477065265";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+createNode makeNurbSphere -n "makeNurbSphere4";
+	rename -uid "C94A2E99-4AD2-9688-571A-3CB0299EE6A6";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbSphere -n "makeNurbSphere5";
+	rename -uid "B55F597B-47CD-92D6-747C-C5ABC1701DB5";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbCircle -n "makeNurbCircle3";
+	rename -uid "8E28BA59-45F8-403A-E033-FF8F618B2CE0";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode makeNurbCircle -n "makeNurbCircle4";
+	rename -uid "A7B72D17-471A-4E6C-3BB5-A7A1929604BC";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode loft -n "loft2";
+	rename -uid "398E0027-4FB9-F126-73DC-13B61A214257";
+	setAttr -s 2 ".ic";
+createNode floatMath -n "joint2_CapsuleCollider_halfLength";
+	rename -uid "94153414-4009-4FED-11F2-F2979D5A05D9";
+	setAttr -l on "._fb" -0.5;
+	setAttr "._cnd" 2;
+createNode floatMath -n "joint2_CapsuleCollider_pivot";
+	rename -uid "E6C269B9-43EF-D4F0-4D1C-00BA9F173D11";
+	setAttr "._cnd" 2;
+createNode floatMath -n "joint2_CapsuleCollider_offsetA";
+	rename -uid "EC8E30E9-46DC-A6A7-579C-32A4132D49DE";
+createNode floatMath -n "joint2_CapsuleCollider_offsetB";
+	rename -uid "99DE2361-452D-B6BF-C2A5-24AC6A0B74DB";
+createNode condition -n "joint2_CapsuleCollider_lengthDir";
+	rename -uid "CC870A6E-44E7-2566-1BB5-B98FD17F1489";
+	setAttr ".op" 4;
+	setAttr ".ct" -type "float3" -1 0 0 ;
+createNode setRange -n "joint2_CapsuleCollider_sweepRangeA";
+	rename -uid "2A74F691-4035-A638-78CA-0E9EA900564F";
+	setAttr ".n" -type "float3" -90 90 0 ;
+	setAttr ".m" -type "float3" 90 270 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode setRange -n "joint2_CapsuleCollider_sweepRangeB";
+	rename -uid "7676C69A-44BE-C3B2-999E-09BAD4C7059E";
+	setAttr ".n" -type "float3" 90 270 0 ;
+	setAttr ".m" -type "float3" -90 90 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode unitConversion -n "joint2_CapsuleCollider_sweepAStartUc";
+	rename -uid "C4F728AE-47F1-9BC4-BD0B-6CBDD1575484";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint2_CapsuleCollider_sweepAEndUc";
+	rename -uid "8C9E0851-46AC-CBBC-304E-F782CFD72324";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint2_CapsuleCollider_sweepBStartUc";
+	rename -uid "433CFF71-4163-6AC6-AF87-3FB05C27778F";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "joint2_CapsuleCollider_sweepBEndUc";
+	rename -uid "78695CFA-4DD0-49C5-A6A8-47A4AF89633B";
+	setAttr ".cf" 0.01745329;
+createNode makeNurbSphere -n "makeNurbSphere6";
+	rename -uid "233BE024-4D4D-0688-5D96-CD81B180D068";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbSphere -n "makeNurbSphere7";
+	rename -uid "AFC3FCF0-41C9-6324-9DDA-DD8E044260A0";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+	setAttr ".s" 4;
+createNode makeNurbCircle -n "makeNurbCircle5";
+	rename -uid "46DEEED4-4D2B-57DB-0CD2-0BA0D74B8883";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode makeNurbCircle -n "makeNurbCircle6";
+	rename -uid "951D075A-44C3-D81F-A3C9-9291CAD86613";
+	setAttr ".nr" -type "double3" 1 0 0 ;
+createNode loft -n "loft3";
+	rename -uid "6FF49FE0-4CCF-CA5B-02DE-69A1F98DE613";
+	setAttr -s 2 ".ic";
+createNode floatMath -n "CapsuleCollider_halfLength";
+	rename -uid "1BBBC83D-459F-6B51-B5C4-219D8444D46D";
+	setAttr -l on "._fb" -0.5;
+	setAttr "._cnd" 2;
+createNode floatMath -n "CapsuleCollider_pivot";
+	rename -uid "4E2D2EAA-46D9-45A7-0A3D-998308CC3E6E";
+	setAttr "._cnd" 2;
+createNode floatMath -n "CapsuleCollider_offsetA";
+	rename -uid "0E5F7D74-487B-3B05-9BAD-A98DD68DBCDF";
+createNode floatMath -n "CapsuleCollider_offsetB";
+	rename -uid "F04303C7-4CB7-0533-2084-F9AA309C2CCD";
+createNode condition -n "CapsuleCollider_lengthDir";
+	rename -uid "DCD1003B-41B4-BB35-7D8A-03AFFF1FB848";
+	setAttr ".op" 4;
+	setAttr ".ct" -type "float3" -1 0 0 ;
+createNode setRange -n "CapsuleCollider_sweepRangeA";
+	rename -uid "FB368141-4FEE-4A67-C99A-B09D510ED914";
+	setAttr ".n" -type "float3" -90 90 0 ;
+	setAttr ".m" -type "float3" 90 270 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode setRange -n "CapsuleCollider_sweepRangeB";
+	rename -uid "B58262C4-49D9-E5A7-BE0E-4484A771506B";
+	setAttr ".n" -type "float3" 90 270 0 ;
+	setAttr ".m" -type "float3" -90 90 0 ;
+	setAttr ".on" -type "float3" -1 -1 0 ;
+	setAttr ".om" -type "float3" 1 1 0 ;
+createNode unitConversion -n "CapsuleCollider_sweepAStartUc";
+	rename -uid "C2B70012-4545-D7E0-A573-A2A712E26605";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "CapsuleCollider_sweepAEndUc";
+	rename -uid "D57F7C99-48C7-5914-F85D-91BAA653ED49";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "CapsuleCollider_sweepBStartUc";
+	rename -uid "56E92642-429D-9485-9ABD-1D9B8BD2DD49";
+	setAttr ".cf" 0.01745329;
+createNode unitConversion -n "CapsuleCollider_sweepBEndUc";
+	rename -uid "563C7FE4-47BD-FFEE-DB2D-85A7DE985B86";
+	setAttr ".cf" 0.01745329;
+createNode makeNurbPlane -n "makeNurbPlane2";
+	rename -uid "E2D70837-458E-9CA6-5C64-8EA9F5424477";
+	setAttr ".ax" -type "double3" 0 1 0 ;
+createNode floatMath -n "InfinitePlaneCollider_ratio";
+	rename -uid "58B010F0-4CD7-AE6E-5199-CB99A4500635";
+	setAttr "._cnd" 3;
+createNode makeNurbSphere -n "makeNurbSphere8";
+	rename -uid "85D20D17-4873-88F5-6451-48AAFC7D49AA";
+	setAttr ".ax" -type "double3" 0 1 0 ;
 select -ne :time1;
 	setAttr -av -cb on ".cch";
 	setAttr -av -k on ".fzn";
@@ -1788,8 +1877,6 @@ connectAttr "joint1_CapsuleCollider_sweepBStartUc.msg" "joint1_CapsuleCollider.c
 		;
 connectAttr "joint1_CapsuleCollider_sweepBEndUc.msg" "joint1_CapsuleCollider.colliderAffectedBy[25]"
 		;
-connectAttr "joint1_CapsuleCollider_offsetA.of" "joint1_CapsuleCollider_SphereA.tx"
-		;
 connectAttr "joint1_CapsuleCollider.colliderRadiusA" "joint1_CapsuleCollider_SphereA.colliderRadiusA"
 		;
 connectAttr "joint1_CapsuleCollider.colliderRadiusB" "joint1_CapsuleCollider_SphereA.colliderRadiusB"
@@ -1800,9 +1887,9 @@ connectAttr "joint1_CapsuleCollider.colliderOffset" "joint1_CapsuleCollider_Sphe
 		;
 connectAttr "joint1_CapsuleCollider.colliderPivot" "joint1_CapsuleCollider_SphereA.colliderPivot"
 		;
-connectAttr "makeNurbSphere1.os" "joint1_CapsuleCollider_SphereAShape.cr";
-connectAttr "joint1_CapsuleCollider_offsetB.of" "joint1_CapsuleCollider_SphereB.tx"
+connectAttr "joint1_CapsuleCollider_offsetA.of" "joint1_CapsuleCollider_SphereA.tx"
 		;
+connectAttr "makeNurbSphere1.os" "joint1_CapsuleCollider_SphereAShape.cr";
 connectAttr "joint1_CapsuleCollider.colliderRadiusA" "joint1_CapsuleCollider_SphereB.colliderRadiusA"
 		;
 connectAttr "joint1_CapsuleCollider.colliderRadiusB" "joint1_CapsuleCollider_SphereB.colliderRadiusB"
@@ -1813,9 +1900,9 @@ connectAttr "joint1_CapsuleCollider.colliderOffset" "joint1_CapsuleCollider_Sphe
 		;
 connectAttr "joint1_CapsuleCollider.colliderPivot" "joint1_CapsuleCollider_SphereB.colliderPivot"
 		;
-connectAttr "makeNurbSphere2.os" "joint1_CapsuleCollider_SphereBShape.cr";
-connectAttr "joint1_CapsuleCollider_offsetA.of" "joint1_CapsuleCollider_CircleA.tx"
+connectAttr "joint1_CapsuleCollider_offsetB.of" "joint1_CapsuleCollider_SphereB.tx"
 		;
+connectAttr "makeNurbSphere2.os" "joint1_CapsuleCollider_SphereBShape.cr";
 connectAttr "joint1_CapsuleCollider.colliderRadiusA" "joint1_CapsuleCollider_CircleA.colliderRadiusA"
 		;
 connectAttr "joint1_CapsuleCollider.colliderRadiusB" "joint1_CapsuleCollider_CircleA.colliderRadiusB"
@@ -1826,9 +1913,9 @@ connectAttr "joint1_CapsuleCollider.colliderOffset" "joint1_CapsuleCollider_Circ
 		;
 connectAttr "joint1_CapsuleCollider.colliderPivot" "joint1_CapsuleCollider_CircleA.colliderPivot"
 		;
-connectAttr "makeNurbCircle1.oc" "joint1_CapsuleCollider_CircleAShape.cr";
-connectAttr "joint1_CapsuleCollider_offsetB.of" "joint1_CapsuleCollider_CircleB.tx"
+connectAttr "joint1_CapsuleCollider_offsetA.of" "joint1_CapsuleCollider_CircleA.tx"
 		;
+connectAttr "makeNurbCircle1.oc" "joint1_CapsuleCollider_CircleAShape.cr";
 connectAttr "joint1_CapsuleCollider.colliderRadiusA" "joint1_CapsuleCollider_CircleB.colliderRadiusA"
 		;
 connectAttr "joint1_CapsuleCollider.colliderRadiusB" "joint1_CapsuleCollider_CircleB.colliderRadiusB"
@@ -1838,6 +1925,8 @@ connectAttr "joint1_CapsuleCollider.colliderLength" "joint1_CapsuleCollider_Circ
 connectAttr "joint1_CapsuleCollider.colliderOffset" "joint1_CapsuleCollider_CircleB.colliderOffset"
 		;
 connectAttr "joint1_CapsuleCollider.colliderPivot" "joint1_CapsuleCollider_CircleB.colliderPivot"
+		;
+connectAttr "joint1_CapsuleCollider_offsetB.of" "joint1_CapsuleCollider_CircleB.tx"
 		;
 connectAttr "makeNurbCircle2.oc" "joint1_CapsuleCollider_CircleBShape.cr";
 connectAttr "joint1_CapsuleCollider.colliderRadiusA" "joint1_CapsuleCollider_Loft.colliderRadiusA"
@@ -2030,8 +2119,6 @@ connectAttr "joint2_CapsuleCollider_sweepBStartUc.msg" "joint2_CapsuleCollider.c
 		;
 connectAttr "joint2_CapsuleCollider_sweepBEndUc.msg" "joint2_CapsuleCollider.colliderAffectedBy[25]"
 		;
-connectAttr "joint2_CapsuleCollider_offsetA.of" "joint2_CapsuleCollider_SphereA.tx"
-		;
 connectAttr "joint2_CapsuleCollider.colliderRadiusA" "joint2_CapsuleCollider_SphereA.colliderRadiusA"
 		;
 connectAttr "joint2_CapsuleCollider.colliderRadiusB" "joint2_CapsuleCollider_SphereA.colliderRadiusB"
@@ -2042,9 +2129,9 @@ connectAttr "joint2_CapsuleCollider.colliderOffset" "joint2_CapsuleCollider_Sphe
 		;
 connectAttr "joint2_CapsuleCollider.colliderPivot" "joint2_CapsuleCollider_SphereA.colliderPivot"
 		;
-connectAttr "makeNurbSphere4.os" "joint2_CapsuleCollider_SphereAShape.cr";
-connectAttr "joint2_CapsuleCollider_offsetB.of" "joint2_CapsuleCollider_SphereB.tx"
+connectAttr "joint2_CapsuleCollider_offsetA.of" "joint2_CapsuleCollider_SphereA.tx"
 		;
+connectAttr "makeNurbSphere4.os" "joint2_CapsuleCollider_SphereAShape.cr";
 connectAttr "joint2_CapsuleCollider.colliderRadiusA" "joint2_CapsuleCollider_SphereB.colliderRadiusA"
 		;
 connectAttr "joint2_CapsuleCollider.colliderRadiusB" "joint2_CapsuleCollider_SphereB.colliderRadiusB"
@@ -2055,9 +2142,9 @@ connectAttr "joint2_CapsuleCollider.colliderOffset" "joint2_CapsuleCollider_Sphe
 		;
 connectAttr "joint2_CapsuleCollider.colliderPivot" "joint2_CapsuleCollider_SphereB.colliderPivot"
 		;
-connectAttr "makeNurbSphere5.os" "joint2_CapsuleCollider_SphereBShape.cr";
-connectAttr "joint2_CapsuleCollider_offsetA.of" "joint2_CapsuleCollider_CircleA.tx"
+connectAttr "joint2_CapsuleCollider_offsetB.of" "joint2_CapsuleCollider_SphereB.tx"
 		;
+connectAttr "makeNurbSphere5.os" "joint2_CapsuleCollider_SphereBShape.cr";
 connectAttr "joint2_CapsuleCollider.colliderRadiusA" "joint2_CapsuleCollider_CircleA.colliderRadiusA"
 		;
 connectAttr "joint2_CapsuleCollider.colliderRadiusB" "joint2_CapsuleCollider_CircleA.colliderRadiusB"
@@ -2068,9 +2155,9 @@ connectAttr "joint2_CapsuleCollider.colliderOffset" "joint2_CapsuleCollider_Circ
 		;
 connectAttr "joint2_CapsuleCollider.colliderPivot" "joint2_CapsuleCollider_CircleA.colliderPivot"
 		;
-connectAttr "makeNurbCircle3.oc" "joint2_CapsuleCollider_CircleAShape.cr";
-connectAttr "joint2_CapsuleCollider_offsetB.of" "joint2_CapsuleCollider_CircleB.tx"
+connectAttr "joint2_CapsuleCollider_offsetA.of" "joint2_CapsuleCollider_CircleA.tx"
 		;
+connectAttr "makeNurbCircle3.oc" "joint2_CapsuleCollider_CircleAShape.cr";
 connectAttr "joint2_CapsuleCollider.colliderRadiusA" "joint2_CapsuleCollider_CircleB.colliderRadiusA"
 		;
 connectAttr "joint2_CapsuleCollider.colliderRadiusB" "joint2_CapsuleCollider_CircleB.colliderRadiusB"
@@ -2080,6 +2167,8 @@ connectAttr "joint2_CapsuleCollider.colliderLength" "joint2_CapsuleCollider_Circ
 connectAttr "joint2_CapsuleCollider.colliderOffset" "joint2_CapsuleCollider_CircleB.colliderOffset"
 		;
 connectAttr "joint2_CapsuleCollider.colliderPivot" "joint2_CapsuleCollider_CircleB.colliderPivot"
+		;
+connectAttr "joint2_CapsuleCollider_offsetB.of" "joint2_CapsuleCollider_CircleB.tx"
 		;
 connectAttr "makeNurbCircle4.oc" "joint2_CapsuleCollider_CircleBShape.cr";
 connectAttr "joint2_CapsuleCollider.colliderRadiusA" "joint2_CapsuleCollider_Loft.colliderRadiusA"
@@ -2180,7 +2269,6 @@ connectAttr "CapsuleCollider_sweepBStartUc.msg" "CapsuleCollider.colliderAffecte
 		;
 connectAttr "CapsuleCollider_sweepBEndUc.msg" "CapsuleCollider.colliderAffectedBy[25]"
 		;
-connectAttr "CapsuleCollider_offsetA.of" "CapsuleCollider_SphereA.tx";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_SphereA.colliderRadiusA"
 		;
 connectAttr "CapsuleCollider.colliderRadiusB" "CapsuleCollider_SphereA.colliderRadiusB"
@@ -2191,8 +2279,8 @@ connectAttr "CapsuleCollider.colliderOffset" "CapsuleCollider_SphereA.colliderOf
 		;
 connectAttr "CapsuleCollider.colliderPivot" "CapsuleCollider_SphereA.colliderPivot"
 		;
+connectAttr "CapsuleCollider_offsetA.of" "CapsuleCollider_SphereA.tx";
 connectAttr "makeNurbSphere6.os" "CapsuleCollider_SphereAShape.cr";
-connectAttr "CapsuleCollider_offsetB.of" "CapsuleCollider_SphereB.tx";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_SphereB.colliderRadiusA"
 		;
 connectAttr "CapsuleCollider.colliderRadiusB" "CapsuleCollider_SphereB.colliderRadiusB"
@@ -2203,8 +2291,8 @@ connectAttr "CapsuleCollider.colliderOffset" "CapsuleCollider_SphereB.colliderOf
 		;
 connectAttr "CapsuleCollider.colliderPivot" "CapsuleCollider_SphereB.colliderPivot"
 		;
+connectAttr "CapsuleCollider_offsetB.of" "CapsuleCollider_SphereB.tx";
 connectAttr "makeNurbSphere7.os" "CapsuleCollider_SphereBShape.cr";
-connectAttr "CapsuleCollider_offsetA.of" "CapsuleCollider_CircleA.tx";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_CircleA.colliderRadiusA"
 		;
 connectAttr "CapsuleCollider.colliderRadiusB" "CapsuleCollider_CircleA.colliderRadiusB"
@@ -2215,8 +2303,8 @@ connectAttr "CapsuleCollider.colliderOffset" "CapsuleCollider_CircleA.colliderOf
 		;
 connectAttr "CapsuleCollider.colliderPivot" "CapsuleCollider_CircleA.colliderPivot"
 		;
+connectAttr "CapsuleCollider_offsetA.of" "CapsuleCollider_CircleA.tx";
 connectAttr "makeNurbCircle5.oc" "CapsuleCollider_CircleAShape.cr";
-connectAttr "CapsuleCollider_offsetB.of" "CapsuleCollider_CircleB.tx";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_CircleB.colliderRadiusA"
 		;
 connectAttr "CapsuleCollider.colliderRadiusB" "CapsuleCollider_CircleB.colliderRadiusB"
@@ -2227,6 +2315,7 @@ connectAttr "CapsuleCollider.colliderOffset" "CapsuleCollider_CircleB.colliderOf
 		;
 connectAttr "CapsuleCollider.colliderPivot" "CapsuleCollider_CircleB.colliderPivot"
 		;
+connectAttr "CapsuleCollider_offsetB.of" "CapsuleCollider_CircleB.tx";
 connectAttr "makeNurbCircle6.oc" "CapsuleCollider_CircleBShape.cr";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_Loft.colliderRadiusA"
 		;
