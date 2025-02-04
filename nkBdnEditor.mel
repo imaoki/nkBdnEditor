@@ -6416,7 +6416,7 @@ proc buildMainWindow() {
                       "selectItemsFromSelectedBdnNodesButton"`;
                   separator -st "none" -vis false;
                   string $selectBdnNodesButton = `iconTextButton
-                      -ann "Select"
+                      -ann "Select nodes"
                       -i "pickObjByType.png"
                       -w 23
                       "selectBdnNodesButton"`;
@@ -6432,29 +6432,29 @@ proc buildMainWindow() {
                     string $bdnAttributeColumn = `columnLayout -adj true -rs 0 "bdnAttributeColumn"`;
                       string $bdnAttributeToolRow = `rowLayout -adj 2 -nc 7 "bdnAttributeToolRow"`;
                         string $bdnAttributeInitializeButton = `iconTextButton
-                            -ann "Initialize"
+                            -ann "Initialize attributes"
                             -i "hsClearView.png"
                             -w 23
                             "bdnAttributeInitializeButton"`;
                         separator -st "none" -vis false;
                         string $bdnAttributeExportButton = `iconTextButton
-                            -ann "Export"
+                            -ann "Export attributes"
                             -i "fileSave.png"
                             -w 23
                             "bdnAttributeExportButton"`;
                         string $bdnAttributeImportButton = `iconTextButton
-                            -ann "Import"
+                            -ann "Import attributes"
                             -i "fileOpen.png"
                             -w 23
                             "bdnAttributeImportButton"`;
                         separator -h 23 -st "single" -vis true;
                         string $bdnAttributeCopyButton = `iconTextButton
-                            -ann "Copy"
+                            -ann "Copy attributes"
                             -i "polyCopyUV.png"
                             -w 23
                             "bdnAttributeCopyButton"`;
                         string $bdnAttributePasteButton = `iconTextButton
-                            -ann "Paste"
+                            -ann "Paste attributes"
                             -i "polyPasteUV.png"
                             -w 23
                             "bdnAttributePasteButton"`;
@@ -6794,17 +6794,17 @@ proc buildMainWindow() {
                             "selectItemsFromSelectedDynamicsNodesButton"`;
                         separator -st "none" -vis false;
                         string $showDynamicsNodesButton = `iconTextButton
-                            -ann "Show"
+                            -ann "Show nodes"
                             -i "ghostingVisible.png"
                             -w 23
                             "showDynamicsNodesButton"`;
                         string $hideDynamicsNodesButton = `iconTextButton
-                            -ann "Hide"
+                            -ann "Hide nodes"
                             -i "ghostingHidden.png"
                             -w 23
                             "hideDynamicsNodesButton"`;
                         string $selectDynamicsNodesButton = `iconTextButton
-                            -ann "Select"
+                            -ann "Select nodes"
                             -i "pickObjByType.png"
                             -w 23
                             "selectDynamicsNodesButton"`;
@@ -6813,7 +6813,7 @@ proc buildMainWindow() {
                       string $dynamicsNodeColumn = `columnLayout -adj true -rs 0 "dynamicsNodeColumn"`;
                         string $dynamicsNodeToolRow = `rowLayout -adj 2 -nc 2 "dynamicsNodeToolRow"`;
                           string $dynamicsNodeInitializeButton = `iconTextButton
-                              -ann "Initialize"
+                              -ann "Initialize attributes"
                               -i "hsClearView.png"
                               -w 23
                               "dynamicsNodeInitializeButton"`;
@@ -6851,17 +6851,17 @@ proc buildMainWindow() {
                             "selectItemsFromSelectedTargetNodesButton"`;
                         separator -st "none" -vis false;
                         string $showTargetNodesButton = `iconTextButton
-                            -ann "Show"
+                            -ann "Show nodes"
                             -i "ghostingVisible.png"
                             -w 23
                             "showTargetNodesButton"`;
                         string $hideTargetNodesButton = `iconTextButton
-                            -ann "Hide"
+                            -ann "Hide nodes"
                             -i "ghostingHidden.png"
                             -w 23
                             "hideTargetNodesButton"`;
                         string $selectTargetNodesButton = `iconTextButton
-                            -ann "Select"
+                            -ann "Select nodes"
                             -i "pickObjByType.png"
                             -w 23
                             "selectTargetNodesButton"`;
@@ -6870,7 +6870,7 @@ proc buildMainWindow() {
                       string $targetNodeColumn = `columnLayout -adj true -rs 0 "targetNodeColumn"`;
                         string $targetNodeToolRow = `rowLayout -adj 2 -nc 2 "targetNodeToolRow"`;
                           string $targetNodeInitializeButton = `iconTextButton
-                              -ann "Initialize"
+                              -ann "Initialize attributes"
                               -i "hsClearView.png"
                               -w 23
                               "targetNodeInitializeButton"`;
@@ -6933,22 +6933,22 @@ proc buildMainWindow() {
                               "selectItemsFromSelectedInfluencedColliderNodesButton"`;
                           separator -st "none" -vis false;
                           string $showInfluencedColliderNodesButton = `iconTextButton
-                              -ann "Show"
+                              -ann "Show collider nodes"
                               -i "ghostingVisible.png"
                               -w 23
                               "showInfluencedColliderNodesButton"`;
                           string $hideInfluencedColliderNodesButton = `iconTextButton
-                              -ann "Hide"
+                              -ann "Hide collider nodes"
                               -i "ghostingHidden.png"
                               -w 23
                               "hideInfluencedColliderNodesButton"`;
                           string $selectInfluencedColliderSpcNodesButton = `iconTextButton
-                              -ann "Select Space"
+                              -ann "Select space nodes"
                               -i "pickHierarchy.png"
                               -w 23
                               "selectInfluencedColliderSpcNodesButton"`;
                           string $selectInfluencedColliderNodesButton = `iconTextButton
-                              -ann "Select Collider"
+                              -ann "Select collider nodes"
                               -i "pickObjByType.png"
                               -w 23
                               "selectInfluencedColliderNodesButton"`;
@@ -6968,32 +6968,32 @@ proc buildMainWindow() {
                               "selectItemsFromSelectedAllColliderNodesButton"`;
                           separator -st "none" -vis false;
                           string $allColliderExportButton = `iconTextButton
-                              -ann "Export"
+                              -ann "Export collider"
                               -i "fileSave.png"
                               -w 23
                               "allColliderExportButton"`;
                           string $allColliderImportButton = `iconTextButton
-                              -ann "Import"
+                              -ann "Import collider"
                               -i "fileOpen.png"
                               -w 23
                               "allColliderImportButton"`;
                           string $showAllColliderNodesButton = `iconTextButton
-                              -ann "Show"
+                              -ann "Show collider nodes"
                               -i "ghostingVisible.png"
                               -w 23
                               "showAllColliderNodesButton"`;
                           string $hideAllColliderNodesButton = `iconTextButton
-                              -ann "Hide"
+                              -ann "Hide collider nodes"
                               -i "ghostingHidden.png"
                               -w 23
                               "hideAllColliderNodesButton"`;
                           string $selectAllColliderSpcNodesButton = `iconTextButton
-                              -ann "Select Space"
+                              -ann "Select space nodes"
                               -i "pickHierarchy.png"
                               -w 23
                               "selectAllColliderSpcNodesButton"`;
                           string $selectAllColliderNodesButton = `iconTextButton
-                              -ann "Select Collider"
+                              -ann "Select collider nodes"
                               -i "pickObjByType.png"
                               -w 23
                               "selectAllColliderNodesButton"`;
@@ -7010,7 +7010,7 @@ proc buildMainWindow() {
                       string $colliderDisplayColumn = `columnLayout -adj true -rs 0 "colliderDisplayColumn"`;
                         string $colliderDisplayToolRow = `rowLayout -adj 2 -nc 2 "colliderDisplayToolRow"`;
                           string $colliderDisplayInitializeButton = `iconTextButton
-                              -ann "Initialize"
+                              -ann "Initialize attributes"
                               -i "hsClearView.png"
                               -w 23
                               "colliderDisplayInitializeButton"`;
@@ -7033,7 +7033,7 @@ proc buildMainWindow() {
                           string $capsuleColliderColumn = `columnLayout -adj true -rs 0 "capsuleColliderColumn"`;
                             string $capsuleColliderToolRow = `rowLayout -adj 2 -nc 5 "capsuleColliderToolRow"`;
                               string $capsuleColliderInitializeButton = `iconTextButton
-                                  -ann "Initialize"
+                                  -ann "Initialize attributes"
                                   -i "hsClearView.png"
                                   -w 23
                                   "capsuleColliderInitializeButton"`;
@@ -7044,12 +7044,12 @@ proc buildMainWindow() {
                                   -v false
                                   "capsuleColliderSetPlacementAttributesCheckBox"`;
                               string $capsuleColliderCopyButton = `iconTextButton
-                                  -ann "Copy"
+                                  -ann "Copy attributes"
                                   -i "polyCopyUV.png"
                                   -w 23
                                   "capsuleColliderCopyButton"`;
                               string $capsuleColliderPasteButton = `iconTextButton
-                                  -ann "Paste"
+                                  -ann "Paste attributes"
                                   -i "polyPasteUV.png"
                                   -w 23
                                   "capsuleColliderPasteButton"`;
@@ -7112,18 +7112,18 @@ proc buildMainWindow() {
                           string $infinitePlaneColliderColumn = `columnLayout -adj true -rs 0 "infinitePlaneColliderColumn"`;
                             string $infinitePlaneColliderToolRow = `rowLayout -adj 2 -nc 4 "infinitePlaneColliderToolRow"`;
                               string $infinitePlaneColliderInitializeButton = `iconTextButton
-                                  -ann "Initialize"
+                                  -ann "Initialize attributes"
                                   -i "hsClearView.png"
                                   -w 23
                                   "infinitePlaneColliderInitializeButton"`;
                               separator -st "none" -vis false;
                               string $infinitePlaneColliderCopyButton = `iconTextButton
-                                  -ann "Copy"
+                                  -ann "Copy attributes"
                                   -i "polyCopyUV.png"
                                   -w 23
                                   "infinitePlaneColliderCopyButton"`;
                               string $infinitePlaneColliderPasteButton = `iconTextButton
-                                  -ann "Paste"
+                                  -ann "Paste attributes"
                                   -i "polyPasteUV.png"
                                   -w 23
                                   "infinitePlaneColliderPasteButton"`;
@@ -7156,18 +7156,18 @@ proc buildMainWindow() {
                           string $sphereColliderColumn = `columnLayout -adj true -rs 0 "sphereColliderColumn"`;
                             string $sphereColliderToolRow = `rowLayout -adj 2 -nc 4 "sphereColliderToolRow"`;
                               string $sphereColliderInitializeButton = `iconTextButton
-                                  -ann "Initialize"
+                                  -ann "Initialize attributes"
                                   -i "hsClearView.png"
                                   -w 23
                                   "sphereColliderInitializeButton"`;
                               separator -st "none" -vis false;
                               string $sphereColliderCopyButton = `iconTextButton
-                                  -ann "Copy"
+                                  -ann "Copy attributes"
                                   -i "polyCopyUV.png"
                                   -w 23
                                   "sphereColliderCopyButton"`;
                               string $sphereColliderPasteButton = `iconTextButton
-                                  -ann "Paste"
+                                  -ann "Paste attributes"
                                   -i "polyPasteUV.png"
                                   -w 23
                                   "sphereColliderPasteButton"`;
@@ -7205,17 +7205,17 @@ proc buildMainWindow() {
                         "selectItemsFromSelectedMeshNodesButton"`;
                     separator -st "none" -vis false;
                     string $showMeshNodesButton = `iconTextButton
-                        -ann "Show"
+                        -ann "Show nodes"
                         -i "ghostingVisible.png"
                         -w 23
                         "showMeshNodesButton"`;
                     string $hideMeshNodesButton = `iconTextButton
-                        -ann "Hide"
+                        -ann "Hide nodes"
                         -i "ghostingHidden.png"
                         -w 23
                         "hideMeshNodesButton"`;
                     string $selectMeshNodesButton = `iconTextButton
-                        -ann "Select"
+                        -ann "Select nodes"
                         -i "pickObjByType.png"
                         -w 23
                         "selectMeshNodesButton"`;
@@ -7238,17 +7238,17 @@ proc buildMainWindow() {
                         "selectItemsFromSelectedForceNodesButton"`;
                     separator -st "none" -vis false;
                     string $showForceNodesButton = `iconTextButton
-                        -ann "Show"
+                        -ann "Show nodes"
                         -i "ghostingVisible.png"
                         -w 23
                         "showForceNodesButton"`;
                     string $hideForceNodesButton = `iconTextButton
-                        -ann "Hide"
+                        -ann "Hide nodes"
                         -i "ghostingHidden.png"
                         -w 23
                         "hideForceNodesButton"`;
                     string $selectForceNodesButton = `iconTextButton
-                        -ann "Select"
+                        -ann "Select nodes"
                         -i "pickObjByType.png"
                         -w 23
                         "selectForceNodesButton"`;
@@ -7290,17 +7290,17 @@ proc buildMainWindow() {
                         "selectItemsFromSelectedOffsetNodesButton"`;
                     separator -st "none" -vis false;
                     string $showOffsetNodesButton = `iconTextButton
-                        -ann "Show"
+                        -ann "Show nodes"
                         -i "ghostingVisible.png"
                         -w 23
                         "showOffsetNodesButton"`;
                     string $hideOffsetNodesButton = `iconTextButton
-                        -ann "Hide"
+                        -ann "Hide nodes"
                         -i "ghostingHidden.png"
                         -w 23
                         "hideOffsetNodesButton"`;
                     string $selectOffsetNodesButton = `iconTextButton
-                        -ann "Select"
+                        -ann "Select nodes"
                         -i "pickObjByType.png"
                         -w 23
                         "selectOffsetNodesButton"`;
@@ -7323,17 +7323,17 @@ proc buildMainWindow() {
                         "selectItemsFromSelectedBindNodesButton"`;
                     separator -st "none" -vis false;
                     string $showBindNodesButton = `iconTextButton
-                        -ann "Show"
+                        -ann "Show nodes"
                         -i "ghostingVisible.png"
                         -w 23
                         "showBindNodesButton"`;
                     string $hideBindNodesButton = `iconTextButton
-                        -ann "Hide"
+                        -ann "Hide nodes"
                         -i "ghostingHidden.png"
                         -w 23
                         "hideBindNodesButton"`;
                     string $selectBindNodesButton = `iconTextButton
-                        -ann "Select"
+                        -ann "Select nodes"
                         -i "pickObjByType.png"
                         -w 23
                         "selectBindNodesButton"`;
