@@ -1166,6 +1166,9 @@ proc string[] substituteBdnNodes(string $bdnNodes[]) {
 
     disconnectAttributes($inPlugSourceAttributes, $inPlugBdnAttributes);
     disconnectAttributes($outPlugBdnAttributes, $outPlugTargetAttributes);
+
+    applyDictToBdnAttributes(bdnAttributesToDict($bdnNode), {$altNode});
+
     delete $bdnNode;
   }
   return $altNodes;
@@ -1218,6 +1221,9 @@ proc string[] restoreBdnNodes(string $altNodes[]) {
 
     disconnectAttributes($inPlugSourceAttributes, $inPlugAltAttributes);
     disconnectAttributes($outPlugAltAttributes, $outPlugTargetAttributes);
+
+    applyDictToBdnAttributes(bdnAttributesToDict($altNode), {$bdnNode});
+
     delete $altNode;
   }
   return $bdnNodes;
@@ -8265,7 +8271,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.2.0";
+  return "1.2.1";
 }
 
 /*-
@@ -9315,11 +9321,236 @@ proc test4() {
 
 /*-
 @returns <>
-@remarks コライダー。
+@remarks 代替ノード
 */
 proc test5() {
   print("test5 start\n");
   string $r;
+  string $n;
+
+  string $inPlugSourceAttributes[];
+  string $inPlugBdnAttributes[];
+  string $outPlugBdnAttributes[];
+  string $outPlugTargetAttributes[];
+
+  string $mayaAppDir = `getenv "MAYA_APP_DIR"`;
+  string $nodeFilename = $mayaAppDir + "/dev/nkBdnEditor/test/node.ma";
+
+  string $bdnA1 = "CTL_joint_A1_Dynamics_BDN";
+  string $bdnA2 = "CTL_joint_A2_Dynamics_BDN";
+  string $bdnA3 = "CTL_joint_A3_Dynamics_BDN";
+  string $bdnB1 = "CTL_joint_B1_Dynamics_BDN";
+  string $bdnB2 = "CTL_joint_B2_Dynamics_BDN";
+  string $bdnB3 = "CTL_joint_B3_Dynamics_BDN";
+  string $bdnB3B = "CTL_joint_B3_Dynamics_Branch_BDN";
+  string $bdnB5 = "CTL_joint_B5_Dynamics_BDN";
+  string $bdnB5B = "CTL_joint_B5_Dynamics_Branch_BDN";
+  string $bdnNodes[] = {$bdnA1, $bdnA2, $bdnA3, $bdnB1, $bdnB2, $bdnB3, $bdnB3B, $bdnB5, $bdnB5B};
+
+  string $bdnA1a = "CTL_joint_A1_Dynamics_BDN_ALT";
+  string $bdnA2a = "CTL_joint_A2_Dynamics_BDN_ALT";
+  string $bdnA3a = "CTL_joint_A3_Dynamics_BDN_ALT";
+  string $bdnB1a = "CTL_joint_B1_Dynamics_BDN_ALT";
+  string $bdnB2a = "CTL_joint_B2_Dynamics_BDN_ALT";
+  string $bdnB3a = "CTL_joint_B3_Dynamics_BDN_ALT";
+  string $bdnB3Ba = "CTL_joint_B3_Dynamics_Branch_BDN_ALT";
+  string $bdnB5a = "CTL_joint_B5_Dynamics_BDN_ALT";
+  string $bdnB5Ba = "CTL_joint_B5_Dynamics_Branch_BDN_ALT";
+  string $altNodes[] = {$bdnA1a, $bdnA2a, $bdnA3a, $bdnB1a, $bdnB2a, $bdnB3a, $bdnB3Ba, $bdnB5a, $bdnB5Ba};
+
+  // substituteBdnNodes / restoreBdnNodes
+  {
+    catchQuiet(`loadPlugin "boneDynamicsNode"`);
+    testOpenScene($nodeFilename);
+    // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
+
+    // substituteBdnNodes
+    $r = assertTrue(`objExists $bdnA1`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA2`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA3`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB1`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB2`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3B`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5B`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA1a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA2a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA3a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB1a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB2a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3Ba`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5Ba`); if (`size $r`) warning $r;
+
+    setAttr ($bdnA1 + ".damping") 0.9;
+    setAttr ($bdnA1 + ".elasticity") 45.0;
+    setAttr ($bdnA1 + ".elasticForceFunction") 2;
+    setAttr ($bdnA1 + ".stiffness") 0.3;
+    setAttr ($bdnA1 + ".mass") 1.5;
+    setAttr ($bdnA1 + ".gravityX") 10.0;
+    setAttr ($bdnA1 + ".gravityY") -780.0;
+    setAttr ($bdnA1 + ".gravityZ") 30.0;
+    setAttr ($bdnA1 + ".gravityMultiply") 0.2;
+    setAttr ($bdnA1 + ".additionalForceScale") 1.2;
+    setAttr ($bdnA1 + ".enableTurbulence") true;
+    setAttr ($bdnA1 + ".turbulenceSeed") 123;
+    setAttr ($bdnA1 + ".turbulenceStrength") 35.7;
+    setAttr ($bdnA1 + ".turbulenceVectorChangeScale") 1.25;
+    setAttr ($bdnA1 + ".turbulenceVectorChangeMax") 3.3;
+    setAttr ($bdnA1 + ".enableAngleLimit") true;
+    setAttr ($bdnA1 + ".angleLimit") 120.4;
+    setAttr ($bdnA1 + ".radius") 4.5;
+    setAttr ($bdnA1 + ".iterations") 3;
+    setAttr ($bdnA1 + ".enableGroundCol") true;
+    setAttr ($bdnA1 + ".groundHeight") 25.3;
+    setAttr ($bdnA1 + ".meshColCutoff") 12.8;
+    $r = assertFloatEqual(0.9, `getAttr ($bdnA1 + ".damping")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(45.0, `getAttr ($bdnA1 + ".elasticity")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(2, `getAttr ($bdnA1 + ".elasticForceFunction")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.3, `getAttr ($bdnA1 + ".stiffness")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.5, `getAttr ($bdnA1 + ".mass")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(10.0, `getAttr ($bdnA1 + ".gravityX")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(-780.0, `getAttr ($bdnA1 + ".gravityY")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(30.0, `getAttr ($bdnA1 + ".gravityZ")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.2, `getAttr ($bdnA1 + ".gravityMultiply")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.2, `getAttr ($bdnA1 + ".additionalForceScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableTurbulence")`); if (`size $r`) warning $r;
+    $r = assertIntEqual(123, `getAttr ($bdnA1 + ".turbulenceSeed")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(35.7, `getAttr ($bdnA1 + ".turbulenceStrength")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.25, `getAttr ($bdnA1 + ".turbulenceVectorChangeScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(3.3, `getAttr ($bdnA1 + ".turbulenceVectorChangeMax")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableAngleLimit")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(120.4, `getAttr ($bdnA1 + ".angleLimit")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(4.5, `getAttr ($bdnA1 + ".radius")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `getAttr ($bdnA1 + ".iterations")`); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableGroundCol")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(25.3, `getAttr ($bdnA1 + ".groundHeight")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(12.8, `getAttr ($bdnA1 + ".meshColCutoff")`, 0.001); if (`size $r`) warning $r;
+
+    clear $inPlugSourceAttributes;
+    clear $inPlugBdnAttributes;
+    clear $outPlugBdnAttributes;
+    clear $outPlugTargetAttributes;
+    getSourceConnections($bdnA1, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
+    getDestConnections($bdnA1, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
+    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
+
+    $r = assertStringArrayEqual($altNodes, substituteBdnNodes($bdnNodes)); if (`size $r`) warning $r;
+
+    // restoreBdnNodes
+    $r = assertFalse(`objExists $bdnA1`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA2`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA3`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB1`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB2`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3B`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5B`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA1a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA2a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA3a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB1a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB2a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3Ba`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5a`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5Ba`); if (`size $r`) warning $r;
+
+    $r = assertFloatEqual(0.9, `getAttr ($bdnA1a + ".damping")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(45.0, `getAttr ($bdnA1a + ".elasticity")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(2, `getAttr ($bdnA1a + ".elasticForceFunction")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.3, `getAttr ($bdnA1a + ".stiffness")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.5, `getAttr ($bdnA1a + ".mass")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(10.0, `getAttr ($bdnA1a + ".gravityX")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(-780.0, `getAttr ($bdnA1a + ".gravityY")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(30.0, `getAttr ($bdnA1a + ".gravityZ")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.2, `getAttr ($bdnA1a + ".gravityMultiply")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.2, `getAttr ($bdnA1a + ".additionalForceScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1a + ".enableTurbulence")`); if (`size $r`) warning $r;
+    $r = assertIntEqual(123, `getAttr ($bdnA1a + ".turbulenceSeed")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(35.7, `getAttr ($bdnA1a + ".turbulenceStrength")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.25, `getAttr ($bdnA1a + ".turbulenceVectorChangeScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(3.3, `getAttr ($bdnA1a + ".turbulenceVectorChangeMax")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1a + ".enableAngleLimit")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(120.4, `getAttr ($bdnA1a + ".angleLimit")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(4.5, `getAttr ($bdnA1a + ".radius")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `getAttr ($bdnA1a + ".iterations")`); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1a + ".enableGroundCol")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(25.3, `getAttr ($bdnA1a + ".groundHeight")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(12.8, `getAttr ($bdnA1a + ".meshColCutoff")`, 0.001); if (`size $r`) warning $r;
+
+    clear $inPlugSourceAttributes;
+    clear $inPlugBdnAttributes;
+    clear $outPlugBdnAttributes;
+    clear $outPlugTargetAttributes;
+    getSourceConnections($bdnA1a, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
+    getDestConnections($bdnA1a, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
+    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
+
+    $r = assertStringArrayEqual($bdnNodes, restoreBdnNodes($altNodes)); if (`size $r`) warning $r;
+
+    $r = assertTrue(`objExists $bdnA1`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA2`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnA3`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB1`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB2`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB3B`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5`); if (`size $r`) warning $r;
+    $r = assertTrue(`objExists $bdnB5B`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA1a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA2a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnA3a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB1a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB2a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB3Ba`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5a`); if (`size $r`) warning $r;
+    $r = assertFalse(`objExists $bdnB5Ba`); if (`size $r`) warning $r;
+
+    $r = assertFloatEqual(0.9, `getAttr ($bdnA1 + ".damping")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(45.0, `getAttr ($bdnA1 + ".elasticity")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(2, `getAttr ($bdnA1 + ".elasticForceFunction")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.3, `getAttr ($bdnA1 + ".stiffness")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.5, `getAttr ($bdnA1 + ".mass")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(10.0, `getAttr ($bdnA1 + ".gravityX")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(-780.0, `getAttr ($bdnA1 + ".gravityY")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(30.0, `getAttr ($bdnA1 + ".gravityZ")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(0.2, `getAttr ($bdnA1 + ".gravityMultiply")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.2, `getAttr ($bdnA1 + ".additionalForceScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableTurbulence")`); if (`size $r`) warning $r;
+    $r = assertIntEqual(123, `getAttr ($bdnA1 + ".turbulenceSeed")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(35.7, `getAttr ($bdnA1 + ".turbulenceStrength")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(1.25, `getAttr ($bdnA1 + ".turbulenceVectorChangeScale")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(3.3, `getAttr ($bdnA1 + ".turbulenceVectorChangeMax")`, 0.001); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableAngleLimit")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(120.4, `getAttr ($bdnA1 + ".angleLimit")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(4.5, `getAttr ($bdnA1 + ".radius")`, 0.001); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `getAttr ($bdnA1 + ".iterations")`); if (`size $r`) warning $r;
+    $r = assertTrue(`getAttr ($bdnA1 + ".enableGroundCol")`); if (`size $r`) warning $r;
+    $r = assertFloatEqual(25.3, `getAttr ($bdnA1 + ".groundHeight")`, 0.001); if (`size $r`) warning $r;
+    $r = assertFloatEqual(12.8, `getAttr ($bdnA1 + ".meshColCutoff")`, 0.001); if (`size $r`) warning $r;
+
+    clear $inPlugSourceAttributes;
+    clear $inPlugBdnAttributes;
+    clear $outPlugBdnAttributes;
+    clear $outPlugTargetAttributes;
+    getSourceConnections($bdnA1, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
+    getDestConnections($bdnA1, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
+    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
+  }
 
   print("test5 end\n");
 }
