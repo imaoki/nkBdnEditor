@@ -4,6 +4,8 @@
 
 [boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)のセットアップ、および編集を行うMELツール。
 
+![demo-dynamics-unit](demo/demo-dynamics-unit.gif "demo-dynamics-unit")
+
 ## 特徴
 
 * リグへの後付けをサポート
