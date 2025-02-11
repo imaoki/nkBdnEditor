@@ -2,12 +2,7 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/imaoki/nkBdnEditor)](https://github.com/imaoki/nkBdnEditor/releases/latest)
 
-boneDynamicsNodeのセットアップ、および編集を行うMELツール。
-boneDynamicsNodeは赤崎氏によるMaya上でリアルタイムにボーンダイナミクスが実行できるカスタムノードプラグインです。
-
-* [akasaki1211/boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)
-
-* [Maya用お手軽ボーンダイナミクスノード「boneDynamicsNode」詳細解説](https://qiita.com/akasaki1211/items/ddae66ec2d89d21bb2f4)
+[boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)のセットアップ、および編集を行うMELツール。
 
 ## 特徴
 
