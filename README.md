@@ -2,11 +2,16 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/imaoki/nkBdnEditor)](https://github.com/imaoki/nkBdnEditor/releases/latest)
 
-[boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)のセットアップ、および編集を行うMELツール。
+boneDynamicsNodeのセットアップ、および編集を行うMELツール。
+boneDynamicsNodeは赤崎氏によるMaya上でリアルタイムにボーンダイナミクスが実行できるカスタムノードプラグインです。
+
+* [akasaki1211/boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)
+
+* [Maya用お手軽ボーンダイナミクスノード「boneDynamicsNode」詳細解説](https://qiita.com/akasaki1211/items/ddae66ec2d89d21bb2f4)
 
 ## 特徴
 
-* リグへの後付けを強力にサポート
+* リグへの後付けをサポート
 
 * ツール上でアトリビュートや各種接続の編集が可能
 
@@ -22,7 +27,7 @@ Maya 2022.5 / Windows 10
 
 ## インストール
 
-01. `nkBdnEditor.mel`をスクリプトディレクトリにコピー
+01. `nkBdnEditor.mel` をスクリプトディレクトリにコピー
 
     | バージョン | ディレクトリ                             |
     | ---------- | ---------------------------------------- |
@@ -45,7 +50,7 @@ nkBdnEditor;
 
 01. 対象のコントロールノードを選択
 
-02. Create Dynamics Unitを実行
+02. *Create Dynamics Unit* を実行
 
 ### コライダー
 
@@ -55,11 +60,11 @@ nkBdnEditor;
 
 01. 任意のコライダーを作成
 
-02. Collider List > Allからコライダーを選択
+02. *Collider List > All* からコライダーを選択
 
-03. BoneDynamicsNode Listで割り当てたいBDNを選択
+03. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
-04. Appendを実行
+04. *Append* を実行
 
 #### 拘束されたコライダー
 
@@ -67,7 +72,7 @@ nkBdnEditor;
 
 ![create-collider-constrain](resource/create-collider-constrain.gif "create-collider-constrain")
 
-01. Create and constrain...のチェックボックスをオンにする
+01. *Create and constrain...* のチェックボックスをオンにする
 
 02. コライダーを拘束させたいノードを順に選択
 
@@ -79,28 +84,28 @@ nkBdnEditor;
 
 ##### コライダーの配置規則
 
-* コライダーは選択ノードに位置合わせして作成されます。
+* コライダーは選択ノードの位置に作成されます。
 
-* Capsuleはノード間の距離に基づいてCollider Lengthが設定されます。
+* Capsule特有の規則
 
-  ```
-  このような順序で選択した場合（ハイフンは距離）
-  N_1---N_2-----N_3
-
-  このような関係で作成されます（Aは始点、Bは終点）
-  C1A---C1B
-        C2A-----C2B
-                C3A-C3B（終端は既定の長さ）
-  ```
+  * ノード間の距離に基づいて *Collider Length* が設定されます。
 
   * 終端のコライダーが不要な場合は適宜削除してください。
 
-  * 分岐がある場合は枝ごとに分けて作成してください。
-
-  * Capsuleはノードの向きが+X軸を向いていることを前提としています。
+  * +X軸が子ノードを向いていることを前提としています。
     軸の向きが異なる場合やメッシュ形状に合わない場合は空間ノードではなくその下のコライダー自体を移動/回転させてください。
 
     ![collider-capsule-transform](resource/collider-capsule-transform.png "collider-capsule-transform")
+
+  * 選択の順序に注意してください。
+
+    正しく作成するには階層順に選択してください。
+    ![collider-placement-rule-capsule1](resource/collider-placement-rule-capsule1.png "collider-placement-rule-capsule1")
+
+    選択順に処理されるため変則的に選択するとこのようになります。
+    ![collider-placement-rule-capsule2](resource/collider-placement-rule-capsule2.png "collider-placement-rule-capsule2")
+
+  * 分岐がある場合は枝ごとに分けて作成してください。
 
 #### 種類
 
@@ -108,22 +113,22 @@ nkBdnEditor;
 
   ![collider-capsule](resource/collider-capsule.png "collider-capsule")
 
-  |    アトリビュート | 説明                               |
-  | ----------------: | ---------------------------------- |
-  | Collider Radius A | 始点の半径                         |
-  | Collider Radius B | 終点の半径                         |
-  |   Collider Length | 始点から終点までの長さ（負数も可） |
-  |   Collider Offset | X軸方向のオフセット                |
-  |    Collider Pivot | X軸方向の中心                      |
+  | アトリビュート      | 説明                               |
+  | ------------------- | ---------------------------------- |
+  | *Collider Radius A* | 始点の半径                         |
+  | *Collider Radius B* | 終点の半径                         |
+  | *Collider Length*   | 始点から終点までの長さ（負数も可） |
+  | *Collider Offset*   | X軸方向のオフセット                |
+  | *Collider Pivot*    | X軸方向の中心                      |
 
 * Infinite Plane
 
   ![collider-infinite-plane](resource/collider-infinite-plane.png "collider-infinite-plane")
 
-  |  アトリビュート | 説明 |
-  | --------------: | ---- |
-  |  Collider Width | 幅   |
-  | Collider Height | 高さ |
+  | アトリビュート    | 説明 |
+  | ----------------- | ---- |
+  | *Collider Width*  | 幅   |
+  | *Collider Height* | 高さ |
 
   幅、高さ共に機能的な意味はありません。視覚的な分かりやすさのために設けてあります。
 
@@ -131,57 +136,59 @@ nkBdnEditor;
 
   ![collider-sphere](resource/collider-sphere.png "collider-sphere")
 
-  |  アトリビュート | 説明 |
-  | --------------: | ---- |
-  | Collider Radius | 半径 |
+  | アトリビュート    | 説明 |
+  | ----------------- | ---- |
+  | *Collider Radius* | 半径 |
 
 ### メッシュコライダー
 
-01. BoneDynamicsNode Listで割り当てたいBDNを選択
+01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
 02. 任意のメッシュオブジェクトを選択
 
-03. Appendを実行
+03. *Append* を実行
 
 ### フォース
 
-[Additional Force](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#additional-force--turbulence-force)をノードの任意の軸方向で制御できるように接続します。
+[Additional Force](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#additional-force--turbulence-force) をノードの任意の軸方向で制御できるように接続します。
 
-01. BoneDynamicsNode Listで割り当てたいBDNを選択
+01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
 02. 任意のノードを選択
 
-03. Appendを実行
+03. *Append* を実行
 
     * 一つのBDNには一つのノードしか割り当てられません。
 
     * 複数選択した場合は最後のノードが割り当てられます。
 
-04. 必要に応じてForce Vectorを設定
+04. 必要に応じて *Force Vector* を設定
 
 ### オフセット
 
 [Offset Transform](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#offset-transform)に使用するノードを接続します。
 
-01. BoneDynamicsNode Listで割り当てたいBDNを選択
+01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
 02. 任意のノードを選択
 
-03. Appendを実行
+03. *Append* を実行
 
     * 一つのBDNには一つのノードしか割り当てられません。
 
     * 複数選択した場合は最後のノードが割り当てられます。
 
-04. 適宜boneDynamicsNodeのアトリビュートにあるOffset Matrix Weightの値を調整
+04. 適宜 *Offset Matrix Weight* の値を調整
+
+    ![bdn-attribute-offset-matrix-weight](resource/bdn-attribute-offset-matrix-weight.png "bdn-attribute-offset-matrix-weight")
 
 ### ベイク
 
-01. BoneDynamicsNode ListでベイクしたいBDNを選択
+01. *BoneDynamicsNode List* でベイクしたいBDNを選択
 
-02. Bind Listでベイクするコントロールノードを選択
+02. *Bind List* でベイクするコントロールノードを選択
 
-03. 時間範囲を設定してBakeを実行
+03. 時間範囲を設定して *Bake* を実行
 
     * ベイクはRotateアトリビュートに対して行われます。
 
@@ -260,7 +267,7 @@ BDNグループごと削除してください。
 
 ### リファレンスノード
 
-リファレンスノードは次のように先頭に`^`記号が付きます。
+リファレンスノードは次のように先頭に `^` 記号が付きます。
 ![list-label-reference](resource/list-label-reference.png "list-label-reference")
 
 ### インポート時の処理
@@ -270,9 +277,9 @@ BDNグループが含まれるシーンに別のBDNグループが含まれる�
 
 ### 代替ノード（実験的）
 
-Deactivateを実行するとシーン内のリファレンスではない全てのboneDynamicsNodeを同じ数・種類のアトリビュートを持たせた代替ノードに置き換えます。
+*Deactivate* を実行するとシーン内のリファレンスではない全てのboneDynamicsNodeを同じ数・種類のアトリビュートを持たせた代替ノードに置き換えます。
 
-代替ノードは先頭に`#`記号が付きます。
+代替ノードは先頭に `#` 記号が付きます。
 ![list-label-alternate](resource/list-label-alternate.png "list-label-alternate")
 
 ラフの提出等でファイルのやり取りを行う際に、値や接続を維持したままプラグインレスの状態にできればと考え作成した機能です。
