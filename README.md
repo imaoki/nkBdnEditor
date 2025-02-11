@@ -199,20 +199,20 @@ nkBdnEditor;
 > [!CAUTION]
 > いずれの場合も関連ノードがセットのメンバーになっている場合は削除されないので注意してください。
 
-#### ダイナミクスユニットの削除
+#### ダイナミクスユニット
 
 階層ごとの空間ノードを削除してください。
 
 ![delete-dynamics-unit](resource/delete-dynamics-unit.png "delete-dynamics-unit")
 
-#### コライダーの削除
+#### コライダー
 
 コライダーごとの空間ノードを削除してください。
 削除してもコライダーの影響が残ってしまう場合は、削除前までアンドゥして接続を切ってから再度削除してください。
 
 ![delete-collider](resource/delete-collider.png "delete-collider")
 
-#### 全ての関連ノードを削除
+#### 全ての関連ノード
 
 BDNグループごと削除してください。
 
