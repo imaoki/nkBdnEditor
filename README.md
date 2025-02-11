@@ -95,9 +95,11 @@ nkBdnEditor;
   * 選択の順序に注意してください。
 
     正しく作成するには階層順に選択してください。
+
     ![collider-placement-rule-capsule1](resource/collider-placement-rule-capsule1.png "collider-placement-rule-capsule1")
 
     選択順に処理されるため変則的に選択するとこのようになります。
+
     ![collider-placement-rule-capsule2](resource/collider-placement-rule-capsule2.png "collider-placement-rule-capsule2")
 
   * 分岐がある場合は枝ごとに分けて作成してください。
@@ -194,7 +196,8 @@ nkBdnEditor;
 
 ### 関連ノードの削除
 
-> [!IMPORTANT] いずれの場合も関連ノードがセットのメンバーになっている場合は削除されないので注意してください。
+> [!IMPORTANT]
+> いずれの場合も関連ノードがセットのメンバーになっている場合は削除されないので注意してください。
 
 #### ダイナミクスユニットの削除
 
@@ -243,6 +246,7 @@ BDNグループごと削除してください。
 そのような場合でも問題なく構築できますが、あくまで複数のダイナミクスユニットを連結した構造になりますので、後で個別に終端ジョイントのオフセット調整が必要になります。
 
 赤色のFKチェーンは一つの階層、水色のFKチェーンは個別に階層が分かれています。
+
 ![dynamics-unit-hierarchy-construction](resource/dynamics-unit-hierarchy-construction.gif "dynamics-unit-hierarchy-construction")
 
 ### ダイナミクスユニット作成オプション
@@ -263,6 +267,7 @@ BDNグループごと削除してください。
 ### リファレンスノード
 
 リファレンスノードは次のように先頭に `^` 記号が付きます。
+
 ![list-label-reference](resource/list-label-reference.png "list-label-reference")
 
 ### インポート時の処理
@@ -275,6 +280,7 @@ BDNグループが含まれるシーンに別のBDNグループが含まれる�
 *Deactivate* を実行するとシーン内のリファレンスではない全てのboneDynamicsNodeを同じ数・種類のアトリビュートを持たせた代替ノードに置き換えます。
 
 代替ノードは先頭に `#` 記号が付きます。
+
 ![list-label-alternate](resource/list-label-alternate.png "list-label-alternate")
 
 ラフの提出等でファイルのやり取りを行う際に、値や接続を維持したままプラグインレスの状態にできればと考え作成した機能です。
