@@ -7691,6 +7691,7 @@ proc buildMainWindow() {
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"dynamicsNodeList\");" $dynamicsNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"dynamicsNodeList\");" $dynamicsNodeList;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"dynamicsNodeInitializeButton\");" $dynamicsNodeInitializeButton;
+  floatFieldGrp -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"dynamicsNodeRadiusField\");" $dynamicsNodeRadiusField;
   floatFieldGrp -e -dc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dc\", \"dynamicsNodeRadiusField\");" $dynamicsNodeRadiusField;
   colorSliderGrp -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"dynamicsNodeColorSlider\");" $dynamicsNodeColorSlider;
   colorSliderGrp -e -dc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dc\", \"dynamicsNodeColorSlider\");" $dynamicsNodeColorSlider;
@@ -7702,6 +7703,7 @@ proc buildMainWindow() {
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"targetNodeList\");" $targetNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"targetNodeList\");" $targetNodeList;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"targetNodeInitializeButton\");" $targetNodeInitializeButton;
+  floatFieldGrp -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"targetNodeRadiusField\");" $targetNodeRadiusField;
   floatFieldGrp -e -dc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dc\", \"targetNodeRadiusField\");" $targetNodeRadiusField;
   colorSliderGrp -e -cc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"cc\", \"targetNodeColorSlider\");" $targetNodeColorSlider;
   colorSliderGrp -e -dc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dc\", \"targetNodeColorSlider\");" $targetNodeColorSlider;
@@ -8035,7 +8037,9 @@ global proc nkBdnEditorEventController(
 
             case "bdnRelatedNodeTab": bdnRelatedNodeTabChanged(); break;
 
+            case "dynamicsNodeRadiusField": dynamicsNodeRadiusFieldChanged(); break;
             case "dynamicsNodeColorSlider": dynamicsNodeColorSliderChanged(); break;
+            case "targetNodeRadiusField": targetNodeRadiusFieldChanged(); break;
             case "targetNodeColorSlider": targetNodeColorSliderChanged(); break;
 
             case "colliderDisplayColorSlider": colliderDisplayColorSliderChanged(); break;
@@ -8271,7 +8275,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.2.2";
+  return "1.2.3";
 }
 
 /*-
