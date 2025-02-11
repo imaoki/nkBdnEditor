@@ -163,7 +163,7 @@ nkBdnEditor;
 
 ### オフセット
 
-[Offset Transform](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#offset-transform)に使用するノードを接続します。
+[Offset Transform](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#offset-transform) に使用するノードを接続します。
 
 01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
