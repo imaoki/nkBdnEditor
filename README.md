@@ -4,8 +4,6 @@
 
 [boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)のセットアップ、および編集を行うMELツール。
 
-![demo-dynamics-unit](demo/demo-dynamics-unit.gif "demo-dynamics-unit")
-
 ## 特徴
 
 * リグへの後付けをサポート
@@ -17,6 +15,20 @@
 * 3種類（カプセル/無限平面/球）のカスタムコライダー
 
 * コライダーの書き出し/読み込み
+
+## デモ
+
+* ダイナミクスユニットの作成
+
+  ![demo-dynamics-unit](demo/demo-dynamics-unit.gif "demo-dynamics-unit")
+
+* コライダーの作成と割り当て
+
+  ![demo-collider](demo/demo-collider.gif "demo-collider")
+
+## 要件
+
+* [akasaki1211/boneDynamicsNode](https://github.com/akasaki1211/boneDynamicsNode)
 
 ## 開発環境
 
