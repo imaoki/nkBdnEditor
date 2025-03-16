@@ -1416,6 +1416,9 @@ proc string[] createEndJoint(string $nodes[], float $endJointOffset[]) {
 
       // アトリビュート値設定
       setFloat3Attribute($jointNode, "t", $endJointOffset);
+
+      // スケール接続
+      connectAttr -f ($node + ".scale") ($jointNode + ".scale");
     }
   }
   return $newNodes;
@@ -1527,6 +1530,9 @@ proc string[] createBdnNodes(string $nodes[]) {
     connectAttr -f ($joint1Node + ".parentMatrix"       ) ($bdnNode    + ".boneParentMatrix"       );
     connectAttr -f ($joint1Node + ".parentInverseMatrix") ($bdnNode    + ".boneParentInverseMatrix");
     connectAttr -f ($joint2Node + ".translate"          ) ($bdnNode    + ".endTranslate"           );
+    connectAttr -f ($joint1Node + ".scale"              ) ($bdnNode    + ".boneScale"              );
+    connectAttr -f ($joint1Node + ".inverseScale"       ) ($bdnNode    + ".boneInverseScale"       );
+    connectAttr -f ($joint2Node + ".scale"              ) ($bdnNode    + ".endScale"               );
     connectAttr -f ($timeNode   + ".outTime"            ) ($bdnNode    + ".time"                   );
     connectAttr -f ($bdnNode    + ".outputRotate"       ) ($joint1Node + ".rotate"                 );
 
@@ -1677,6 +1683,7 @@ proc string[] createTarget(
     if (!isBdnNode($bdnNode, false)) continue;
 
     connectAttr -f ($targetNode + ".rotate") ($bdnNode + ".rotationOffset");
+    connectAttr -f ($targetNode + ".scale" ) ($dynamicsNode + ".scale"    );
   }
 
   return $targetNodes;
@@ -7421,7 +7428,7 @@ proc buildMainWindow() {
       $bdnListForm;
 
   formLayout -e
-      -af $bdnAttributeFrame "top" 4
+      -af $bdnAttributeFrame "top" 2
       -af $bdnAttributeFrame "left" 0
       -af $bdnAttributeFrame "right" 0
       -af $bdnAttributeFrame "bottom" 0
@@ -7495,11 +7502,11 @@ proc buildMainWindow() {
       -af $influencedColliderNodeListFrame "top" 0
       -af $influencedColliderNodeListFrame "left" 0
       -ap $influencedColliderNodeListFrame "right" 2 50
-      -af $influencedColliderNodeListFrame "bottom" 4
+      -af $influencedColliderNodeListFrame "bottom" 0
       -af $allColliderNodeListFrame "top" 0
       -ap $allColliderNodeListFrame "left" 2 50
       -af $allColliderNodeListFrame "right" 0
-      -af $allColliderNodeListFrame "bottom" 4
+      -af $allColliderNodeListFrame "bottom" 0
       $colliderListForm;
 
   formLayout -e
@@ -7521,7 +7528,7 @@ proc buildMainWindow() {
       -af $allColliderNodeListToolRow "right" 0
       -af $appendColliderButton "left" 0
       -af $appendColliderButton "right" 0
-      -af $appendColliderButton "bottom" 4
+      -af $appendColliderButton "bottom" 0
       -ac $allColliderNodeList "top" 0 $allColliderNodeListToolRow
       -af $allColliderNodeList "left" 0
       -af $allColliderNodeList "right" 0
@@ -7529,7 +7536,7 @@ proc buildMainWindow() {
       $allColliderNodeListForm;
 
   formLayout -e
-      -af $colliderDisplayFrame "top" 4
+      -af $colliderDisplayFrame "top" 2
       -af $colliderDisplayFrame "left" 0
       -af $colliderDisplayFrame "right" 0
       -ac $colliderAttributeFrame "top" 0 $colliderDisplayFrame
@@ -8275,7 +8282,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.2.3";
+  return "1.3.0";
 }
 
 /*-
@@ -9442,8 +9449,8 @@ proc test5() {
     clear $outPlugTargetAttributes;
     getSourceConnections($bdnA1, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
     getDestConnections($bdnA1, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
-    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
-    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
 
@@ -9498,8 +9505,8 @@ proc test5() {
     clear $outPlugTargetAttributes;
     getSourceConnections($bdnA1a, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
     getDestConnections($bdnA1a, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
-    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
-    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
 
@@ -9553,8 +9560,8 @@ proc test5() {
     clear $outPlugTargetAttributes;
     getSourceConnections($bdnA1, {}, "", $inPlugSourceAttributes, $inPlugBdnAttributes);
     getDestConnections($bdnA1, {}, "", $outPlugBdnAttributes, $outPlugTargetAttributes);
-    $r = assertIntEqual(20, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
-    $r = assertIntEqual(20, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugSourceAttributes`); if (`size $r`) warning $r;
+    $r = assertIntEqual(23, `size $inPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugBdnAttributes`); if (`size $r`) warning $r;
     $r = assertIntEqual(3, `size $outPlugTargetAttributes`); if (`size $r`) warning $r;
   }
