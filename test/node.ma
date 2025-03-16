@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
 //Name: node.ma
-//Last modified: Sun, Jan 26, 2025 01:53:36 AM
+//Last modified: Mon, Mar 17, 2025 02:44:27 AM
 //Codeset: 932
 requires maya "2022";
 requires -nodeType "floatMath" "lookdevKit" "1.0";
@@ -13,7 +13,7 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202405021833-753375ecb3";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19045)";
-fileInfo "UUID" "72E63B49-4CE5-1FE1-96AD-DCB26E8F759B";
+fileInfo "UUID" "EF2EA2F0-4035-CC1D-E902-959D30822133";
 createNode transform -s -n "persp";
 	rename -uid "347D49AD-41AE-7D45-9720-76BE579D0AB5";
 	setAttr ".v" no;
@@ -1359,7 +1359,7 @@ createNode nurbsCurve -n "CTL_joint_A3Shape1" -p "CTL_joint_A3";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode orientConstraint -n "CTL_joint_A3_Dynamics_ORCST" -p "CTL_joint_A3";
-	rename -uid "20FAAFAD-4048-17A9-95FB-DE9C7847C9C0";
+	rename -uid "273D14D5-4816-9CFC-2A06-208AB22F2C4D";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_A3_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -1428,7 +1428,7 @@ createNode nurbsCurve -n "CTL_joint_A2Shape1" -p "CTL_joint_A2";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode orientConstraint -n "CTL_joint_A2_Dynamics_ORCST" -p "CTL_joint_A2";
-	rename -uid "5A11B2C2-47AB-0442-8FA9-68AF5C5446F5";
+	rename -uid "06AA7265-416E-3B70-D419-50BEE74E47CB";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_A2_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -1497,7 +1497,7 @@ createNode nurbsCurve -n "CTL_joint_A1Shape1" -p "CTL_joint_A1";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode orientConstraint -n "CTL_joint_A1_Dynamics_ORCST" -p "CTL_joint_A1";
-	rename -uid "72F5FCCD-4D27-24D2-F408-DB909970D4F2";
+	rename -uid "AC438AA7-4075-4210-B8E3-AE8F761B5E6D";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_A1_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -1924,7 +1924,7 @@ createNode nurbsCurve -n "CTL_joint_B3Shape1" -p "CTL_joint_B3";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode parentConstraint -n "CTL_joint_B3_Dynamics_PRCST" -p "CTL_joint_B3";
-	rename -uid "74184A3E-4A93-A28F-C024-AAA75EABCE48";
+	rename -uid "E7BE9A7E-4B3E-43E5-EEEE-35A8B9E5DEA7";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B3_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -1939,7 +1939,7 @@ createNode parentConstraint -n "CTL_joint_B3_Dynamics_PRCST" -p "CTL_joint_B3";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".rst" -type "double3" 0 0 -1.1102230246251565e-15 ;
+	setAttr ".rst" -type "double3" 0 0 -4.4408920985006262e-16 ;
 	setAttr -k on ".w0";
 createNode transform -n "CTL_joint_B5_IDT" -p "CTL_joint_B2";
 	rename -uid "0474EBE9-4597-D138-1991-9FA9018C0151";
@@ -2169,7 +2169,7 @@ createNode nurbsCurve -n "CTL_joint_B5Shape1" -p "CTL_joint_B5";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode parentConstraint -n "CTL_joint_B5_Dynamics_PRCST" -p "CTL_joint_B5";
-	rename -uid "F8CD33B7-40DA-E1F5-C51A-43A8DC9E4B62";
+	rename -uid "43E2CF14-4B6F-5D7D-C91F-0C8F08103E0A";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B5_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -2239,7 +2239,7 @@ createNode nurbsCurve -n "CTL_joint_B2Shape1" -p "CTL_joint_B2";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode orientConstraint -n "CTL_joint_B2_Dynamics_ORCST" -p "CTL_joint_B2";
-	rename -uid "5E573EE8-43C1-366E-4F9C-259F7BBA928D";
+	rename -uid "7390CCBF-4F44-141F-D211-28BBB2502922";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B2_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -2308,7 +2308,7 @@ createNode nurbsCurve -n "CTL_joint_B1Shape1" -p "CTL_joint_B1";
 		0.17364799980000001 0 0.98480755090000005
 		;
 createNode orientConstraint -n "CTL_joint_B1_Dynamics_ORCST" -p "CTL_joint_B1";
-	rename -uid "AA953EBB-4A79-4233-6CDF-0DA48C49B0EC";
+	rename -uid "96A236D2-44CA-7229-C634-5594B089DBBA";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B1_DynamicsW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -2345,431 +2345,7 @@ createNode parentConstraint -n "CTL_joint_B1_IDT_PRCST" -p "CTL_joint_B1_IDT";
 createNode transform -n "BDN_GRP";
 	rename -uid "7694E064-4389-1033-6F7F-5F8C778A1A8C";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"bdn\";toolVersion=\"1.1.0\";";
-createNode transform -n "Dynamics_GRP" -p "BDN_GRP";
-	rename -uid "65E7637E-4D78-9044-2C93-2EB521C2BB02";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"dynamics\";";
-createNode transform -n "CTL_joint_A1_SPC" -p "Dynamics_GRP";
-	rename -uid "94B4ABAD-441F-24DF-26E8-F186F9AC4CBE";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"dynamics\";";
-createNode joint -n "CTL_joint_A1_Dynamics" -p "CTL_joint_A1_SPC";
-	rename -uid "2D81C0DF-404D-F6B8-0561-118B4DBE57FE";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_A2_Dynamics" -p "CTL_joint_A1_Dynamics";
-	rename -uid "AF69AA6F-479E-AF89-0DFB-D9B1064A19D5";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 1.8873791418627661e-15 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_A3_Dynamics" -p "CTL_joint_A2_Dynamics";
-	rename -uid "EBDDFAC8-42DF-0F2E-FF04-1D95D2A904E3";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_A3_Dynamics_End" -p "CTL_joint_A3_Dynamics";
-	rename -uid "6C24F279-4FC6-AF4C-4436-289E47115911";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
-createNode transform -n "CTL_joint_A3_Dynamics_End_Radius" -p "CTL_joint_A3_Dynamics_End";
-	rename -uid "7BCC972B-4112-8034-5C41-2CA4EE17C7E4";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_A3_Dynamics_End_RadiusShape" -p "CTL_joint_A3_Dynamics_End_Radius";
-	rename -uid "6C25303B-44B0-6078-4CF3-B1B1879CEABE";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_A3_Dynamics_Radius" -p "CTL_joint_A3_Dynamics";
-	rename -uid "E6F8AA65-41EE-59FD-059F-41AFB7788A42";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_A3_Dynamics_RadiusShape" -p "CTL_joint_A3_Dynamics_Radius";
-	rename -uid "5DE1D90E-4201-7643-6A3C-ED94D0F36D6F";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_A2_Dynamics_Radius" -p "CTL_joint_A2_Dynamics";
-	rename -uid "358413ED-43B1-8B49-9292-B9B37F177E4B";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_A2_Dynamics_RadiusShape" -p "CTL_joint_A2_Dynamics_Radius";
-	rename -uid "3129FB49-43DF-6CF1-E9E1-B78E56D2B316";
-	setAttr -k off ".v";
-createNode parentConstraint -n "CTL_joint_A1_SPC_PRCST" -p "CTL_joint_A1_SPC";
-	rename -uid "F34DDCF4-49E8-52CB-753D-0382B2BC6B78";
-	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_A1_IDTW0" -dv 1 -min 0 
-		-at "double";
-	setAttr -k on ".nds";
-	setAttr -k off ".v";
-	setAttr -k off ".tx";
-	setAttr -k off ".ty";
-	setAttr -k off ".tz";
-	setAttr -k off ".rx";
-	setAttr -k off ".ry";
-	setAttr -k off ".rz";
-	setAttr -k off ".sx";
-	setAttr -k off ".sy";
-	setAttr -k off ".sz";
-	setAttr ".erp" yes;
-	setAttr ".rst" -type "double3" 2 0 0 ;
-	setAttr -k on ".w0";
-createNode joint -n "CTL_joint_A1_Target" -p "CTL_joint_A1_SPC";
-	rename -uid "C160130D-46D3-483E-4523-00B5166EF627";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_A2_Target" -p "CTL_joint_A1_Target";
-	rename -uid "B8BF47AB-4775-8342-031B-729A95320611";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" 2 0 1.8873791418627661e-15 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_A3_Target" -p "CTL_joint_A2_Target";
-	rename -uid "A1D5E4D9-4365-0E28-C2A4-A9BE80E129EC";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode transform -n "CTL_joint_B1_SPC" -p "Dynamics_GRP";
-	rename -uid "AB4B93A8-4D51-94F5-231B-C5AD87C0F04C";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"dynamics\";";
-createNode joint -n "CTL_joint_B1_Dynamics" -p "CTL_joint_B1_SPC";
-	rename -uid "247213AE-4771-9B10-21D0-9E87EC0681FD";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B2_Dynamics" -p "CTL_joint_B1_Dynamics";
-	rename -uid "3970FE07-406D-210B-AAB2-38983264645F";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode transform -n "CTL_joint_B3_Dynamics_Branch_SPC" -p "CTL_joint_B2_Dynamics";
-	rename -uid "4E3F8ABC-4797-3F13-A34F-D4A7C101BB10";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".tx";
-	setAttr -l on ".ty";
-	setAttr -l on ".tz";
-	setAttr ".r" -type "double3" 0 26.56505117707799 0 ;
-	setAttr -l on ".rx";
-	setAttr -l on ".ry";
-	setAttr -l on ".rz";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
-createNode joint -n "CTL_joint_B3_Dynamics_Branch" -p "CTL_joint_B3_Dynamics_Branch_SPC";
-	rename -uid "462B1971-4092-E7B7-6661-E09AF5A27B2C";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 4.4408920985006262e-16 0 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B3_Dynamics" -p "CTL_joint_B3_Dynamics_Branch";
-	rename -uid "D71B0F03-4357-4DFE-ADEB-CF8CDA811AFE";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2.2360679774997902 0 -8.8817841970012523e-16 ;
-	setAttr ".jo" -type "double3" 0 -26.56505117707799 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"branch\";";
-createNode joint -n "CTL_joint_B3_Dynamics_End" -p "CTL_joint_B3_Dynamics";
-	rename -uid "D552BAAE-4C88-8E89-5340-66BDC584CD4E";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
-createNode transform -n "CTL_joint_B3_Dynamics_End_Radius" -p "CTL_joint_B3_Dynamics_End";
-	rename -uid "3FC48189-4388-BDE3-6AF5-98AD02A1E51A";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B3_Dynamics_End_RadiusShape" -p "CTL_joint_B3_Dynamics_End_Radius";
-	rename -uid "326814A7-4B5E-B82C-7ABA-379A3724F96C";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_B3_Dynamics_Radius" -p "CTL_joint_B3_Dynamics";
-	rename -uid "2AB595C1-4382-3FA0-357E-A4984B9E97DD";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr ".t" -type "double3" 0 0 -2.2204460492503131e-16 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B3_Dynamics_RadiusShape" -p "CTL_joint_B3_Dynamics_Radius";
-	rename -uid "3A7DA8D5-4241-C5D9-9201-CDA95E1F07BF";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_B3_Dynamics_Branch_Radius" -p "CTL_joint_B3_Dynamics_Branch";
-	rename -uid "2915CA97-4ADC-A6AE-24E0-16B54378A724";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B3_Dynamics_Branch_RadiusShape" -p "CTL_joint_B3_Dynamics_Branch_Radius";
-	rename -uid "9765AAFD-4D46-A20C-DF45-1A8C929B142F";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_B5_Dynamics_Branch_SPC" -p "CTL_joint_B2_Dynamics";
-	rename -uid "19DDA56F-416F-4D77-049F-FA81558F80F5";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".tx";
-	setAttr -l on ".ty";
-	setAttr -l on ".tz";
-	setAttr ".r" -type "double3" 0 -26.56505117707799 0 ;
-	setAttr -l on ".rx";
-	setAttr -l on ".ry";
-	setAttr -l on ".rz";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
-createNode joint -n "CTL_joint_B5_Dynamics_Branch" -p "CTL_joint_B5_Dynamics_Branch_SPC";
-	rename -uid "8B3E4694-4B88-895A-E9FE-9BA08699AA57";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" -1.7763568394002505e-15 0 -2.2204460492503131e-16 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B5_Dynamics" -p "CTL_joint_B5_Dynamics_Branch";
-	rename -uid "A6CFD15D-4B33-9316-FB5E-249310E87CE6";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2.2360679774997925 0 2.2204460492503131e-16 ;
-	setAttr ".jo" -type "double3" 0 26.56505117707799 0 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"branch\";";
-createNode joint -n "CTL_joint_B5_Dynamics_End" -p "CTL_joint_B5_Dynamics";
-	rename -uid "578D3130-485D-B7DE-0F10-1ABC43F7BB97";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 13;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
-	setAttr ".radi" 0.5;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 1 0 0 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
-createNode transform -n "CTL_joint_B5_Dynamics_End_Radius" -p "CTL_joint_B5_Dynamics_End";
-	rename -uid "9BC0AF25-40A7-AD29-965D-28A384CBEDB6";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B5_Dynamics_End_RadiusShape" -p "CTL_joint_B5_Dynamics_End_Radius";
-	rename -uid "D43A543E-45A5-3EC9-202E-7DA2FF6DAFC8";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_B5_Dynamics_Radius" -p "CTL_joint_B5_Dynamics";
-	rename -uid "75B3E6B8-4C78-A135-E135-4CB63465B36B";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr ".t" -type "double3" -8.8817841970012523e-16 0 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B5_Dynamics_RadiusShape" -p "CTL_joint_B5_Dynamics_Radius";
-	rename -uid "EA9B954A-4450-92CF-008B-9DA1105F0816";
-	setAttr -k off ".v";
-createNode transform -n "CTL_joint_B2_Dynamics_Radius" -p "CTL_joint_B2_Dynamics";
-	rename -uid "167423B0-4517-F185-8C93-17B7A0617EAC";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".ovdt" 2;
-	setAttr ".ove" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
-createNode implicitSphere -n "CTL_joint_B2_Dynamics_RadiusShape" -p "CTL_joint_B2_Dynamics_Radius";
-	rename -uid "1055D451-45DE-7E8D-9B4A-F1AE326FA4D8";
-	setAttr -k off ".v";
-createNode parentConstraint -n "CTL_joint_B1_SPC_PRCST" -p "CTL_joint_B1_SPC";
-	rename -uid "B86E4C0D-4216-C9BE-F3F1-AD954488606F";
-	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B1_IDTW0" -dv 1 -min 0 
-		-at "double";
-	setAttr -k on ".nds";
-	setAttr -k off ".v";
-	setAttr -k off ".tx";
-	setAttr -k off ".ty";
-	setAttr -k off ".tz";
-	setAttr -k off ".rx";
-	setAttr -k off ".ry";
-	setAttr -k off ".rz";
-	setAttr -k off ".sx";
-	setAttr -k off ".sy";
-	setAttr -k off ".sz";
-	setAttr ".erp" yes;
-	setAttr ".rst" -type "double3" 2 0 3 ;
-	setAttr -k on ".w0";
-createNode joint -n "CTL_joint_B1_Target" -p "CTL_joint_B1_SPC";
-	rename -uid "F5578FDD-470E-BAD0-A24B-E08CCC33F8D4";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B2_Target" -p "CTL_joint_B1_Target";
-	rename -uid "7F41AE0E-4498-D5EF-A97C-EAB4536EB30D";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" 2 0 0 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode transform -n "CTL_joint_B3_Target_Branch_SPC" -p "CTL_joint_B2_Target";
-	rename -uid "63C49B35-4510-F5FF-B17A-3EB12F2C3A77";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".tx";
-	setAttr -l on ".ty";
-	setAttr -l on ".tz";
-	setAttr ".r" -type "double3" 0 26.565051177078026 0 ;
-	setAttr -l on ".rx";
-	setAttr -l on ".ry";
-	setAttr -l on ".rz";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
-createNode joint -n "CTL_joint_B3_Target_Branch" -p "CTL_joint_B3_Target_Branch_SPC";
-	rename -uid "B4B861A9-4022-6192-52D2-ACA0D0BAA9D3";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B3_Target" -p "CTL_joint_B3_Target_Branch";
-	rename -uid "D7087509-484F-B64B-8950-09B330B91A85";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" 2.2360679774997898 0 8.8817841970012523e-16 ;
-	setAttr ".jo" -type "double3" 0 -26.565051177078026 0 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"branch\";";
-createNode transform -n "CTL_joint_B5_Target_Branch_SPC" -p "CTL_joint_B2_Target";
-	rename -uid "200A5FAD-438B-3557-442D-ECBFDA208E41";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
-	setAttr -l on ".tx";
-	setAttr -l on ".ty";
-	setAttr -l on ".tz";
-	setAttr ".r" -type "double3" 0 -26.56505117707799 0 ;
-	setAttr -l on ".rx";
-	setAttr -l on ".ry";
-	setAttr -l on ".rz";
-	setAttr -l on ".sx";
-	setAttr -l on ".sy";
-	setAttr -l on ".sz";
-	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
-createNode joint -n "CTL_joint_B5_Target_Branch" -p "CTL_joint_B5_Target_Branch_SPC";
-	rename -uid "577E8FB7-4749-5640-ECB4-16BCD588A1A2";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" -1.7763568394002505e-15 0 -2.2204460492503131e-16 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
-createNode joint -n "CTL_joint_B5_Target" -p "CTL_joint_B5_Target_Branch";
-	rename -uid "77C7E8B0-4D47-304F-BB9D-CEAECD5790A2";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
-	setAttr ".ove" yes;
-	setAttr ".ovc" 6;
-	setAttr ".t" -type "double3" 2.2360679774997925 0 2.2204460492503131e-16 ;
-	setAttr ".jo" -type "double3" 0 26.56505117707799 0 ;
-	setAttr ".uocol" yes;
-	setAttr ".oclr" -type "float3" 0 0 1 ;
-	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"branch\";";
+	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"bdn\";toolVersion=\"1.3.0\";";
 createNode transform -n "Collider_GRP" -p "BDN_GRP";
 	rename -uid "1375B2DA-4619-A727-E8A7-14BBAA4AE33C";
 	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
@@ -3115,6 +2691,449 @@ createNode nurbsSurface -n "SphereColliderShape" -p "SphereCollider";
 	setAttr ".cps" 4;
 	setAttr ".nufa" 4.5;
 	setAttr ".nvfa" 4.5;
+createNode transform -n "Dynamics_GRP" -p "BDN_GRP";
+	rename -uid "082ADF1E-42A4-D1F7-884D-F6B069CF899F";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr -l on ".bdnData" -type "string" "type=\"group\";groupType=\"dynamics\";";
+createNode transform -n "CTL_joint_A1_SPC" -p "Dynamics_GRP";
+	rename -uid "BA0D0443-4476-4E80-AD98-FCB00A5661D9";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"dynamics\";";
+createNode joint -n "CTL_joint_A1_Dynamics" -p "CTL_joint_A1_SPC";
+	rename -uid "CAD4C826-42F0-79DF-19AD-BF819628C4E5";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_A2_Dynamics" -p "CTL_joint_A1_Dynamics";
+	rename -uid "CA6C0C64-4EC3-4E2C-2E1D-0780F53CD39E";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 1.8873791418627661e-15 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_A3_Dynamics" -p "CTL_joint_A2_Dynamics";
+	rename -uid "2E0F57CA-4B3B-2F40-AD61-96820536915A";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_A3_Dynamics_End" -p "CTL_joint_A3_Dynamics";
+	rename -uid "8B5EF2B7-44D0-734D-A28D-7DAD9D2DD4C1";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
+createNode transform -n "CTL_joint_A3_Dynamics_End_Radius" -p "CTL_joint_A3_Dynamics_End";
+	rename -uid "2A160A32-4A97-4879-F24D-8894A16C1A26";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_A3_Dynamics_End_RadiusShape" -p "CTL_joint_A3_Dynamics_End_Radius";
+	rename -uid "E991ADCC-434B-5342-ED27-5AB2FD6C857A";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_A3_Dynamics_Radius" -p "CTL_joint_A3_Dynamics";
+	rename -uid "77F2551C-4803-128A-14E9-68B053D681AC";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_A3_Dynamics_RadiusShape" -p "CTL_joint_A3_Dynamics_Radius";
+	rename -uid "48D67509-4657-BEDE-B617-30904FE10B31";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_A2_Dynamics_Radius" -p "CTL_joint_A2_Dynamics";
+	rename -uid "3C9D348E-4BF8-C5C7-F392-FD96E041CE63";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_A2_Dynamics_RadiusShape" -p "CTL_joint_A2_Dynamics_Radius";
+	rename -uid "E1BBDF26-4E0E-54FA-E4F8-F8A941643C44";
+	setAttr -k off ".v";
+createNode parentConstraint -n "CTL_joint_A1_SPC_PRCST" -p "CTL_joint_A1_SPC";
+	rename -uid "41ACD41C-49C7-CBEF-E24F-A4B0D1C73D3E";
+	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_A1_IDTW0" -dv 1 -min 0 
+		-at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".rst" -type "double3" 2 0 0 ;
+	setAttr -k on ".w0";
+createNode joint -n "CTL_joint_A1_Target" -p "CTL_joint_A1_SPC";
+	rename -uid "C14BEBD2-43B6-8D9D-973E-5897E272F02D";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_A2_Target" -p "CTL_joint_A1_Target";
+	rename -uid "280FA2E0-4343-D0F1-293B-74B0E0857EB3";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" 2 0 1.8873791418627661e-15 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_A3_Target" -p "CTL_joint_A2_Target";
+	rename -uid "6BA881B1-4A13-91A3-7569-A78A9882AF22";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode transform -n "CTL_joint_B1_SPC" -p "Dynamics_GRP";
+	rename -uid "3A79B7D2-48AA-C8F2-5724-0FAC9B32ABE1";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"dynamics\";";
+createNode joint -n "CTL_joint_B1_Dynamics" -p "CTL_joint_B1_SPC";
+	rename -uid "4499F2F6-40C5-B4E0-F660-D2A57D31183C";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B2_Dynamics" -p "CTL_joint_B1_Dynamics";
+	rename -uid "85481DD0-44B2-314F-A07B-3D8778DE548C";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode transform -n "CTL_joint_B3_Dynamics_Branch_SPC" -p "CTL_joint_B2_Dynamics";
+	rename -uid "37A40D2D-4554-DD4D-CE10-DFB71890A3C6";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".tx";
+	setAttr -l on ".ty";
+	setAttr -l on ".tz";
+	setAttr ".r" -type "double3" 0 26.565051177078022 0 ;
+	setAttr -l on ".rx";
+	setAttr -l on ".ry";
+	setAttr -l on ".rz";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
+createNode joint -n "CTL_joint_B3_Dynamics_Branch" -p "CTL_joint_B3_Dynamics_Branch_SPC";
+	rename -uid "D47FBBDF-4C33-8806-38F3-7FB966576CEC";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B3_Dynamics" -p "CTL_joint_B3_Dynamics_Branch";
+	rename -uid "47CB6D79-45A0-BD82-D8FA-E9AA67EA32D2";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2.2360679774997898 0 8.8817841970012523e-16 ;
+	setAttr ".jo" -type "double3" 0 -26.565051177078026 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"branch\";";
+createNode joint -n "CTL_joint_B3_Dynamics_End" -p "CTL_joint_B3_Dynamics";
+	rename -uid "DFEAB33F-4E28-D8C3-AC09-3C8A96258468";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".r" -type "double3" 0 3.1805546814635168e-15 0 ;
+	setAttr ".jo" -type "double3" 0 -3.1805546814635168e-15 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
+createNode transform -n "CTL_joint_B3_Dynamics_End_Radius" -p "CTL_joint_B3_Dynamics_End";
+	rename -uid "3F88087A-494B-2BF0-87CA-8A8703C216BD";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B3_Dynamics_End_RadiusShape" -p "CTL_joint_B3_Dynamics_End_Radius";
+	rename -uid "EC267035-4468-5650-5DC8-1DBA5D290BFA";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_B3_Dynamics_Radius" -p "CTL_joint_B3_Dynamics";
+	rename -uid "E58A5681-4CA3-CE81-B3F7-08B824224FD6";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B3_Dynamics_RadiusShape" -p "CTL_joint_B3_Dynamics_Radius";
+	rename -uid "1A46734F-4C64-3789-7800-7D8F8E449DD4";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_B3_Dynamics_Branch_Radius" -p "CTL_joint_B3_Dynamics_Branch";
+	rename -uid "EB9716B8-486F-5C75-9F0A-FDBAB73B93E1";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B3_Dynamics_Branch_RadiusShape" -p "CTL_joint_B3_Dynamics_Branch_Radius";
+	rename -uid "6F2DAAFD-4DF2-74E5-5B86-51945497C9ED";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_B5_Dynamics_Branch_SPC" -p "CTL_joint_B2_Dynamics";
+	rename -uid "A8D89269-4510-CD36-BA48-3DB3E1925D4B";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".tx";
+	setAttr -l on ".ty";
+	setAttr -l on ".tz";
+	setAttr ".r" -type "double3" 0 -26.56505117707799 0 ;
+	setAttr -l on ".rx";
+	setAttr -l on ".ry";
+	setAttr -l on ".rz";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
+createNode joint -n "CTL_joint_B5_Dynamics_Branch" -p "CTL_joint_B5_Dynamics_Branch_SPC";
+	rename -uid "EA53E4E3-4B7E-61C3-8472-07AA73419DB9";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" -1.7763568394002505e-15 0 -2.2204460492503131e-16 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B5_Dynamics" -p "CTL_joint_B5_Dynamics_Branch";
+	rename -uid "4CE22B9E-4FCA-37CB-02C1-F1BBAF6E3D8D";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2.2360679774997925 0 2.2204460492503131e-16 ;
+	setAttr ".jo" -type "double3" 0 26.56505117707799 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"branch\";";
+createNode joint -n "CTL_joint_B5_Dynamics_End" -p "CTL_joint_B5_Dynamics";
+	rename -uid "E1AD4C47-425E-E3A5-6FE3-DDB4F6643B32";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 1 0 0 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".radi" 0.5;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 1 0 0 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"dynamics\";jointType=\"end\";";
+createNode transform -n "CTL_joint_B5_Dynamics_End_Radius" -p "CTL_joint_B5_Dynamics_End";
+	rename -uid "0FA1292F-4A85-24D0-209A-C68D26601138";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B5_Dynamics_End_RadiusShape" -p "CTL_joint_B5_Dynamics_End_Radius";
+	rename -uid "110D1E61-4814-99AB-2C32-9E95762CCF56";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_B5_Dynamics_Radius" -p "CTL_joint_B5_Dynamics";
+	rename -uid "4A228729-4A3A-9594-D9B9-F6B444B1F95F";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr ".t" -type "double3" -8.8817841970012523e-16 0 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B5_Dynamics_RadiusShape" -p "CTL_joint_B5_Dynamics_Radius";
+	rename -uid "DD2D8977-4D7A-6FA9-FCAC-FCB98018BBF8";
+	setAttr -k off ".v";
+createNode transform -n "CTL_joint_B2_Dynamics_Radius" -p "CTL_joint_B2_Dynamics";
+	rename -uid "7D9F3AA6-413C-1A45-4928-C7BC4AAB65D3";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".ovdt" 2;
+	setAttr ".ove" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"radius\";";
+createNode implicitSphere -n "CTL_joint_B2_Dynamics_RadiusShape" -p "CTL_joint_B2_Dynamics_Radius";
+	rename -uid "9249DF65-4AAB-94F4-9305-B9A45B7D8083";
+	setAttr -k off ".v";
+createNode parentConstraint -n "CTL_joint_B1_SPC_PRCST" -p "CTL_joint_B1_SPC";
+	rename -uid "7D00A842-48C0-50E8-A480-3280685C0B89";
+	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "CTL_joint_B1_IDTW0" -dv 1 -min 0 
+		-at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".rst" -type "double3" 2 0 3 ;
+	setAttr -k on ".w0";
+createNode joint -n "CTL_joint_B1_Target" -p "CTL_joint_B1_SPC";
+	rename -uid "912981EA-45DF-E33A-5D97-38A9BDE5DC7B";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B2_Target" -p "CTL_joint_B1_Target";
+	rename -uid "CB0250B7-4ED0-2D14-8556-3893E3A08F3B";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" 2 0 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode transform -n "CTL_joint_B3_Target_Branch_SPC" -p "CTL_joint_B2_Target";
+	rename -uid "787FEA31-4353-2619-6184-1F86A2804DD5";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".tx";
+	setAttr -l on ".ty";
+	setAttr -l on ".tz";
+	setAttr ".r" -type "double3" 0 26.565051177077994 0 ;
+	setAttr -l on ".rx";
+	setAttr -l on ".ry";
+	setAttr -l on ".rz";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
+createNode joint -n "CTL_joint_B3_Target_Branch" -p "CTL_joint_B3_Target_Branch_SPC";
+	rename -uid "F4FC01DF-4196-E405-4FDC-12A9B139CC67";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B3_Target" -p "CTL_joint_B3_Target_Branch";
+	rename -uid "3DFE576D-4147-0386-38EA-DB846B1EAB2A";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" 2.2360679774997902 0 0 ;
+	setAttr ".jo" -type "double3" 0 -26.565051177077994 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"branch\";";
+createNode transform -n "CTL_joint_B5_Target_Branch_SPC" -p "CTL_joint_B2_Target";
+	rename -uid "856DCB5D-4539-469D-D507-4E9CB10B2FB7";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindSource" -ln "bdnBindSource" -at "message";
+	setAttr -l on ".tx";
+	setAttr -l on ".ty";
+	setAttr -l on ".tz";
+	setAttr ".r" -type "double3" 0 -26.56505117707799 0 ;
+	setAttr -l on ".rx";
+	setAttr -l on ".ry";
+	setAttr -l on ".rz";
+	setAttr -l on ".sx";
+	setAttr -l on ".sy";
+	setAttr -l on ".sz";
+	setAttr -l on ".bdnData" -type "string" "type=\"space\";spaceType=\"branch\";";
+createNode joint -n "CTL_joint_B5_Target_Branch" -p "CTL_joint_B5_Target_Branch_SPC";
+	rename -uid "3A75E8E2-41FD-AC05-9421-A7B2811BFE03";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnBindTarget" -ln "bdnBindTarget" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" -1.7763568394002505e-15 0 -2.2204460492503131e-16 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"normal\";";
+createNode joint -n "CTL_joint_B5_Target" -p "CTL_joint_B5_Target_Branch";
+	rename -uid "B926ED43-4DD6-9F2A-AB80-E88BB6D860B7";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	addAttr -s false -ci true -sn "bdnSource" -ln "bdnSource" -at "message";
+	setAttr ".ove" yes;
+	setAttr ".ovrgbf" yes;
+	setAttr ".ovrgb" -type "float3" 0 0 1 ;
+	setAttr ".t" -type "double3" 2.2360679774997925 0 2.2204460492503131e-16 ;
+	setAttr ".jo" -type "double3" 0 26.56505117707799 0 ;
+	setAttr ".uocol" yes;
+	setAttr ".oclr" -type "float3" 0 0 1 ;
+	setAttr -l on ".bdnData" -type "string" "type=\"joint\";jointKind=\"target\";jointType=\"branch\";";
 createNode transform -n "meshCollider1";
 	rename -uid "8A312C50-4B7A-B623-A9BF-BAB4BF74DD52";
 createNode mesh -n "meshColliderShape1" -p "meshCollider1";
@@ -3262,119 +3281,26 @@ createNode mesh -n "meshColliderShape2" -p "meshCollider2";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "512EE26C-4848-B2D7-E3B4-63B02200AF56";
+	rename -uid "91053A1F-4F63-8AC6-9CD1-DBAD058EBFA8";
 	setAttr -s 2 ".lnk";
 	setAttr -s 2 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "33F70F3C-41DF-2A36-967F-41AAA99FCC8C";
+	rename -uid "190693D6-4044-0EDA-1A7A-169D96D54A41";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "6B735C1E-417E-DC33-3F87-92ACC131E25F";
+	rename -uid "148287F3-426F-4FF0-D177-199DC8210BF9";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "8B44086C-47AE-9CC8-8BD2-7B934A83C3DC";
+	rename -uid "28051801-4933-7C38-21D2-4E8BB99DABF7";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "F8B6C60E-4A73-3712-7C8E-7490F59A09DD";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "FA49EAC7-4A27-8139-1DC4-20AECDFB0A16";
+	rename -uid "20C8B753-4BBC-A62E-257A-A39C95089F66";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "71B6D7E0-4309-884E-8CED-24AB1EDAD685";
 	setAttr ".g" yes;
-createNode script -n "uiConfigurationScriptNode";
-	rename -uid "B3DBA757-4C91-3B87-50D4-7B9BF9FC8541";
-	setAttr ".b" -type "string" (
-		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $nodeEditorPanelVisible = stringArrayContains(\"nodeEditorPanel1\", `getPanel -vis`);\n\tint    $nodeEditorWorkspaceControlOpen = (`workspaceControl -exists nodeEditorPanel1Window` && `workspaceControl -q -visible nodeEditorPanel1Window`);\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|top\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n"
-		+ "            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n"
-		+ "            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n"
-		+ "            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Side View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Side View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|side\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n"
-		+ "            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n"
-		+ "            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n"
-		+ "            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Front View\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Front View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|front\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n"
-		+ "            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n"
-		+ "            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n"
-		+ "            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -docTag \"RADRENDER\" \n            -editorChanged \"updateModelPanelBar\" \n            -camera \"|persp\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
-		+ "            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 1\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n"
-		+ "            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n"
-		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 809\n            -height 1092\n            -sceneRenderFilter 0\n            -activeShadingGraph \"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\" \n            -activeCustomGeometry \"meshShaderball\" \n            -activeCustomLighSet \"defaultAreaLightSet\" \n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n"
-		+ "            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 0\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n"
-		+ "            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -isSet 0\n            -isSetMember 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n"
-		+ "            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -selectCommand \"print(\\\"\\\")\" \n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            -renderFilterIndex 0\n            -selectionOrder \"chronological\" \n            -expandAttribute 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n"
-		+ "            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n"
-		+ "            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAssignedMaterials 0\n                -showTimeEditor 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -organizeByClip 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showParentContainers 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n"
-		+ "                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                -ignoreHiddenAttribute 0\n                -ignoreOutlinerColor 0\n"
-		+ "                -renderFilterVisible 0\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayValues 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showPlayRangeShades \"on\" \n                -lockPlayRangeShades \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -keyMinScale 1\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -valueLinesToggle 0\n                -outliner \"graphEditor1OutlineEd\" \n                -highlightAffectedCurves 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAssignedMaterials 0\n                -showTimeEditor 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -organizeByClip 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showParentContainers 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n"
-		+ "                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n"
-		+ "                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                -ignoreHiddenAttribute 0\n                -ignoreOutlinerColor 0\n                -renderFilterVisible 0\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayValues 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"timeEditorPanel\" (localizedPanelLabel(\"Time Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Time Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayValues 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -initialized 0\n                -manageSequencer 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"sequenceEditorPanel\" (localizedPanelLabel(\"Camera Sequencer\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n"
-		+ "            clipEditor -e \n                -displayValues 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -initialized 0\n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n"
-		+ "                -showConnectionFromSelected 0\n                -showConnectionToSelected 0\n                -showConstraintLabels 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"nodeEditorPanel\" (localizedPanelLabel(\"Node Editor\")) `;\n\tif ($nodeEditorPanelVisible || $nodeEditorWorkspaceControlOpen) {\n\t\tif (\"\" == $panelName) {\n\t\t\tif ($useSceneConfig) {\n\t\t\t\t$panelName = `scriptedPanel -unParent  -type \"nodeEditorPanel\" -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n"
-		+ "                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\t}\n\t\t} else {\n\t\t\t$label = `panel -q -label $panelName`;\n\t\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 1\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n"
-		+ "                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\tif (!$useSceneConfig) {\n\t\t\t\tpanel -e -l $label $panelName;\n\t\t\t}\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"shapePanel\" (localizedPanelLabel(\"Shape Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tshapePanel -edit -l (localizedPanelLabel(\"Shape Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"posePanel\" (localizedPanelLabel(\"Pose Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tposePanel -edit -l (localizedPanelLabel(\"Pose Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" != $panelName) {\n"
-		+ "\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"profilerPanel\" (localizedPanelLabel(\"Profiler Tool\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Profiler Tool\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"contentBrowserPanel\" (localizedPanelLabel(\"Content Browser\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Content Browser\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\n{ string $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -editorChanged \"updateModelPanelBar\" \n                -camera \"|persp\" \n                -useInteractiveMode 0\n"
-		+ "                -displayLights \"default\" \n                -displayAppearance \"smoothShaded\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -holdOuts 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 0\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 32768\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n"
-		+ "                -depthOfFieldPreview 1\n                -maxConstantTransparency 1\n                -rendererOverrideName \"stereoOverrideVP2\" \n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n"
-		+ "                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n"
-		+ "                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
-		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 809\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -docTag \\\"RADRENDER\\\" \\n    -editorChanged \\\"updateModelPanelBar\\\" \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 0\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 809\\n    -height 1092\\n    -sceneRenderFilter 0\\n    -activeShadingGraph \\\"ballora_animatronic_shadow_rig:rsMaterial1SG,ballora_animatronic_shadow_rig:MAT_ballora,ballora_animatronic_shadow_rig:MAT_ballora\\\" \\n    -activeCustomGeometry \\\"meshShaderball\\\" \\n    -activeCustomLighSet \\\"defaultAreaLightSet\\\" \\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
-	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
 	rename -uid "C444A304-4C43-C7D9-BC58-2AB88E9CFFAA";
 	setAttr ".b" -type "string" "playbackOptions -min 0 -max 30 -ast 0 -aet 30 ";
 	setAttr ".st" 6;
-createNode boneDynamicsNode -n "CTL_joint_A1_Dynamics_BDN";
-	rename -uid "9A4A92CE-4346-F6BB-7968-A3916E1A89E7";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_A2_Dynamics_BDN";
-	rename -uid "10E4E74B-4DCB-1C57-AB14-9DA2E241C79A";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_A3_Dynamics_BDN";
-	rename -uid "6CA8C72B-43A7-EF8E-F4DD-61B7D77FCBEB";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B1_Dynamics_BDN";
-	rename -uid "732647AE-4B83-13A1-B04D-B5A62F0FE983";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B2_Dynamics_BDN";
-	rename -uid "24602713-4182-90CF-5D9E-90B946C77992";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_Branch_BDN";
-	rename -uid "5D67FA38-4D3C-3AFB-A500-0DAB7115D07F";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_BDN";
-	rename -uid "04597C33-48E5-8259-BB48-6A88C787769B";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_Branch_BDN";
-	rename -uid "F57F2560-4DD1-7FD9-422B-EAB996ED1C5F";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
-createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_BDN";
-	rename -uid "1E758D7C-4463-EF5A-ACA9-D19CA50B96D0";
-	setAttr ".gm" 0.1;
-	setAttr ".r" 0.6;
-	setAttr -s 2 ".mc";
 createNode makeNurbSphere -n "makeNurbSphere1";
 	rename -uid "C0C04776-47D2-07B6-BDCA-64BDEC92886B";
 	setAttr ".ax" -type "double3" 0 1 0 ;
@@ -3447,78 +3373,6 @@ createNode polyTorus -n "polyTorus1";
 createNode transformGeometry -n "transformGeometry1";
 	rename -uid "8A30ABFE-450D-37D1-0D19-AB97D81AE025";
 	setAttr ".txf" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 6 -3.5527136788005009e-15 -6 1;
-createNode vectorProduct -n "force_A_forceVector";
-	rename -uid "7AD12B10-4827-598B-792D-85A95CF75ACF";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".op" 3;
-	setAttr ".i1" -type "float3" 0 1 0 ;
-	setAttr ".no" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"force\";";
-createNode vectorProduct -n "force_B_forceVector";
-	rename -uid "A5279A09-4466-B29F-A590-73A73EE37F65";
-	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
-	setAttr ".op" 3;
-	setAttr ".i1" -type "float3" 0 1 0 ;
-	setAttr ".no" yes;
-	setAttr -l on ".bdnData" -type "string" "type=\"force\";";
-createNode animCurveTU -n "CTL_joint_A1_Dynamics_BDN_damping";
-	rename -uid "E1C2E7A7-48F0-355C-4F10-7E8C601289B8";
-	setAttr ".tan" 18;
-	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 0.1;
-createNode animCurveTU -n "CTL_joint_A1_Dynamics_BDN_elasticity";
-	rename -uid "0FFF42B7-4451-10C3-2316-1C96CDDC85FA";
-	setAttr ".tan" 18;
-	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 30;
-createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
-	rename -uid "EFAD659D-43EA-6BBD-88BD-8DBFFE806CDB";
-	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
-	setAttr ".tgi[0].vl" -type "double2" -3153.3472053406658 -1984.0284270996265 ;
-	setAttr ".tgi[0].vh" -type "double2" 1039.3632666449128 573.47195562229638 ;
-	setAttr -s 14 ".tgi[0].ni";
-	setAttr ".tgi[0].ni[0].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[0].y" -1797.142822265625;
-	setAttr ".tgi[0].ni[0].nvs" 18313;
-	setAttr ".tgi[0].ni[1].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[1].y" -897.14288330078125;
-	setAttr ".tgi[0].ni[1].nvs" 18313;
-	setAttr ".tgi[0].ni[2].x" -725.71429443359375;
-	setAttr ".tgi[0].ni[2].y" -40;
-	setAttr ".tgi[0].ni[2].nvs" 18313;
-	setAttr ".tgi[0].ni[3].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[3].y" 517.14288330078125;
-	setAttr ".tgi[0].ni[3].nvs" 18313;
-	setAttr ".tgi[0].ni[4].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[4].y" -1325.7142333984375;
-	setAttr ".tgi[0].ni[4].nvs" 18313;
-	setAttr ".tgi[0].ni[5].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[5].y" -1111.4285888671875;
-	setAttr ".tgi[0].ni[5].nvs" 18313;
-	setAttr ".tgi[0].ni[6].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[6].y" -1540;
-	setAttr ".tgi[0].ni[6].nvs" 18313;
-	setAttr ".tgi[0].ni[7].x" -1068.5714111328125;
-	setAttr ".tgi[0].ni[7].y" -40;
-	setAttr ".tgi[0].ni[7].nvs" 18313;
-	setAttr ".tgi[0].ni[8].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[8].y" -297.14285278320312;
-	setAttr ".tgi[0].ni[8].nvs" 18313;
-	setAttr ".tgi[0].ni[9].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[9].y" -640;
-	setAttr ".tgi[0].ni[9].nvs" 18313;
-	setAttr ".tgi[0].ni[10].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[10].y" 345.71429443359375;
-	setAttr ".tgi[0].ni[10].nvs" 18313;
-	setAttr ".tgi[0].ni[11].x" -725.71429443359375;
-	setAttr ".tgi[0].ni[11].y" -382.85714721679688;
-	setAttr ".tgi[0].ni[11].nvs" 18313;
-	setAttr ".tgi[0].ni[12].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[12].y" -125.71428680419922;
-	setAttr ".tgi[0].ni[12].nvs" 18313;
-	setAttr ".tgi[0].ni[13].x" -1582.857177734375;
-	setAttr ".tgi[0].ni[13].y" 2.8571429252624512;
-	setAttr ".tgi[0].ni[13].nvs" 18313;
 createNode polyTorus -n "polyTorus2";
 	rename -uid "07FAFB7B-404D-B311-46CB-0EAE5E7E160E";
 	setAttr ".r" 3;
@@ -3526,6 +3380,129 @@ createNode polyTorus -n "polyTorus2";
 createNode transformGeometry -n "transformGeometry2";
 	rename -uid "24CCC9BE-4E6C-FDF5-B8EF-C882084CE62A";
 	setAttr ".txf" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 3 0 -10 1;
+createNode boneDynamicsNode -n "CTL_joint_A1_Dynamics_BDN";
+	rename -uid "0955CBE5-42AE-3084-E89B-8BB7429972E3";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_A2_Dynamics_BDN";
+	rename -uid "CFE9902A-4A37-5F94-CD01-5DA7331D1B57";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_A3_Dynamics_BDN";
+	rename -uid "5A7CE347-425C-B30D-7428-3E92C1A48E22";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B1_Dynamics_BDN";
+	rename -uid "2549D14C-4D65-15E0-27D1-54A8F0F53DCB";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B2_Dynamics_BDN";
+	rename -uid "75AE4463-4D77-3924-0176-AD8551315A6F";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_Branch_BDN";
+	rename -uid "3C7897CD-4304-67F4-B3B1-7DA344810F0D";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B3_Dynamics_BDN";
+	rename -uid "B64798D0-41C8-53B7-99A7-8F97B1D48060";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_Branch_BDN";
+	rename -uid "CBE6B1BC-48EB-76E9-D816-0D991DAAD6C7";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode boneDynamicsNode -n "CTL_joint_B5_Dynamics_BDN";
+	rename -uid "B502067F-47D3-C6C8-A859-318A0C00185F";
+	setAttr ".gm" 0.1;
+	setAttr ".r" 0.6;
+	setAttr -s 2 ".mc";
+createNode vectorProduct -n "force_A_forceVector";
+	rename -uid "E5E6785B-402B-D84A-678E-3983BDBAAAA4";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".op" 3;
+	setAttr ".i1" -type "float3" 0 1 0 ;
+	setAttr ".no" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"force\";";
+createNode vectorProduct -n "force_B_forceVector";
+	rename -uid "8B42D819-445F-7004-0B60-ED8C265602A0";
+	addAttr -ci true -sn "bdnData" -ln "bdnData" -dt "string";
+	setAttr ".op" 3;
+	setAttr ".i1" -type "float3" 0 1 0 ;
+	setAttr ".no" yes;
+	setAttr -l on ".bdnData" -type "string" "type=\"force\";";
+createNode animCurveTU -n "CTL_joint_A1_Dynamics_BDN_damping";
+	rename -uid "6216D6F0-49A4-92B2-373D-E895A586D350";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0.1;
+createNode animCurveTU -n "CTL_joint_A1_Dynamics_BDN_elasticity";
+	rename -uid "4124E8C1-43D0-9146-3A2B-EE8884BE42C3";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 30;
+createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
+	rename -uid "780F60C6-41C9-F4F6-707C-F3B235C9990F";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -3639.2873654387017 -2264.4787090563109 ;
+	setAttr ".tgi[0].vh" -type "double2" 1576.5777463894588 917.13306901838928 ;
+	setAttr -s 16 ".tgi[0].ni";
+	setAttr ".tgi[0].ni[0].x" -874.28570556640625;
+	setAttr ".tgi[0].ni[0].y" 217.14285278320312;
+	setAttr ".tgi[0].ni[0].nvs" 18313;
+	setAttr ".tgi[0].ni[1].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[1].y" -1840;
+	setAttr ".tgi[0].ni[1].nvs" 18313;
+	setAttr ".tgi[0].ni[2].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[2].y" -40;
+	setAttr ".tgi[0].ni[2].nvs" 18313;
+	setAttr ".tgi[0].ni[3].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[3].y" -168.57142639160156;
+	setAttr ".tgi[0].ni[3].nvs" 18313;
+	setAttr ".tgi[0].ni[4].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[4].y" -982.85711669921875;
+	setAttr ".tgi[0].ni[4].nvs" 18313;
+	setAttr ".tgi[0].ni[5].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[5].y" -682.85711669921875;
+	setAttr ".tgi[0].ni[5].nvs" 18313;
+	setAttr ".tgi[0].ni[6].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[6].y" -2097.142822265625;
+	setAttr ".tgi[0].ni[6].nvs" 18313;
+	setAttr ".tgi[0].ni[7].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[7].y" -1197.142822265625;
+	setAttr ".tgi[0].ni[7].nvs" 18313;
+	setAttr ".tgi[0].ni[8].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[8].y" 688.5714111328125;
+	setAttr ".tgi[0].ni[8].nvs" 18313;
+	setAttr ".tgi[0].ni[9].x" -617.14288330078125;
+	setAttr ".tgi[0].ni[9].y" 217.14285278320312;
+	setAttr ".tgi[0].ni[9].nvs" 18313;
+	setAttr ".tgi[0].ni[10].x" -1388.5714111328125;
+	setAttr ".tgi[0].ni[10].y" -340;
+	setAttr ".tgi[0].ni[10].nvs" 18313;
+	setAttr ".tgi[0].ni[11].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[11].y" -1625.7142333984375;
+	setAttr ".tgi[0].ni[11].nvs" 18313;
+	setAttr ".tgi[0].ni[12].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[12].y" -1411.4285888671875;
+	setAttr ".tgi[0].ni[12].nvs" 18313;
+	setAttr ".tgi[0].ni[13].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[13].y" -340;
+	setAttr ".tgi[0].ni[13].nvs" 18313;
+	setAttr ".tgi[0].ni[14].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[14].y" 860;
+	setAttr ".tgi[0].ni[14].nvs" 18313;
+	setAttr ".tgi[0].ni[15].x" -1645.7142333984375;
+	setAttr ".tgi[0].ni[15].y" 345.71429443359375;
+	setAttr ".tgi[0].ni[15].nvs" 18313;
 select -ne :time1;
 	setAttr -av -cb on ".cch";
 	setAttr -av -k on ".fzn";
@@ -4867,108 +4844,6 @@ connectAttr "CTL_RootLocal.ro" "CTL_joint_B1_IDT_PRCST.tg[0].tro";
 connectAttr "CTL_RootLocal.s" "CTL_joint_B1_IDT_PRCST.tg[0].ts";
 connectAttr "CTL_RootLocal.pm" "CTL_joint_B1_IDT_PRCST.tg[0].tpm";
 connectAttr "CTL_joint_B1_IDT_PRCST.w0" "CTL_joint_B1_IDT_PRCST.tg[0].tw";
-connectAttr "CTL_joint_A1_IDT.msg" "CTL_joint_A1_SPC.bdnBindSource";
-connectAttr "CTL_joint_A1_SPC_PRCST.ctx" "CTL_joint_A1_SPC.tx" -l on;
-connectAttr "CTL_joint_A1_SPC_PRCST.cty" "CTL_joint_A1_SPC.ty" -l on;
-connectAttr "CTL_joint_A1_SPC_PRCST.ctz" "CTL_joint_A1_SPC.tz" -l on;
-connectAttr "CTL_joint_A1_SPC_PRCST.crx" "CTL_joint_A1_SPC.rx" -l on;
-connectAttr "CTL_joint_A1_SPC_PRCST.cry" "CTL_joint_A1_SPC.ry" -l on;
-connectAttr "CTL_joint_A1_SPC_PRCST.crz" "CTL_joint_A1_SPC.rz" -l on;
-connectAttr "CTL_joint_A1_Dynamics_BDN.outr" "CTL_joint_A1_Dynamics.r";
-connectAttr "CTL_joint_A1.msg" "CTL_joint_A1_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_A2_Dynamics_BDN.outr" "CTL_joint_A2_Dynamics.r";
-connectAttr "CTL_joint_A1_Dynamics.s" "CTL_joint_A2_Dynamics.is";
-connectAttr "CTL_joint_A2.msg" "CTL_joint_A2_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_A3_Dynamics_BDN.outr" "CTL_joint_A3_Dynamics.r";
-connectAttr "CTL_joint_A2_Dynamics.s" "CTL_joint_A3_Dynamics.is";
-connectAttr "CTL_joint_A3.msg" "CTL_joint_A3_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A3_Dynamics_End.is";
-connectAttr "CTL_joint_A3_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_End_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_A2_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_A1_Dynamics_BDN.r" "CTL_joint_A2_Dynamics_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_A1_SPC.ro" "CTL_joint_A1_SPC_PRCST.cro";
-connectAttr "CTL_joint_A1_SPC.pim" "CTL_joint_A1_SPC_PRCST.cpim";
-connectAttr "CTL_joint_A1_SPC.rp" "CTL_joint_A1_SPC_PRCST.crp";
-connectAttr "CTL_joint_A1_SPC.rpt" "CTL_joint_A1_SPC_PRCST.crt";
-connectAttr "CTL_joint_A1_IDT.t" "CTL_joint_A1_SPC_PRCST.tg[0].tt";
-connectAttr "CTL_joint_A1_IDT.rp" "CTL_joint_A1_SPC_PRCST.tg[0].trp";
-connectAttr "CTL_joint_A1_IDT.rpt" "CTL_joint_A1_SPC_PRCST.tg[0].trt";
-connectAttr "CTL_joint_A1_IDT.r" "CTL_joint_A1_SPC_PRCST.tg[0].tr";
-connectAttr "CTL_joint_A1_IDT.ro" "CTL_joint_A1_SPC_PRCST.tg[0].tro";
-connectAttr "CTL_joint_A1_IDT.s" "CTL_joint_A1_SPC_PRCST.tg[0].ts";
-connectAttr "CTL_joint_A1_IDT.pm" "CTL_joint_A1_SPC_PRCST.tg[0].tpm";
-connectAttr "CTL_joint_A1_SPC_PRCST.w0" "CTL_joint_A1_SPC_PRCST.tg[0].tw";
-connectAttr "CTL_joint_A1.msg" "CTL_joint_A1_Target.bdnSource";
-connectAttr "CTL_joint_A1_Target.s" "CTL_joint_A2_Target.is";
-connectAttr "CTL_joint_A2.msg" "CTL_joint_A2_Target.bdnSource";
-connectAttr "CTL_joint_A2_Target.s" "CTL_joint_A3_Target.is";
-connectAttr "CTL_joint_A3.msg" "CTL_joint_A3_Target.bdnSource";
-connectAttr "CTL_joint_B1_IDT.msg" "CTL_joint_B1_SPC.bdnBindSource";
-connectAttr "CTL_joint_B1_SPC_PRCST.ctx" "CTL_joint_B1_SPC.tx" -l on;
-connectAttr "CTL_joint_B1_SPC_PRCST.cty" "CTL_joint_B1_SPC.ty" -l on;
-connectAttr "CTL_joint_B1_SPC_PRCST.ctz" "CTL_joint_B1_SPC.tz" -l on;
-connectAttr "CTL_joint_B1_SPC_PRCST.crx" "CTL_joint_B1_SPC.rx" -l on;
-connectAttr "CTL_joint_B1_SPC_PRCST.cry" "CTL_joint_B1_SPC.ry" -l on;
-connectAttr "CTL_joint_B1_SPC_PRCST.crz" "CTL_joint_B1_SPC.rz" -l on;
-connectAttr "CTL_joint_B1_Dynamics_BDN.outr" "CTL_joint_B1_Dynamics.r";
-connectAttr "CTL_joint_B1.msg" "CTL_joint_B1_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_B2_Dynamics_BDN.outr" "CTL_joint_B2_Dynamics.r";
-connectAttr "CTL_joint_B1_Dynamics.s" "CTL_joint_B2_Dynamics.is";
-connectAttr "CTL_joint_B2.msg" "CTL_joint_B2_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B3_Dynamics_Branch_SPC.bdnBindSource"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.outr" "CTL_joint_B3_Dynamics_Branch.r"
-		;
-connectAttr "CTL_joint_B3_Dynamics_BDN.outr" "CTL_joint_B3_Dynamics.r";
-connectAttr "CTL_joint_B3_Dynamics_Branch.s" "CTL_joint_B3_Dynamics.is";
-connectAttr "CTL_joint_B3.msg" "CTL_joint_B3_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_End.is";
-connectAttr "CTL_joint_B3_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_End_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.r" "CTL_joint_B3_Dynamics_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B2_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_Branch_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B5_Dynamics_Branch_SPC.bdnBindSource"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.outr" "CTL_joint_B5_Dynamics_Branch.r"
-		;
-connectAttr "CTL_joint_B5_Dynamics_BDN.outr" "CTL_joint_B5_Dynamics.r";
-connectAttr "CTL_joint_B5_Dynamics_Branch.s" "CTL_joint_B5_Dynamics.is";
-connectAttr "CTL_joint_B5.msg" "CTL_joint_B5_Dynamics.bdnBindTarget";
-connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_End.is";
-connectAttr "CTL_joint_B5_Dynamics_BDN.r" "CTL_joint_B5_Dynamics_End_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.r" "CTL_joint_B5_Dynamics_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B1_Dynamics_BDN.r" "CTL_joint_B2_Dynamics_RadiusShape.rd"
-		;
-connectAttr "CTL_joint_B1_SPC.ro" "CTL_joint_B1_SPC_PRCST.cro";
-connectAttr "CTL_joint_B1_SPC.pim" "CTL_joint_B1_SPC_PRCST.cpim";
-connectAttr "CTL_joint_B1_SPC.rp" "CTL_joint_B1_SPC_PRCST.crp";
-connectAttr "CTL_joint_B1_SPC.rpt" "CTL_joint_B1_SPC_PRCST.crt";
-connectAttr "CTL_joint_B1_IDT.t" "CTL_joint_B1_SPC_PRCST.tg[0].tt";
-connectAttr "CTL_joint_B1_IDT.rp" "CTL_joint_B1_SPC_PRCST.tg[0].trp";
-connectAttr "CTL_joint_B1_IDT.rpt" "CTL_joint_B1_SPC_PRCST.tg[0].trt";
-connectAttr "CTL_joint_B1_IDT.r" "CTL_joint_B1_SPC_PRCST.tg[0].tr";
-connectAttr "CTL_joint_B1_IDT.ro" "CTL_joint_B1_SPC_PRCST.tg[0].tro";
-connectAttr "CTL_joint_B1_IDT.s" "CTL_joint_B1_SPC_PRCST.tg[0].ts";
-connectAttr "CTL_joint_B1_IDT.pm" "CTL_joint_B1_SPC_PRCST.tg[0].tpm";
-connectAttr "CTL_joint_B1_SPC_PRCST.w0" "CTL_joint_B1_SPC_PRCST.tg[0].tw";
-connectAttr "CTL_joint_B1.msg" "CTL_joint_B1_Target.bdnSource";
-connectAttr "CTL_joint_B1_Target.s" "CTL_joint_B2_Target.is";
-connectAttr "CTL_joint_B2.msg" "CTL_joint_B2_Target.bdnSource";
-connectAttr "CTL_joint_B2_Target.msg" "CTL_joint_B3_Target_Branch_SPC.bdnBindSource"
-		;
-connectAttr "CTL_joint_B3_Target_Branch.s" "CTL_joint_B3_Target.is";
-connectAttr "CTL_joint_B3.msg" "CTL_joint_B3_Target.bdnSource";
-connectAttr "CTL_joint_B2_Target.msg" "CTL_joint_B5_Target_Branch_SPC.bdnBindSource"
-		;
-connectAttr "CTL_joint_B5_Target_Branch.s" "CTL_joint_B5_Target.is";
-connectAttr "CTL_joint_B5.msg" "CTL_joint_B5_Target.bdnSource";
 connectAttr "CapsuleCollider.colliderRadiusA" "CapsuleCollider_SPC.colliderRadiusA"
 		;
 connectAttr "CapsuleCollider.colliderRadiusB" "CapsuleCollider_SPC.colliderRadiusB"
@@ -5100,6 +4975,118 @@ connectAttr "SphereCollider.colliderRadius" "SphereCollider_SPC.colliderRadius";
 connectAttr "makeNurbSphere3.msg" "SphereCollider.colliderAffectedBy[0]";
 connectAttr "SphereColliderShape.msg" "SphereCollider.colliderAffectedBy[1]";
 connectAttr "makeNurbSphere3.os" "SphereColliderShape.cr";
+connectAttr "CTL_joint_A1_IDT.msg" "CTL_joint_A1_SPC.bdnBindSource";
+connectAttr "CTL_joint_A1_SPC_PRCST.ctx" "CTL_joint_A1_SPC.tx" -l on;
+connectAttr "CTL_joint_A1_SPC_PRCST.cty" "CTL_joint_A1_SPC.ty" -l on;
+connectAttr "CTL_joint_A1_SPC_PRCST.ctz" "CTL_joint_A1_SPC.tz" -l on;
+connectAttr "CTL_joint_A1_SPC_PRCST.crx" "CTL_joint_A1_SPC.rx" -l on;
+connectAttr "CTL_joint_A1_SPC_PRCST.cry" "CTL_joint_A1_SPC.ry" -l on;
+connectAttr "CTL_joint_A1_SPC_PRCST.crz" "CTL_joint_A1_SPC.rz" -l on;
+connectAttr "CTL_joint_A1.msg" "CTL_joint_A1_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_A1_Target.s" "CTL_joint_A1_Dynamics.s";
+connectAttr "CTL_joint_A1_Dynamics_BDN.outr" "CTL_joint_A1_Dynamics.r";
+connectAttr "CTL_joint_A1_Dynamics.s" "CTL_joint_A2_Dynamics.is";
+connectAttr "CTL_joint_A2.msg" "CTL_joint_A2_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_A2_Target.s" "CTL_joint_A2_Dynamics.s";
+connectAttr "CTL_joint_A2_Dynamics_BDN.outr" "CTL_joint_A2_Dynamics.r";
+connectAttr "CTL_joint_A2_Dynamics.s" "CTL_joint_A3_Dynamics.is";
+connectAttr "CTL_joint_A3.msg" "CTL_joint_A3_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_A3_Target.s" "CTL_joint_A3_Dynamics.s";
+connectAttr "CTL_joint_A3_Dynamics_BDN.outr" "CTL_joint_A3_Dynamics.r";
+connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A3_Dynamics_End.is";
+connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A3_Dynamics_End.s";
+connectAttr "CTL_joint_A3_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_End_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_A2_Dynamics_BDN.r" "CTL_joint_A3_Dynamics_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_A1_Dynamics_BDN.r" "CTL_joint_A2_Dynamics_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_A1_SPC.ro" "CTL_joint_A1_SPC_PRCST.cro";
+connectAttr "CTL_joint_A1_SPC.pim" "CTL_joint_A1_SPC_PRCST.cpim";
+connectAttr "CTL_joint_A1_SPC.rp" "CTL_joint_A1_SPC_PRCST.crp";
+connectAttr "CTL_joint_A1_SPC.rpt" "CTL_joint_A1_SPC_PRCST.crt";
+connectAttr "CTL_joint_A1_IDT.t" "CTL_joint_A1_SPC_PRCST.tg[0].tt";
+connectAttr "CTL_joint_A1_IDT.rp" "CTL_joint_A1_SPC_PRCST.tg[0].trp";
+connectAttr "CTL_joint_A1_IDT.rpt" "CTL_joint_A1_SPC_PRCST.tg[0].trt";
+connectAttr "CTL_joint_A1_IDT.r" "CTL_joint_A1_SPC_PRCST.tg[0].tr";
+connectAttr "CTL_joint_A1_IDT.ro" "CTL_joint_A1_SPC_PRCST.tg[0].tro";
+connectAttr "CTL_joint_A1_IDT.s" "CTL_joint_A1_SPC_PRCST.tg[0].ts";
+connectAttr "CTL_joint_A1_IDT.pm" "CTL_joint_A1_SPC_PRCST.tg[0].tpm";
+connectAttr "CTL_joint_A1_SPC_PRCST.w0" "CTL_joint_A1_SPC_PRCST.tg[0].tw";
+connectAttr "CTL_joint_A1.msg" "CTL_joint_A1_Target.bdnSource";
+connectAttr "CTL_joint_A1_Target.s" "CTL_joint_A2_Target.is";
+connectAttr "CTL_joint_A2.msg" "CTL_joint_A2_Target.bdnSource";
+connectAttr "CTL_joint_A2_Target.s" "CTL_joint_A3_Target.is";
+connectAttr "CTL_joint_A3.msg" "CTL_joint_A3_Target.bdnSource";
+connectAttr "CTL_joint_B1_IDT.msg" "CTL_joint_B1_SPC.bdnBindSource";
+connectAttr "CTL_joint_B1_SPC_PRCST.ctx" "CTL_joint_B1_SPC.tx" -l on;
+connectAttr "CTL_joint_B1_SPC_PRCST.cty" "CTL_joint_B1_SPC.ty" -l on;
+connectAttr "CTL_joint_B1_SPC_PRCST.ctz" "CTL_joint_B1_SPC.tz" -l on;
+connectAttr "CTL_joint_B1_SPC_PRCST.crx" "CTL_joint_B1_SPC.rx" -l on;
+connectAttr "CTL_joint_B1_SPC_PRCST.cry" "CTL_joint_B1_SPC.ry" -l on;
+connectAttr "CTL_joint_B1_SPC_PRCST.crz" "CTL_joint_B1_SPC.rz" -l on;
+connectAttr "CTL_joint_B1.msg" "CTL_joint_B1_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_B1_Target.s" "CTL_joint_B1_Dynamics.s";
+connectAttr "CTL_joint_B1_Dynamics_BDN.outr" "CTL_joint_B1_Dynamics.r";
+connectAttr "CTL_joint_B1_Dynamics.s" "CTL_joint_B2_Dynamics.is";
+connectAttr "CTL_joint_B2.msg" "CTL_joint_B2_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_B2_Target.s" "CTL_joint_B2_Dynamics.s";
+connectAttr "CTL_joint_B2_Dynamics_BDN.outr" "CTL_joint_B2_Dynamics.r";
+connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B3_Dynamics_Branch_SPC.bdnBindSource"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.outr" "CTL_joint_B3_Dynamics_Branch.r"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.s" "CTL_joint_B3_Dynamics.is";
+connectAttr "CTL_joint_B3.msg" "CTL_joint_B3_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_B3_Target.s" "CTL_joint_B3_Dynamics.s";
+connectAttr "CTL_joint_B3_Dynamics_BDN.outr" "CTL_joint_B3_Dynamics.r";
+connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_End.is";
+connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_End.s";
+connectAttr "CTL_joint_B3_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_End_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch_BDN.r" "CTL_joint_B3_Dynamics_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B2_Dynamics_BDN.r" "CTL_joint_B3_Dynamics_Branch_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B2_Dynamics.msg" "CTL_joint_B5_Dynamics_Branch_SPC.bdnBindSource"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.outr" "CTL_joint_B5_Dynamics_Branch.r"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.s" "CTL_joint_B5_Dynamics.is";
+connectAttr "CTL_joint_B5.msg" "CTL_joint_B5_Dynamics.bdnBindTarget";
+connectAttr "CTL_joint_B5_Target.s" "CTL_joint_B5_Dynamics.s";
+connectAttr "CTL_joint_B5_Dynamics_BDN.outr" "CTL_joint_B5_Dynamics.r";
+connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_End.is";
+connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_End.s";
+connectAttr "CTL_joint_B5_Dynamics_BDN.r" "CTL_joint_B5_Dynamics_End_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch_BDN.r" "CTL_joint_B5_Dynamics_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B1_Dynamics_BDN.r" "CTL_joint_B2_Dynamics_RadiusShape.rd"
+		;
+connectAttr "CTL_joint_B1_SPC.ro" "CTL_joint_B1_SPC_PRCST.cro";
+connectAttr "CTL_joint_B1_SPC.pim" "CTL_joint_B1_SPC_PRCST.cpim";
+connectAttr "CTL_joint_B1_SPC.rp" "CTL_joint_B1_SPC_PRCST.crp";
+connectAttr "CTL_joint_B1_SPC.rpt" "CTL_joint_B1_SPC_PRCST.crt";
+connectAttr "CTL_joint_B1_IDT.t" "CTL_joint_B1_SPC_PRCST.tg[0].tt";
+connectAttr "CTL_joint_B1_IDT.rp" "CTL_joint_B1_SPC_PRCST.tg[0].trp";
+connectAttr "CTL_joint_B1_IDT.rpt" "CTL_joint_B1_SPC_PRCST.tg[0].trt";
+connectAttr "CTL_joint_B1_IDT.r" "CTL_joint_B1_SPC_PRCST.tg[0].tr";
+connectAttr "CTL_joint_B1_IDT.ro" "CTL_joint_B1_SPC_PRCST.tg[0].tro";
+connectAttr "CTL_joint_B1_IDT.s" "CTL_joint_B1_SPC_PRCST.tg[0].ts";
+connectAttr "CTL_joint_B1_IDT.pm" "CTL_joint_B1_SPC_PRCST.tg[0].tpm";
+connectAttr "CTL_joint_B1_SPC_PRCST.w0" "CTL_joint_B1_SPC_PRCST.tg[0].tw";
+connectAttr "CTL_joint_B1.msg" "CTL_joint_B1_Target.bdnSource";
+connectAttr "CTL_joint_B1_Target.s" "CTL_joint_B2_Target.is";
+connectAttr "CTL_joint_B2.msg" "CTL_joint_B2_Target.bdnSource";
+connectAttr "CTL_joint_B2_Target.msg" "CTL_joint_B3_Target_Branch_SPC.bdnBindSource"
+		;
+connectAttr "CTL_joint_B3_Target_Branch.s" "CTL_joint_B3_Target.is";
+connectAttr "CTL_joint_B3.msg" "CTL_joint_B3_Target.bdnSource";
+connectAttr "CTL_joint_B2_Target.msg" "CTL_joint_B5_Target_Branch_SPC.bdnBindSource"
+		;
+connectAttr "CTL_joint_B5_Target_Branch.s" "CTL_joint_B5_Target.is";
+connectAttr "CTL_joint_B5.msg" "CTL_joint_B5_Target.bdnSource";
 connectAttr "transformGeometry1.og" "meshColliderShape1.i";
 connectAttr "transformGeometry2.og" "meshColliderShape2.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
@@ -5108,219 +5095,6 @@ relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defau
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
-connectAttr "CTL_joint_A1_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A1_Dynamics.jo" "CTL_joint_A1_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A1_Dynamics.pm" "CTL_joint_A1_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A1_Dynamics.pim" "CTL_joint_A1_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A1_Dynamics_BDN.t";
-connectAttr "CTL_joint_A1_Target.r" "CTL_joint_A1_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A1_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A1_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A1_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A1_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A1_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A1_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A1_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_A1_Dynamics_BDN_damping.o" "CTL_joint_A1_Dynamics_BDN.damp"
-		;
-connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.o" "CTL_joint_A1_Dynamics_BDN.elas"
-		;
-connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A2_Dynamics.jo" "CTL_joint_A2_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A2_Dynamics.pm" "CTL_joint_A2_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A2_Dynamics.pim" "CTL_joint_A2_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A2_Dynamics_BDN.t";
-connectAttr "CTL_joint_A2_Target.r" "CTL_joint_A2_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A2_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A2_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A2_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A2_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A2_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A2_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A2_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A3_Dynamics_BDN.bt";
-connectAttr "CTL_joint_A3_Dynamics.jo" "CTL_joint_A3_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_A3_Dynamics.pm" "CTL_joint_A3_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_A3_Dynamics.pim" "CTL_joint_A3_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_A3_Dynamics_End.t" "CTL_joint_A3_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_A3_Dynamics_BDN.t";
-connectAttr "CTL_joint_A3_Target.r" "CTL_joint_A3_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A3_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_A3_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_A3_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_A3_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_A3_Dynamics_BDN.mc[1]";
-connectAttr "force_A_forceVector.o" "CTL_joint_A3_Dynamics_BDN.af";
-connectAttr "CTL_RootGlobal.wm" "CTL_joint_A3_Dynamics_BDN.ofmtx";
-connectAttr "CTL_joint_B1_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B1_Dynamics.jo" "CTL_joint_B1_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B1_Dynamics.pm" "CTL_joint_B1_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B1_Dynamics.pim" "CTL_joint_B1_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B1_Dynamics_BDN.t";
-connectAttr "CTL_joint_B1_Target.r" "CTL_joint_B1_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B1_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B1_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B1_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B1_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B1_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B1_Dynamics_BDN.af";
-connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B2_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B2_Dynamics.jo" "CTL_joint_B2_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B2_Dynamics.pm" "CTL_joint_B2_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B2_Dynamics.pim" "CTL_joint_B2_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B2_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B2_Dynamics_BDN.t";
-connectAttr "CTL_joint_B2_Target.r" "CTL_joint_B2_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B2_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B2_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B2_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B2_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B2_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B2_Dynamics_BDN.af";
-connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B3_Dynamics_Branch_BDN.bt"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.jo" "CTL_joint_B3_Dynamics_Branch_BDN.bjo"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.pm" "CTL_joint_B3_Dynamics_Branch_BDN.bpmtx"
-		;
-connectAttr "CTL_joint_B3_Dynamics_Branch.pim" "CTL_joint_B3_Dynamics_Branch_BDN.bpimtx"
-		;
-connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_Branch_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B3_Dynamics_Branch_BDN.t";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.pc[0].pcmtx"
-		;
-connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_Branch_BDN.af";
-connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B3_Dynamics.jo" "CTL_joint_B3_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B3_Dynamics.pm" "CTL_joint_B3_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B3_Dynamics.pim" "CTL_joint_B3_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B3_Dynamics_End.t" "CTL_joint_B3_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B3_Dynamics_BDN.t";
-connectAttr "CTL_joint_B3_Target.r" "CTL_joint_B3_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_BDN.af";
-connectAttr "CTL_joint_B5_Dynamics_Branch.t" "CTL_joint_B5_Dynamics_Branch_BDN.bt"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.jo" "CTL_joint_B5_Dynamics_Branch_BDN.bjo"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.pm" "CTL_joint_B5_Dynamics_Branch_BDN.bpmtx"
-		;
-connectAttr "CTL_joint_B5_Dynamics_Branch.pim" "CTL_joint_B5_Dynamics_Branch_BDN.bpimtx"
-		;
-connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_Branch_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B5_Dynamics_Branch_BDN.t";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.pc[0].pcmtx"
-		;
-connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_Branch_BDN.af";
-connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_BDN.bt";
-connectAttr "CTL_joint_B5_Dynamics.jo" "CTL_joint_B5_Dynamics_BDN.bjo";
-connectAttr "CTL_joint_B5_Dynamics.pm" "CTL_joint_B5_Dynamics_BDN.bpmtx";
-connectAttr "CTL_joint_B5_Dynamics.pim" "CTL_joint_B5_Dynamics_BDN.bpimtx";
-connectAttr "CTL_joint_B5_Dynamics_End.t" "CTL_joint_B5_Dynamics_BDN.et";
-connectAttr ":time1.o" "CTL_joint_B5_Dynamics_BDN.t";
-connectAttr "CTL_joint_B5_Target.r" "CTL_joint_B5_Dynamics_BDN.ro";
-connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxa"
-		;
-connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxb"
-		;
-connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccrada"
-		;
-connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccradb"
-		;
-connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_BDN.pc[0].pcmtx";
-connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_BDN.sc[0].scmtx";
-connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_BDN.sc[0].scrad"
-		;
-connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_BDN.mc[0]";
-connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_BDN.mc[1]";
-connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_BDN.af";
 connectAttr "CapsuleCollider.colliderRadiusA" "makeNurbSphere1.r";
 connectAttr "CapsuleCollider_sweepAStartUc.o" "makeNurbSphere1.ssw";
 connectAttr "CapsuleCollider_sweepAEndUc.o" "makeNurbSphere1.esw";
@@ -5357,34 +5131,282 @@ connectAttr "InfinitePlaneCollider.colliderWidth" "InfinitePlaneCollider_ratio._
 		;
 connectAttr "SphereCollider.colliderRadius" "makeNurbSphere3.r";
 connectAttr "polyTorus1.out" "transformGeometry1.ig";
+connectAttr "polyTorus2.out" "transformGeometry2.ig";
+connectAttr "CTL_joint_A1_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.bt";
+connectAttr "CTL_joint_A1_Dynamics.jo" "CTL_joint_A1_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_A1_Dynamics.pm" "CTL_joint_A1_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_A1_Dynamics.pim" "CTL_joint_A1_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A1_Dynamics_BDN.et";
+connectAttr "CTL_joint_A1_Dynamics.s" "CTL_joint_A1_Dynamics_BDN.bs";
+connectAttr "CTL_joint_A1_Dynamics.is" "CTL_joint_A1_Dynamics_BDN.bis";
+connectAttr "CTL_joint_A2_Dynamics.s" "CTL_joint_A1_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_A1_Dynamics_BDN.t";
+connectAttr "CTL_joint_A1_Target.r" "CTL_joint_A1_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A1_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A1_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A1_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_A1_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A1_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A1_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A1_Dynamics_BDN.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A1_Dynamics_BDN.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A1_Dynamics_BDN.ofmtx";
+connectAttr "CTL_joint_A1_Dynamics_BDN_damping.o" "CTL_joint_A1_Dynamics_BDN.damp"
+		;
+connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.o" "CTL_joint_A1_Dynamics_BDN.elas"
+		;
+connectAttr "CTL_joint_A2_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.bt";
+connectAttr "CTL_joint_A2_Dynamics.jo" "CTL_joint_A2_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_A2_Dynamics.pm" "CTL_joint_A2_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_A2_Dynamics.pim" "CTL_joint_A2_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A2_Dynamics_BDN.et";
+connectAttr "CTL_joint_A2_Dynamics.s" "CTL_joint_A2_Dynamics_BDN.bs";
+connectAttr "CTL_joint_A2_Dynamics.is" "CTL_joint_A2_Dynamics_BDN.bis";
+connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A2_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_A2_Dynamics_BDN.t";
+connectAttr "CTL_joint_A2_Target.r" "CTL_joint_A2_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A2_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A2_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A2_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_A2_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A2_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A2_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A2_Dynamics_BDN.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A2_Dynamics_BDN.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A2_Dynamics_BDN.ofmtx";
+connectAttr "CTL_joint_A3_Dynamics.t" "CTL_joint_A3_Dynamics_BDN.bt";
+connectAttr "CTL_joint_A3_Dynamics.jo" "CTL_joint_A3_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_A3_Dynamics.pm" "CTL_joint_A3_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_A3_Dynamics.pim" "CTL_joint_A3_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_A3_Dynamics_End.t" "CTL_joint_A3_Dynamics_BDN.et";
+connectAttr "CTL_joint_A3_Dynamics.s" "CTL_joint_A3_Dynamics_BDN.bs";
+connectAttr "CTL_joint_A3_Dynamics.is" "CTL_joint_A3_Dynamics_BDN.bis";
+connectAttr "CTL_joint_A3_Dynamics_End.s" "CTL_joint_A3_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_A3_Dynamics_BDN.t";
+connectAttr "CTL_joint_A3_Target.r" "CTL_joint_A3_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_A3_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_A3_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_A3_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_A3_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_A3_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_A3_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_A3_Dynamics_BDN.mc[1]";
+connectAttr "force_A_forceVector.o" "CTL_joint_A3_Dynamics_BDN.af";
+connectAttr "CTL_RootGlobal.wm" "CTL_joint_A3_Dynamics_BDN.ofmtx";
+connectAttr "CTL_joint_B1_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.bt";
+connectAttr "CTL_joint_B1_Dynamics.jo" "CTL_joint_B1_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_B1_Dynamics.pm" "CTL_joint_B1_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_B1_Dynamics.pim" "CTL_joint_B1_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B1_Dynamics_BDN.et";
+connectAttr "CTL_joint_B1_Dynamics.s" "CTL_joint_B1_Dynamics_BDN.bs";
+connectAttr "CTL_joint_B1_Dynamics.is" "CTL_joint_B1_Dynamics_BDN.bis";
+connectAttr "CTL_joint_B2_Dynamics.s" "CTL_joint_B1_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B1_Dynamics_BDN.t";
+connectAttr "CTL_joint_B1_Target.r" "CTL_joint_B1_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B1_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B1_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B1_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_B1_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B1_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B1_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B1_Dynamics_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B1_Dynamics_BDN.af";
+connectAttr "CTL_joint_B2_Dynamics.t" "CTL_joint_B2_Dynamics_BDN.bt";
+connectAttr "CTL_joint_B2_Dynamics.jo" "CTL_joint_B2_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_B2_Dynamics.pm" "CTL_joint_B2_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_B2_Dynamics.pim" "CTL_joint_B2_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B2_Dynamics_BDN.et";
+connectAttr "CTL_joint_B2_Dynamics.s" "CTL_joint_B2_Dynamics_BDN.bs";
+connectAttr "CTL_joint_B2_Dynamics.is" "CTL_joint_B2_Dynamics_BDN.bis";
+connectAttr "CTL_joint_B3_Dynamics_Branch.s" "CTL_joint_B2_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B2_Dynamics_BDN.t";
+connectAttr "CTL_joint_B2_Target.r" "CTL_joint_B2_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B2_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B2_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B2_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_B2_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B2_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B2_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B2_Dynamics_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B2_Dynamics_BDN.af";
+connectAttr "CTL_joint_B3_Dynamics_Branch.t" "CTL_joint_B3_Dynamics_Branch_BDN.bt"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.jo" "CTL_joint_B3_Dynamics_Branch_BDN.bjo"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.pm" "CTL_joint_B3_Dynamics_Branch_BDN.bpmtx"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.pim" "CTL_joint_B3_Dynamics_Branch_BDN.bpimtx"
+		;
+connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_Branch_BDN.et";
+connectAttr "CTL_joint_B3_Dynamics_Branch.s" "CTL_joint_B3_Dynamics_Branch_BDN.bs"
+		;
+connectAttr "CTL_joint_B3_Dynamics_Branch.is" "CTL_joint_B3_Dynamics_Branch_BDN.bis"
+		;
+connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_Branch_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B3_Dynamics_Branch_BDN.t";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_Branch_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_Branch_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_Branch_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_Branch_BDN.af";
+connectAttr "CTL_joint_B3_Dynamics.t" "CTL_joint_B3_Dynamics_BDN.bt";
+connectAttr "CTL_joint_B3_Dynamics.jo" "CTL_joint_B3_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_B3_Dynamics.pm" "CTL_joint_B3_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_B3_Dynamics.pim" "CTL_joint_B3_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_B3_Dynamics_End.t" "CTL_joint_B3_Dynamics_BDN.et";
+connectAttr "CTL_joint_B3_Dynamics.s" "CTL_joint_B3_Dynamics_BDN.bs";
+connectAttr "CTL_joint_B3_Dynamics.is" "CTL_joint_B3_Dynamics_BDN.bis";
+connectAttr "CTL_joint_B3_Dynamics_End.s" "CTL_joint_B3_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B3_Dynamics_BDN.t";
+connectAttr "CTL_joint_B3_Target.r" "CTL_joint_B3_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B3_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B3_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B3_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_B3_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B3_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B3_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B3_Dynamics_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B3_Dynamics_BDN.af";
+connectAttr "CTL_joint_B5_Dynamics_Branch.t" "CTL_joint_B5_Dynamics_Branch_BDN.bt"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.jo" "CTL_joint_B5_Dynamics_Branch_BDN.bjo"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.pm" "CTL_joint_B5_Dynamics_Branch_BDN.bpmtx"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.pim" "CTL_joint_B5_Dynamics_Branch_BDN.bpimtx"
+		;
+connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_Branch_BDN.et";
+connectAttr "CTL_joint_B5_Dynamics_Branch.s" "CTL_joint_B5_Dynamics_Branch_BDN.bs"
+		;
+connectAttr "CTL_joint_B5_Dynamics_Branch.is" "CTL_joint_B5_Dynamics_Branch_BDN.bis"
+		;
+connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_Branch_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B5_Dynamics_Branch_BDN.t";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_Branch_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.pc[0].pcmtx"
+		;
+connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_Branch_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_Branch_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_Branch_BDN.af";
+connectAttr "CTL_joint_B5_Dynamics.t" "CTL_joint_B5_Dynamics_BDN.bt";
+connectAttr "CTL_joint_B5_Dynamics.jo" "CTL_joint_B5_Dynamics_BDN.bjo";
+connectAttr "CTL_joint_B5_Dynamics.pm" "CTL_joint_B5_Dynamics_BDN.bpmtx";
+connectAttr "CTL_joint_B5_Dynamics.pim" "CTL_joint_B5_Dynamics_BDN.bpimtx";
+connectAttr "CTL_joint_B5_Dynamics_End.t" "CTL_joint_B5_Dynamics_BDN.et";
+connectAttr "CTL_joint_B5_Dynamics.s" "CTL_joint_B5_Dynamics_BDN.bs";
+connectAttr "CTL_joint_B5_Dynamics.is" "CTL_joint_B5_Dynamics_BDN.bis";
+connectAttr "CTL_joint_B5_Dynamics_End.s" "CTL_joint_B5_Dynamics_BDN.es";
+connectAttr ":time1.o" "CTL_joint_B5_Dynamics_BDN.t";
+connectAttr "CTL_joint_B5_Target.r" "CTL_joint_B5_Dynamics_BDN.ro";
+connectAttr "CapsuleCollider.colliderMatrixA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxa"
+		;
+connectAttr "CapsuleCollider.colliderMatrixB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccmtxb"
+		;
+connectAttr "CapsuleCollider.colliderRadiusA" "CTL_joint_B5_Dynamics_BDN.cc[0].ccrada"
+		;
+connectAttr "CapsuleCollider.colliderRadiusB" "CTL_joint_B5_Dynamics_BDN.cc[0].ccradb"
+		;
+connectAttr "InfinitePlaneCollider.wm" "CTL_joint_B5_Dynamics_BDN.pc[0].pcmtx";
+connectAttr "SphereCollider.wm" "CTL_joint_B5_Dynamics_BDN.sc[0].scmtx";
+connectAttr "SphereCollider.colliderRadius" "CTL_joint_B5_Dynamics_BDN.sc[0].scrad"
+		;
+connectAttr "meshColliderShape1.o" "CTL_joint_B5_Dynamics_BDN.mc[0]";
+connectAttr "meshColliderShape2.o" "CTL_joint_B5_Dynamics_BDN.mc[1]";
+connectAttr "force_B_forceVector.o" "CTL_joint_B5_Dynamics_BDN.af";
 connectAttr "force_A.wm" "force_A_forceVector.m";
 connectAttr "force_B.wm" "force_B_forceVector.m";
-connectAttr ":time1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[0].dn";
-connectAttr "meshColliderShape1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
+connectAttr "CTL_joint_A1_Dynamics_BDN.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
 		;
-connectAttr "CTL_joint_A1_Dynamics.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
+connectAttr "SphereCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[1].dn";
+connectAttr "CTL_joint_A1_Dynamics_BDN_damping.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
 		;
-connectAttr "force_A_forceVector.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
+connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
 		;
-connectAttr "CTL_joint_A1_Target.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[4].dn"
+connectAttr "meshColliderShape1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[4].dn"
 		;
-connectAttr "CTL_RootGlobal.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[5].dn";
-connectAttr "SphereCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[6].dn";
-connectAttr "CTL_joint_A1_Dynamics_BDN.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
+connectAttr "InfinitePlaneCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[5].dn"
 		;
-connectAttr "CTL_joint_A2_Dynamics.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
+connectAttr ":time1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[6].dn";
+connectAttr "meshColliderShape2.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
 		;
-connectAttr "InfinitePlaneCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[9].dn"
+connectAttr "CTL_joint_A1_Dynamics.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
 		;
-connectAttr "CapsuleCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
+connectAttr "CTL_joint_A2_Dynamics_RadiusShape.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[9].dn"
 		;
-connectAttr "CTL_joint_A2_Dynamics_RadiusShape.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[11].dn"
+connectAttr "CTL_joint_A2_Dynamics.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
 		;
-connectAttr "CTL_joint_A1_Dynamics_BDN_elasticity.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[12].dn"
+connectAttr "CTL_joint_A1_Target.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[11].dn"
 		;
-connectAttr "CTL_joint_A1_Dynamics_BDN_damping.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[13].dn"
+connectAttr "CTL_RootGlobal.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[12].dn";
+connectAttr "CTL_joint_A2_Target.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[13].dn"
 		;
-connectAttr "polyTorus2.out" "transformGeometry2.ig";
+connectAttr "force_A_forceVector.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[14].dn"
+		;
+connectAttr "CapsuleCollider.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[15].dn"
+		;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "CapsuleCollider_SphereAShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "CapsuleCollider_SphereBShape.iog" ":initialShadingGroup.dsm" -na;
