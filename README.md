@@ -161,7 +161,7 @@ nkBdnEditor;
 
 ### フォース
 
-[Additional Force](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#additional-force--turbulence-force) をノードの任意の軸方向で制御できるように接続します。
+[Additional Force](https://github.com/akasaki1211/boneDynamicsNode/wiki/Dynamics-Parameters#additional-force) をノードの任意の軸方向で制御できるように接続します。
 
 01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
@@ -175,9 +175,9 @@ nkBdnEditor;
 
 04. 必要に応じて *Force Vector* を設定
 
-### オフセット
+### トランスフォームのキャンセル
 
-[Offset Transform](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#offset-transform) に使用するノードを接続します。
+[Canceling Transform](https://github.com/akasaki1211/boneDynamicsNode/wiki/Advanced-Features#canceling-transform) に使用するノードを接続します。
 
 01. *BoneDynamicsNode List* で割り当てたいBDNを選択
 
@@ -269,7 +269,7 @@ BDNグループごと削除してください。
 
 #### Branch Handling
 
-分岐は[この方法](https://github.com/akasaki1211/boneDynamicsNode?tab=readme-ov-file#branching)に倣って処理します。
+分岐は[この方法](https://github.com/akasaki1211/boneDynamicsNode/wiki/Advanced-Features#branching)に倣って処理します。
 基本的な捉え方はエイムコンストレイントと同じなので説明は省略します。
 
 #### End Joint
