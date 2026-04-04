@@ -8282,7 +8282,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.4.0";
+  return "1.4.1";
 }
 
 /*-
@@ -9944,34 +9944,20 @@ proc test6() {
 }
 
 /*-
-@returns <>
-@remarks
-*/
-proc test7() {
-  print("test7 start\n");
-  string $r;
-  // catchQuiet(`loadPlugin "boneDynamicsNode"`);
-  // catchQuiet(`unloadPlugin -f "boneDynamicsNode"`);
-
-  print("test7 end\n");
-}
-
-/*-
-@param $flags <boolean[]>
+@param $num <int>
 @returns <>
 */
-global proc nkBdnEditorTest(int $flags[]) {
-  if ($flags[0]) test0();
-  if ($flags[1]) test1();
-  if ($flags[2]) test2();
-  if ($flags[3]) test3();
-  if ($flags[4]) test4();
-  if ($flags[5]) test5();
-  if ($flags[6]) test6();
-  // if ($flags[7]) test7();
+global proc nkBdnEditorTest(int $num) {
+  if ($num < 0 || $num == 0) test0();
+  if ($num < 0 || $num == 1) test1();
+  if ($num < 0 || $num == 2) test2();
+  if ($num < 0 || $num == 3) test3();
+  if ($num < 0 || $num == 4) test4();
+  if ($num < 0 || $num == 5) test5();
+  if ($num < 0 || $num == 6) test6();
 }
 
 /*
 eval ("source \"" + `getenv "MAYA_APP_DIR"` + "/dev/nkBdnEditor/nkBdnEditor.mel\"");
-nkBdnEditorTest({1, 1, 1, 1, 1, 1, 1});
+nkBdnEditorTest(-1);
 */
