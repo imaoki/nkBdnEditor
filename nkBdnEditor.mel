@@ -17,7 +17,7 @@
 /*1.0.0:DictString*/global int $dictBooleanArrayBuffer[];global float $dictFloatArrayBuffer[];global int $dictIntArrayBuffer[];global string $dictStringArrayBuffer[];proc string dictSanitize(string $input) {string $pattern = "[=;]";while (`match $pattern $input` != "") {$input = `substitute $pattern $input "_"`;}return $input;}proc string[] dictSanitizeArray(string $input[]) {string $result[];for ($i = 0; $i < `size $input`; $i++) {$result[$i] = dictSanitize($input[$i]);}return $result;}proc string[] dictExtractItems(string $dict) {string $buffer[];tokenize $dict ";" $buffer;string $items[];for ($item in $buffer) {if (!`size $item`) continue;$items[`size $items`] = $item;}return $items;}proc string[] dictDecomposeKey(string $key) {string $keyName = "";string $typeName = "unknown";int $hasTypeId = `gmatch $key "[bfis][$@]*"`;if ($hasTypeId) {int $keySize = `size $key`;if ($keySize > 2) {$keyName = `substring $key 3 $keySize`;}string $typeChar = `substring $key 1 1`;switch ($typeChar) {case "b": $typeName = "boolean"; break;case "f": $typeName = "float"; break;case "i": $typeName = "int"; break;case "s": $typeName = "string"; break;default: break;}string $typeMarker = `substring $key 2 2`;if ($typeMarker == "@") $typeName += "array";}else {$keyName = $key;}return {$keyName, $typeName};}proc string dictDecomposeKeyName(string $key) {string $keyInfo[] = dictDecomposeKey($key);return $keyInfo[0];}proc string dictDecomposeKeyType(string $key) {string $keyInfo[] = dictDecomposeKey($key);return $keyInfo[1];}proc string dictExtractKey(string $item) {if (!`gmatch $item "?*=*"`) return "";return `substitute "=.*$" $item ""`;}proc string dictExtractValue(string $item) {if (!`gmatch $item "?*=*"`) return "";return `substitute "^[^=]+=" $item ""`;}proc int dictIsKeyEquals(string $item, string $key) {if (!`size $key`) return false;string $keyName = dictDecomposeKeyName(dictExtractKey($item));return ($key == $keyName);}proc string dictGetValue(string $dict, string $key) {string $value;if (!`size $key`) return $value;string $items[] = dictExtractItems($dict);for ($item in $items) {if (dictIsKeyEquals($item, $key)) {$value = dictExtractValue($item);break;}}return $value;}proc string[] dictKeyNames(string $dict) {string $keys[];string $items[] = dictExtractItems($dict);for ($item in $items) {string $key = dictExtractKey($item);if (!`size $key`) continue;$keys[`size $keys`] = dictDecomposeKeyName($key);}return $keys;}proc string[] dictKeyTypes(string $dict) {string $keyTypes[];string $items[] = dictExtractItems($dict);for ($item in $items) {string $key = dictExtractKey($item);if (!`size $key`) continue;$keyTypes[`size $keyTypes`] = dictDecomposeKeyType($key);}return $keyTypes;}proc int dictContainsKey(string $dict, string $key) {if (!`size $key`) return false;return stringArrayContains($key, dictKeyNames($dict));}proc string dictAddItem(string $dict, string $key, string $value) {string $keyName = dictDecomposeKeyName($key);if (!`size $keyName`) return $dict;string $newDict;int $isOverwrite;string $items[] = dictExtractItems($dict);for ($item in $items) {if (dictIsKeyEquals($item, $keyName)) {$isOverwrite = true;$newDict += $key + "=" + $value + ";";}else {$newDict += $item + ";";}}if (!$isOverwrite) {$newDict += $key + "=" + $value + ";";}return $newDict;}proc string dictAddBoolean(string $dict, string $key, int $value) {return dictAddItem($dict, "b$" + dictSanitize($key), booleanAsStringLiteral($value));}proc string dictAddFloat(string $dict, string $key, float $value) {return dictAddItem($dict, "f$" + dictSanitize($key), floatAsStringLiteral($value));}proc string dictAddInt(string $dict, string $key, int $value) {return dictAddItem($dict, "i$" + dictSanitize($key), intAsStringLiteral($value));}proc string dictAddString(string $dict, string $key, string $value) {$value = dictSanitize($value);return dictAddItem($dict, "s$" + dictSanitize($key), stringAsStringLiteral($value));}proc string dictAddBooleanArray(string $dict, string $key, int $value[]) {return dictAddItem($dict, "b@" + dictSanitize($key), booleanArrayAsStringLiteral($value));}proc string dictAddFloatArray(string $dict, string $key, float $value[]) {return dictAddItem($dict, "f@" + dictSanitize($key), floatArrayAsStringLiteral($value));}proc string dictAddIntArray(string $dict, string $key, int $value[]) {return dictAddItem($dict, "i@" + dictSanitize($key), intArrayAsStringLiteral($value));}proc string dictAddStringArray(string $dict, string $key, string $value[]) {$value = dictSanitizeArray($value);return dictAddItem($dict, "s@" + dictSanitize($key), stringArrayAsStringLiteral($value));}proc int dictGetBoolean(string $dict, string $key, int $default) {string $value = dictGetValue($dict, $key);if ($value == "true") {return true;}else if ($value == "false") {return false;}return $default;}proc float dictGetFloat(string $dict, string $key, float $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return ((float) $value);return $default;}proc int dictGetInt(string $dict, string $key, int $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return ((int) $value);return $default;}proc string dictGetString(string $dict, string $key, string $default) {string $value = dictGetValue($dict, $key);if (`size $value`) return `eval ("format -s " + $value + " \"^1s\";")`;return $default;}proc int[] dictGetBooleanArray(string $dict, string $key, int $default[]) {global int $dictBooleanArrayBuffer[];clear $dictBooleanArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictBooleanArrayBuffer = " + $value + ";");return $dictBooleanArrayBuffer;}return $default;}proc float[] dictGetFloatArray(string $dict, string $key, float $default[]) {global float $dictFloatArrayBuffer[];clear $dictFloatArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictFloatArrayBuffer = " + $value + ";");return $dictFloatArrayBuffer;}return $default;}proc int[] dictGetIntArray(string $dict, string $key, int $default[]) {global int $dictIntArrayBuffer[];clear $dictIntArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictIntArrayBuffer = " + $value + ";");return $dictIntArrayBuffer;}return $default;}proc string[] dictGetStringArray(string $dict, string $key, string $default[]) {global string $dictStringArrayBuffer[];clear $dictStringArrayBuffer;string $value = dictGetValue($dict, $key);if (`size $value`) {eval ("$dictStringArrayBuffer = " + $value + ";");return $dictStringArrayBuffer;}return $default;}proc string dictRemove(string $dict, string $key) {if (!`size $key`) return $dict;string $newDict;string $items[] = dictExtractItems($dict);for ($item in $items) {string $itemKey = dictDecomposeKeyName(dictExtractKey($item));if ($itemKey == $key) continue;$newDict += $item + ";";}return $newDict;}
 /*1.1.1:OpenMaya*/global int $nkOpenMayaIsInitialized;global string $nkOpenMayaNodeObservers[];global string $nkOpenMayaNodeCallbackIds[];global string $nkOpenMayaNodeAddedQueueNodes[];global int $nkOpenMayaNodeAddedJobId;global float $nkOpenMayaNodeAddedStartTime;global string $nkOpenMayaNodeRemovedQueueNodes[];global int $nkOpenMayaNodeRemovedJobId;global float $nkOpenMayaNodeRemovedStartTime;proc nkOpenMayaInitializeNodeAddedParameters() {global string $nkOpenMayaNodeAddedQueueNodes[];global int $nkOpenMayaNodeAddedJobId;global float $nkOpenMayaNodeAddedStartTime;clear $nkOpenMayaNodeAddedQueueNodes;$nkOpenMayaNodeAddedJobId = -1;$nkOpenMayaNodeAddedStartTime = -1.0;}proc nkOpenMayaInitializeNodeRemovedParameters() {global string $nkOpenMayaNodeRemovedQueueNodes[];global int $nkOpenMayaNodeRemovedJobId;global float $nkOpenMayaNodeRemovedStartTime;clear $nkOpenMayaNodeRemovedQueueNodes;$nkOpenMayaNodeRemovedJobId = -1;$nkOpenMayaNodeRemovedStartTime = -1.0;}proc nkOpenMayaInitialize(int $force) {global int $nkOpenMayaIsInitialized;global string $nkOpenMayaNodeObservers[];global string $nkOpenMayaNodeCallbackIds[];if ($force || !$nkOpenMayaIsInitialized) {string $code = "import maya.api.OpenMaya\n" + "import maya.mel\n";for ($event in {"Added", "Removed"}) {$code += "def nkOpenMayaNode" + $event + "(object, deferred):\n" + "    maya.mel.eval(" + "'nkOpenMayaNode" + $event + "(\\\"'" + " + maya.api.OpenMaya.MFnDependencyNode(object).uniqueName()" + " + '\\\", ' + str(deferred) + ')'" + ")\n";}python($code);$nkOpenMayaIsInitialized = true;clear $nkOpenMayaNodeObservers;clear $nkOpenMayaNodeCallbackIds;nkOpenMayaInitializeNodeAddedParameters();nkOpenMayaInitializeNodeRemovedParameters();}}global proc nkOpenMayaNodeAddedDeferred() {global string $nkOpenMayaNodeAddedQueueNodes[];global int $nkOpenMayaNodeAddedJobId;global float $nkOpenMayaNodeAddedStartTime;if ($nkOpenMayaNodeAddedJobId < 0 || $nkOpenMayaNodeAddedStartTime < 0.0) {nkOpenMayaInitializeNodeAddedParameters();return;}float $elapsedTime = `timerX -st $nkOpenMayaNodeAddedStartTime`;if ($elapsedTime > 0.0) {evalDeferred ("scriptJob -f -k " + $nkOpenMayaNodeAddedJobId);notifyStringArray("nkOpenMayaNodeAdded", $nkOpenMayaNodeAddedQueueNodes);nkOpenMayaInitializeNodeAddedParameters();}}global proc nkOpenMayaNodeRemovedDeferred() {global string $nkOpenMayaNodeRemovedQueueNodes[];global int $nkOpenMayaNodeRemovedJobId;global float $nkOpenMayaNodeRemovedStartTime;if ($nkOpenMayaNodeRemovedJobId < 0 || $nkOpenMayaNodeRemovedStartTime < 0.0) {nkOpenMayaInitializeNodeRemovedParameters();return;}float $elapsedTime = `timerX -st $nkOpenMayaNodeRemovedStartTime`;if ($elapsedTime > 0.0) {evalDeferred ("scriptJob -f -k " + $nkOpenMayaNodeRemovedJobId);notifyStringArray("nkOpenMayaNodeRemoved", $nkOpenMayaNodeRemovedQueueNodes);nkOpenMayaInitializeNodeRemovedParameters();}}proc updateNodeAddedDeferred(string $node) {global string $nkOpenMayaNodeAddedQueueNodes[];global int $nkOpenMayaNodeAddedJobId;global float $nkOpenMayaNodeAddedStartTime;if (`size $node`) {$nkOpenMayaNodeAddedQueueNodes[`size $nkOpenMayaNodeAddedQueueNodes`] = $node;}$nkOpenMayaNodeAddedStartTime = `timerX`;if ($nkOpenMayaNodeAddedJobId < 0) {$nkOpenMayaNodeAddedJobId = `scriptJob -e "idle" "nkOpenMayaNodeAddedDeferred"`;}}proc updateNodeRemovedDeferred(string $node) {global string $nkOpenMayaNodeRemovedQueueNodes[];global int $nkOpenMayaNodeRemovedJobId;global float $nkOpenMayaNodeRemovedStartTime;if (`size $node`) {$nkOpenMayaNodeRemovedQueueNodes[`size $nkOpenMayaNodeRemovedQueueNodes`] = $node;}$nkOpenMayaNodeRemovedStartTime = `timerX`;if ($nkOpenMayaNodeRemovedJobId < 0) {$nkOpenMayaNodeRemovedJobId = `scriptJob -e "idle" "nkOpenMayaNodeRemovedDeferred"`;}}global proc nkOpenMayaNodeAdded(string $node, int $deferred) {if ($deferred) {updateNodeAddedDeferred($node);}else {notifyStringArray("nkOpenMayaNodeAdded", {$node});}}global proc nkOpenMayaNodeRemoved(string $node, int $deferred) {if ($deferred) {updateNodeRemovedDeferred($node);}else {notifyStringArray("nkOpenMayaNodeRemoved", {$node});}}proc clearNodeObservers() {global string $nkOpenMayaNodeObservers[];global string $nkOpenMayaNodeCallbackIds[];if (`size $nkOpenMayaNodeCallbackIds`) {for ($callbackId in $nkOpenMayaNodeCallbackIds) {python("maya.api.OpenMaya.MMessage.removeCallback(" + $callbackId + ")");}}clear $nkOpenMayaNodeObservers;clear $nkOpenMayaNodeCallbackIds;}proc int isValidNodeObserverType(string $type) {return (isValidString($type, "^[a-zA-Z][a-zA-Z0-9]*$"));}proc int isValidNodeObserver(string $nodeObserver) {return (isValidString($nodeObserver, "^[^;]+;[a-zA-Z\|:\._][a-zA-Z0-9\|:\._]*;[a-zA-Z][a-zA-Z0-9]*$"));}proc string makeNodeObserver(string $event, string $proc, string $type) {string $nodeObserver;if (isValidObserverEvent($event) && isValidObserverProc($proc) && isValidNodeObserverType($type)) {$nodeObserver = $event + ";" + $proc + ";" + $type;}return $nodeObserver;}proc string extractNodeObserverEvent(string $nodeObserver) {string $event;string $buffer[];if (`tokenize $nodeObserver ";" $buffer` == 3) {$event = $buffer[0];}return $event;}proc string extractNodeObserverProc(string $nodeObserver) {string $proc;string $buffer[];if (`tokenize $nodeObserver ";" $buffer` == 3) {$proc = $buffer[1];}return $proc;}proc string extractNodeObserverType(string $nodeObserver) {string $type;string $buffer[];if (`tokenize $nodeObserver ";" $buffer` == 3) {$type = $buffer[2];}return $type;}proc int findNodeObserver(string $nodeObserver) {global string $nkOpenMayaNodeObservers[];int $index = -1;for ($i = 0; $i < `size $nkOpenMayaNodeObservers`; $i++) {if ($nodeObserver == $nkOpenMayaNodeObservers[$i]) {$index = $i;break;}}return $index;}proc int existsNodeObserver(string $nodeObserver) {return (findNodeObserver($nodeObserver) >= 0);}proc int subscribeNode(string $event, string $proc, string $types[], int $deferred) {global string $nkOpenMayaNodeObservers[];global string $nkOpenMayaNodeCallbackIds[];if ( !($event == "Added" || $event == "Removed") || !`size $proc` || !`size $types`) return false;int $shouldSubscribe = false;for ($type in $types) {string $nodeObserver = makeNodeObserver($event, $proc, $type);if (!isValidNodeObserver($nodeObserver)) continue;if (existsNodeObserver($nodeObserver)) continue;string $callbackId = `python("str(" + "maya.api.OpenMaya.MDGMessage.addNode" + $event + "Callback(" + "nkOpenMayaNode" + $event + ", '" + $type + "', " + $deferred + ")" + ")")`;$nkOpenMayaNodeObservers[`size $nkOpenMayaNodeObservers`] = $nodeObserver;$nkOpenMayaNodeCallbackIds[`size $nkOpenMayaNodeCallbackIds`] = $callbackId;if (!$shouldSubscribe) $shouldSubscribe = true;}if ($shouldSubscribe) {subscribe("nkOpenMayaNode" + $event, $proc);}return true;}proc int unsubscribeNode(string $event, string $proc, string $types[]) {global string $nkOpenMayaNodeObservers[];global string $nkOpenMayaNodeCallbackIds[];if ( !($event == "Added" || $event == "Removed") || !`size $proc` || !`size $types`) return false;int $shouldUnsubscribe = false;for ($type in $types) {string $nodeObserver = makeNodeObserver($event, $proc, $type);if (!isValidNodeObserver($nodeObserver)) continue;int $index = findNodeObserver($nodeObserver);if ($index < 0) continue;string $callbackId = $nkOpenMayaNodeCallbackIds[$index];python("maya.api.OpenMaya.MMessage.removeCallback(int(" + $callbackId + "))");stringArrayRemoveAtIndex($index, $nkOpenMayaNodeObservers);stringArrayRemoveAtIndex($index, $nkOpenMayaNodeCallbackIds);if (!$shouldUnsubscribe) $shouldUnsubscribe = true;}if ($shouldUnsubscribe) {unsubscribe("nkOpenMayaNode" + $event, $proc);}return true;}
 // -----------------------------------------------------------------------------
-/*1.0.0:DictAttribute*/proc int hasDictAttribute(string $n, string $attribute) {return existsAttribute($n, $attribute);}proc int lockDictAttribute(string $n, string $attribute, int $state) {if (!hasDictAttribute($n, $attribute)) return false;setAttributeLock($n, $attribute, $state);return true;}proc string addDictAttribute(string $n, string $attribute) {string $path;if (!`objExists $n`) return $path;if (!hasDictAttribute($n, $attribute)) {addAttr -dt "string" -ln $attribute $n;lockDictAttribute($n, $attribute, true);}if (hasDictAttribute($n, $attribute)) $path = $n + "." + $attribute;return $path;}proc string getDictValue(string $n, string $attribute) {return ((hasDictAttribute($n, $attribute)) ? getStringAttribute($n, $attribute, "") : "");}proc int setDictValue(string $n, string $attribute, string $value) {if (!hasDictAttribute($n, $attribute)) return false;lockDictAttribute($n, $attribute, false);setStringAttribute($n, $attribute, $value);lockDictAttribute($n, $attribute, true);return true;}proc int removeFromDict(string $n, string $attribute, string $key) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictValue($n, $attribute);$dict = dictRemove($dict, $key);return setDictValue($n, $attribute, $dict);}proc int getBooleanFromDict(string $n, string $attribute, string $key, int $default) {return dictGetBoolean(getDictValue($n, $attribute), $key, $default);}proc float getFloatFromDict(string $n, string $attribute, string $key, float $default) {return dictGetFloat(getDictValue($n, $attribute), $key, $default);}proc int getIntFromDict(string $n, string $attribute, string $key, int $default) {return dictGetInt(getDictValue($n, $attribute), $key, $default);}proc string getStringFromDict(string $n, string $attribute, string $key, string $default) {return dictGetString(getDictValue($n, $attribute), $key, $default);}proc int setBooleanToDict(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictValue($n, $attribute);$dict = dictAddBoolean($dict, $key, $value);return setDictValue($n, $attribute, $dict);}proc int setFloatToDict(string $n, string $attribute, string $key, float $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictValue($n, $attribute);$dict = dictAddFloat($dict, $key, $value);return setDictValue($n, $attribute, $dict);}proc int setIntToDict(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictValue($n, $attribute);$dict = dictAddInt($dict, $key, $value);return setDictValue($n, $attribute, $dict);}proc int setStringToDict(string $n, string $attribute, string $key, string $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictValue($n, $attribute);$dict = dictAddString($dict, $key, $value);return setDictValue($n, $attribute, $dict);}
+/*1.1.0:DictAttribute*/proc int hasDictAttribute(string $n, string $attribute) {return existsAttribute($n, $attribute);}proc int lockDictAttribute(string $n, string $attribute, int $state) {if (!hasDictAttribute($n, $attribute)) return false;setAttributeLock($n, $attribute, $state);return true;}proc string addDictAttribute(string $n, string $attribute) {string $path;if (!`objExists $n`) return $path;if (!hasDictAttribute($n, $attribute)) {addAttr -dt "string" -ln $attribute $n;lockDictAttribute($n, $attribute, true);}if (hasDictAttribute($n, $attribute)) $path = $n + "." + $attribute;return $path;}proc string getDictAttribute(string $n, string $attribute) {return ((hasDictAttribute($n, $attribute)) ? getStringAttribute($n, $attribute, "") : "");}proc int setDictAttribute(string $n, string $attribute, string $value) {if (!hasDictAttribute($n, $attribute)) return false;lockDictAttribute($n, $attribute, false);setStringAttribute($n, $attribute, $value);lockDictAttribute($n, $attribute, true);return true;}proc int addBooleanToDictAttr(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddBoolean($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addFloatToDictAttr(string $n, string $attribute, string $key, float $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddFloat($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addIntToDictAttr(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddInt($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addStringToDictAttr(string $n, string $attribute, string $key, string $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddString($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addBooleanArrayToDictAttr(string $n, string $attribute, string $key, int $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddBooleanArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addFloatArrayToDictAttr(string $n, string $attribute, string $key, float $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddFloatArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addIntArrayToDictAttr(string $n, string $attribute, string $key, int $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddIntArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addStringArrayToDictAttr(string $n, string $attribute, string $key, string $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddStringArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int getBooleanFromDictAttr(string $n, string $attribute, string $key, int $default) {return dictGetBoolean(getDictAttribute($n, $attribute), $key, $default);}proc float getFloatFromDictAttr(string $n, string $attribute, string $key, float $default) {return dictGetFloat(getDictAttribute($n, $attribute), $key, $default);}proc int getIntFromDictAttr(string $n, string $attribute, string $key, int $default) {return dictGetInt(getDictAttribute($n, $attribute), $key, $default);}proc string getStringFromDictAttr(string $n, string $attribute, string $key, string $default) {return dictGetString(getDictAttribute($n, $attribute), $key, $default);}proc int[] getBooleanArrayFromDictAttr(string $n, string $attribute, string $key, int $default[]) {return dictGetBooleanArray(getDictAttribute($n, $attribute), $key, $default);}proc float[] getFloatArrayFromDictAttr(string $n, string $attribute, string $key, float $default[]) {return dictGetFloatArray(getDictAttribute($n, $attribute), $key, $default);}proc int[] getIntArrayFromDictAttr(string $n, string $attribute, string $key, int $default[]) {return dictGetIntArray(getDictAttribute($n, $attribute), $key, $default);}proc string[] getStringArrayFromDictAttr(string $n, string $attribute, string $key, string $default[]) {return dictGetStringArray(getDictAttribute($n, $attribute), $key, $default);}proc int removeFromDictAttr(string $n, string $attribute, string $key) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictRemove($dict, $key);return setDictAttribute($n, $attribute, $dict);}
 
 // -----------------------------------------------------------------------------
 // ボイラープレート初期化
@@ -266,10 +266,10 @@ proc string initGroupNode(string $n, string $groupType) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "group");
-    setStringToDict($n, "bdnData", "groupType", $groupType);
+    addStringToDictAttr($n, "bdnData", "type", "group");
+    addStringToDictAttr($n, "bdnData", "groupType", $groupType);
     if ($groupType == "bdn") {
-      setStringToDict($n, "bdnData", "toolVersion", nkBdnEditorVersion());
+      addStringToDictAttr($n, "bdnData", "toolVersion", nkBdnEditorVersion());
     }
   }
   return $n;
@@ -291,8 +291,8 @@ proc string initSpaceNode(string $n, string $spaceType) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "space");
-    setStringToDict($n, "bdnData", "spaceType", $spaceType);
+    addStringToDictAttr($n, "bdnData", "type", "space");
+    addStringToDictAttr($n, "bdnData", "spaceType", $spaceType);
   }
   return $n;
 }
@@ -307,9 +307,9 @@ proc string initAltNode(string $n, string $sourceName) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "alt");
-    setStringToDict($n, "bdnData", "sourceName", $sourceName);
-    setStringToDict($n, "bdnData", "bdnVersion", getBdnPluginVersion());
+    addStringToDictAttr($n, "bdnData", "type", "alt");
+    addStringToDictAttr($n, "bdnData", "sourceName", $sourceName);
+    addStringToDictAttr($n, "bdnData", "bdnVersion", getBdnPluginVersion());
   }
   return $n;
 }
@@ -335,9 +335,9 @@ proc string initJointNode(string $n, string $jointKind, string $jointType) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "joint");
-    setStringToDict($n, "bdnData", "jointKind", $jointKind);
-    setStringToDict($n, "bdnData", "jointType", $jointType);
+    addStringToDictAttr($n, "bdnData", "type", "joint");
+    addStringToDictAttr($n, "bdnData", "jointKind", $jointKind);
+    addStringToDictAttr($n, "bdnData", "jointType", $jointType);
   }
   return $n;
 }
@@ -351,7 +351,7 @@ proc string initRadiusNode(string $n) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "radius");
+    addStringToDictAttr($n, "bdnData", "type", "radius");
   }
   return $n;
 }
@@ -371,8 +371,8 @@ proc string initColliderNode(string $n, string $colliderType) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "collider");
-    setStringToDict($n, "bdnData", "colliderType", $colliderType);
+    addStringToDictAttr($n, "bdnData", "type", "collider");
+    addStringToDictAttr($n, "bdnData", "colliderType", $colliderType);
   }
   return $n;
 }
@@ -386,7 +386,7 @@ proc string initColliderComponentNode(string $n) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "colliderComponent");
+    addStringToDictAttr($n, "bdnData", "type", "colliderComponent");
   }
   return $n;
 }
@@ -400,7 +400,7 @@ proc string initForceNode(string $n) {
     if (!hasDictAttribute($n, "bdnData")) {
       addDictAttribute($n, "bdnData");
     }
-    setStringToDict($n, "bdnData", "type", "force");
+    addStringToDictAttr($n, "bdnData", "type", "force");
   }
   return $n;
 }
@@ -410,7 +410,7 @@ proc string initForceNode(string $n) {
 @returns <string>
 */
 proc string getBdnType(string $n) {
-  return getStringFromDict($n, "bdnData", "type", "");
+  return getStringFromDictAttr($n, "bdnData", "type", "");
 }
 
 /*-
@@ -427,7 +427,7 @@ proc int isBdnType(string $n, string $type) {
 @returns <string>
 */
 proc string getGroupType(string $n) {
-  return getStringFromDict($n, "bdnData", "groupType", "");
+  return getStringFromDictAttr($n, "bdnData", "groupType", "");
 }
 
 /*-
@@ -444,7 +444,7 @@ proc int isGroupType(string $n, string $type) {
 @returns <string>
 */
 proc string getSpaceType(string $n) {
-  return getStringFromDict($n, "bdnData", "spaceType", "");
+  return getStringFromDictAttr($n, "bdnData", "spaceType", "");
 }
 
 /*-
@@ -461,7 +461,7 @@ proc int isSpaceType(string $n, string $type) {
 @returns <string>
 */
 proc string getJointKind(string $n) {
-  return getStringFromDict($n, "bdnData", "jointKind", "");
+  return getStringFromDictAttr($n, "bdnData", "jointKind", "");
 }
 
 /*-
@@ -478,7 +478,7 @@ proc int isJointKind(string $n, string $kind) {
 @returns <string>
 */
 proc string getJointType(string $n) {
-  return getStringFromDict($n, "bdnData", "jointType", "");
+  return getStringFromDictAttr($n, "bdnData", "jointType", "");
 }
 
 /*-
@@ -495,7 +495,7 @@ proc int isJointType(string $n, string $type) {
 @returns <string>
 */
 proc string getColliderType(string $n) {
-  return getStringFromDict($n, "bdnData", "colliderType", "");
+  return getStringFromDictAttr($n, "bdnData", "colliderType", "");
 }
 
 /*-
@@ -1197,7 +1197,7 @@ proc string[] restoreBdnNodes(string $altNodes[]) {
     if (isNodeReferenced($altNode)) continue;
     if (!isBdnType($altNode, "alt")) continue;
 
-    string $sourceName = getStringFromDict($altNode, "bdnData", "sourceName", "");
+    string $sourceName = getStringFromDictAttr($altNode, "bdnData", "sourceName", "");
     if (!`size $sourceName`) continue;
 
     string $bdnNode = uuidToLongName(toUUID(`createNode -n $sourceName -ss "boneDynamicsNode"`));
@@ -8291,7 +8291,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.4.3";
+  return "1.4.4";
 }
 
 /*-
@@ -8536,7 +8536,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initGroupNode($n, "x")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"group\";s$groupType=\"x\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"group\";s$groupType=\"x\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8544,7 +8544,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initGroupNode($n, "bdn")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringMatch("s$type=\"group\";s$groupType=\"bdn\";s$toolVersion=\"[0-9]+\.[0-9]+\.[0-9]+\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringMatch("s$type=\"group\";s$groupType=\"bdn\";s$toolVersion=\"[0-9]+\.[0-9]+\.[0-9]+\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8560,7 +8560,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initSpaceNode($n, "x")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"space\";s$spaceType=\"x\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"space\";s$spaceType=\"x\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8576,7 +8576,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initAltNode($n, "x")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringMatch("^s$type=\"alt\";s$sourceName=\"x\";s$bdnVersion=\"[0-9]+\.[0-9]+\.[0-9]+\";$", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringMatch("^s$type=\"alt\";s$sourceName=\"x\";s$bdnVersion=\"[0-9]+\.[0-9]+\.[0-9]+\";$", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8592,7 +8592,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initJointNode($n, "x", "y")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"joint\";s$jointKind=\"x\";s$jointType=\"y\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"joint\";s$jointKind=\"x\";s$jointType=\"y\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8608,7 +8608,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initRadiusNode($n)); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"radius\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"radius\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8624,7 +8624,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initColliderNode($n, "x")); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"collider\";s$colliderType=\"x\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"collider\";s$colliderType=\"x\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8640,7 +8640,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initColliderComponentNode($n)); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"colliderComponent\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"colliderComponent\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
@@ -8656,7 +8656,7 @@ proc test3() {
 
     $r = assertStringEqual($n, initForceNode($n)); if (`size $r`) warning $r;
     $r = assertTrue(`objExists $n`); if (`size $r`) warning $r;
-    $r = assertStringEqual("s$type=\"force\";", getDictValue($n, "bdnData")); if (`size $r`) warning $r;
+    $r = assertStringEqual("s$type=\"force\";", getDictAttribute($n, "bdnData")); if (`size $r`) warning $r;
     $r = assertTrue(`getAttr -l ($n + ".bdnData")`); if (`size $r`) warning $r;
 
     if (`objExists $n`) delete $n;
