@@ -19,13 +19,6 @@
 // -----------------------------------------------------------------------------
 /*1.1.0:DictAttribute*/proc int hasDictAttribute(string $n, string $attribute) {return existsAttribute($n, $attribute);}proc int lockDictAttribute(string $n, string $attribute, int $state) {if (!hasDictAttribute($n, $attribute)) return false;setAttributeLock($n, $attribute, $state);return true;}proc string addDictAttribute(string $n, string $attribute) {string $path;if (!`objExists $n`) return $path;if (!hasDictAttribute($n, $attribute)) {addAttr -dt "string" -ln $attribute $n;lockDictAttribute($n, $attribute, true);}if (hasDictAttribute($n, $attribute)) $path = $n + "." + $attribute;return $path;}proc string getDictAttribute(string $n, string $attribute) {return ((hasDictAttribute($n, $attribute)) ? getStringAttribute($n, $attribute, "") : "");}proc int setDictAttribute(string $n, string $attribute, string $value) {if (!hasDictAttribute($n, $attribute)) return false;lockDictAttribute($n, $attribute, false);setStringAttribute($n, $attribute, $value);lockDictAttribute($n, $attribute, true);return true;}proc int addBooleanToDictAttr(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddBoolean($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addFloatToDictAttr(string $n, string $attribute, string $key, float $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddFloat($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addIntToDictAttr(string $n, string $attribute, string $key, int $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddInt($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addStringToDictAttr(string $n, string $attribute, string $key, string $value) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddString($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addBooleanArrayToDictAttr(string $n, string $attribute, string $key, int $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddBooleanArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addFloatArrayToDictAttr(string $n, string $attribute, string $key, float $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddFloatArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addIntArrayToDictAttr(string $n, string $attribute, string $key, int $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddIntArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int addStringArrayToDictAttr(string $n, string $attribute, string $key, string $value[]) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictAddStringArray($dict, $key, $value);return setDictAttribute($n, $attribute, $dict);}proc int getBooleanFromDictAttr(string $n, string $attribute, string $key, int $default) {return dictGetBoolean(getDictAttribute($n, $attribute), $key, $default);}proc float getFloatFromDictAttr(string $n, string $attribute, string $key, float $default) {return dictGetFloat(getDictAttribute($n, $attribute), $key, $default);}proc int getIntFromDictAttr(string $n, string $attribute, string $key, int $default) {return dictGetInt(getDictAttribute($n, $attribute), $key, $default);}proc string getStringFromDictAttr(string $n, string $attribute, string $key, string $default) {return dictGetString(getDictAttribute($n, $attribute), $key, $default);}proc int[] getBooleanArrayFromDictAttr(string $n, string $attribute, string $key, int $default[]) {return dictGetBooleanArray(getDictAttribute($n, $attribute), $key, $default);}proc float[] getFloatArrayFromDictAttr(string $n, string $attribute, string $key, float $default[]) {return dictGetFloatArray(getDictAttribute($n, $attribute), $key, $default);}proc int[] getIntArrayFromDictAttr(string $n, string $attribute, string $key, int $default[]) {return dictGetIntArray(getDictAttribute($n, $attribute), $key, $default);}proc string[] getStringArrayFromDictAttr(string $n, string $attribute, string $key, string $default[]) {return dictGetStringArray(getDictAttribute($n, $attribute), $key, $default);}proc int removeFromDictAttr(string $n, string $attribute, string $key) {if (!hasDictAttribute($n, $attribute) || !`size $key`) return false;string $dict = getDictAttribute($n, $attribute);$dict = dictRemove($dict, $key);return setDictAttribute($n, $attribute, $dict);}
 
-// -----------------------------------------------------------------------------
-// ボイラープレート初期化
-// -----------------------------------------------------------------------------
-nkArrayInitialize(false);
-nkStringInitialize(false);
-nkOpenMayaInitialize(false);
-
 // /////////////////////////////////////////////////////////////////////////////
 // ドメイン
 // /////////////////////////////////////////////////////////////////////////////
@@ -8291,13 +8284,18 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.4.4";
+  return "1.4.5";
 }
 
 /*-
 @returns <>
 */
 global proc nkBdnEditor() {
+  // ボイラープレート初期化
+  nkArrayInitialize(false);
+  nkStringInitialize(false);
+  nkOpenMayaInitialize(false);
+
   if (!loadBdnPlugin()) {
     confirmDialog
         -b "OK" -cb "OK" -db "OK" -ds "OK"
@@ -9958,6 +9956,11 @@ proc test6() {
 @returns <>
 */
 global proc nkBdnEditorTest(int $num) {
+  // ボイラープレート初期化
+  nkArrayInitialize(false);
+  nkStringInitialize(false);
+  nkOpenMayaInitialize(false);
+
   if ($num < 0 || $num == 0) test0();
   if ($num < 0 || $num == 1) test1();
   if ($num < 0 || $num == 2) test2();
