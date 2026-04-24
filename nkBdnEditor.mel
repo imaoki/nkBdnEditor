@@ -8284,7 +8284,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.4.5";
+  return "1.4.6";
 }
 
 /*-
@@ -8296,6 +8296,7 @@ global proc nkBdnEditor() {
   nkStringInitialize(false);
   nkOpenMayaInitialize(false);
 
+  // ツール初期化
   if (!loadBdnPlugin()) {
     confirmDialog
         -b "OK" -cb "OK" -db "OK" -ds "OK"
@@ -8303,15 +8304,11 @@ global proc nkBdnEditor() {
         -t "nkBdnEditor";
     return;
   }
-
   initializeDefaultValues();
+
   buildMainWindow();
   registerEventJob();
 }
-
-// -----------------------------------------------------------------------------
-// ツール初期化
-// -----------------------------------------------------------------------------
 
 /*
 eval ("source \"" + `getenv "MAYA_APP_DIR"` + "/dev/nkBdnEditor/nkBdnEditor.mel\"");
@@ -9960,6 +9957,9 @@ global proc nkBdnEditorTest(int $num) {
   nkArrayInitialize(false);
   nkStringInitialize(false);
   nkOpenMayaInitialize(false);
+
+  // ツール初期化
+  initializeDefaultValues();
 
   if ($num < 0 || $num == 0) test0();
   if ($num < 0 || $num == 1) test1();
