@@ -1,7 +1,7 @@
 /*! © 2024 imaoki | MIT License | https://github.com/imaoki */
 
 // /////////////////////////////////////////////////////////////////////////////
-// ボイラープレート
+// ライブラリ
 // /////////////////////////////////////////////////////////////////////////////
 /*1.0.0:Python*/proc string escapeStringForPython(string $input) {string $escapedText;int $size = `size $input`;for ($i = 1; $i <= $size; $i++) {string $c = `substring $input $i $i`;switch ($c) {case "\\": $escapedText += "\\\\"; break;case "'": $escapedText += "\\'"; break;case "\n": $escapedText += "\\n"; break;case "\r": $escapedText += "\\r"; break;default: $escapedText += $c; break;}}return $escapedText;}proc string convertStringForPythonString(string $input) {return ("'" + escapeStringForPython($input) + "'");}proc string convertStringArrayForPythonList(string $input[]) {string $literal = "[";for ($i = 0; $i < `size $input`; $i++) {if ($i > 0) {$literal += ", ";}$literal += convertStringForPythonString($input[$i]);}$literal += "]";return $literal;}proc string convertStringArrayForPythonTuple(string $input[]) {string $literal = "(";for ($i = 0; $i < `size $input`; $i++) {if ($i > 0) {$literal += ", ";}$literal += convertStringForPythonString($input[$i]);}$literal += ")";return $literal;}
 // -----------------------------------------------------------------------------
@@ -8291,7 +8291,7 @@ global proc string nkBdnEditorVersion() {
 @returns <>
 */
 global proc nkBdnEditor() {
-  // ボイラープレート初期化
+  // ライブラリ初期化
   nkArrayInitialize(false);
   nkStringInitialize(false);
   nkOpenMayaInitialize(false);
@@ -9956,7 +9956,7 @@ proc test6() {
 @returns <>
 */
 global proc nkBdnEditorTest(int $num) {
-  // ボイラープレート初期化
+  // ライブラリ初期化
   nkArrayInitialize(false);
   nkStringInitialize(false);
   nkOpenMayaInitialize(false);
