@@ -4963,22 +4963,22 @@ proc bdnNodeListSelected() {
 /*-
 @returns <>
 */
-proc substituteBdnNodesButtonPressed() {
-  // print("substituteBdnNodesButtonPressed\n"); // debug
-  string $altNodes[] = substituteBdnNodes(gatherBdnNodes(false));
-  // print("  altNodes:{\n    " + stringArrayToString($altNodes, ",\n    ") + "\n  }\n"); // debug
-  select -r $altNodes;
-}
+// proc substituteBdnNodesButtonPressed() {
+//   // print("substituteBdnNodesButtonPressed\n"); // debug
+//   string $altNodes[] = substituteBdnNodes(gatherBdnNodes(false));
+//   // print("  altNodes:{\n    " + stringArrayToString($altNodes, ",\n    ") + "\n  }\n"); // debug
+//   select -r $altNodes;
+// }
 
 /*-
 @returns <>
 */
-proc restoreBdnNodesButtonPressed() {
-  // print("restoreBdnNodesButtonPressed\n"); // debug
-  string $bdnNodes[] = restoreBdnNodes(gatherBdnNodes(false));
-  // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
-  select -r $bdnNodes;
-}
+// proc restoreBdnNodesButtonPressed() {
+//   // print("restoreBdnNodesButtonPressed\n"); // debug
+//   string $bdnNodes[] = restoreBdnNodes(gatherBdnNodes(false));
+//   // print("  bdnNodes:{\n    " + stringArrayToString($bdnNodes, ",\n    ") + "\n  }\n"); // debug
+//   select -r $bdnNodes;
+// }
 
 /*-
 @returns <>
@@ -6402,6 +6402,7 @@ proc buildMainWindow() {
           -cn "vertical2"
           -ps 1 40 100
           -ps 2 60 100
+          -swp 1
           "outerPane"`;
 
         string $bdnForm = `formLayout "bdnForm"`;
@@ -6410,6 +6411,7 @@ proc buildMainWindow() {
                 -cn "horizontal2"
                 -ps 1 100 40
                 -ps 2 100 60
+                -shp 1
                 "bdnListPane"`;
 
               string $bdnListForm = `formLayout "bdnListForm"`;
@@ -6421,7 +6423,7 @@ proc buildMainWindow() {
                       -fla true
                       -i "freeformOn.png"
                       -st "iconOnly"
-                      -v true
+                      -v false
                       -w 23
                       "toggleBdnHierarchyModeCheckBox"`;
                   string $selectItemsFromSelectedBdnNodesButton = `iconTextButton
@@ -6437,8 +6439,8 @@ proc buildMainWindow() {
                       "selectBdnNodesButton"`;
                 setParent ..;
                 string $bdnNodeList = `textScrollList -ams true -ekf false "bdnNodeList"`;
-                string $substituteBdnNodesButton = `button -ann "Substitute all boneDynamicsNodes with alternative nodes to remove dependence on plug-ins" -l "Deactivate" "substituteBdnNodesButton"`;
-                string $restoreBdnNodesButton = `button -ann "Restore all alternative nodes to boneDynamicsNode" -l "Activate" "restoreBdnNodesButton"`;
+                // string $substituteBdnNodesButton = `button -ann "Substitute all boneDynamicsNodes with alternative nodes to remove dependence on plug-ins" -l "Deactivate" "substituteBdnNodesButton"`;
+                // string $restoreBdnNodesButton = `button -ann "Restore all alternative nodes to boneDynamicsNode" -l "Activate" "restoreBdnNodesButton"`;
               setParent ..;
 
               string $bdnAttributeForm = `formLayout "bdnAttributeForm"`;
@@ -7417,16 +7419,17 @@ proc buildMainWindow() {
       -af $bdnListToolRow "top" 0
       -af $bdnListToolRow "left" 0
       -af $bdnListToolRow "right" 0
-      -af $substituteBdnNodesButton "left" 0
-      -ap $substituteBdnNodesButton "right" 2 50
-      -af $substituteBdnNodesButton "bottom" 4
-      -ap $restoreBdnNodesButton "left" 2 50
-      -af $restoreBdnNodesButton "right" 0
-      -af $restoreBdnNodesButton "bottom" 4
+      // -af $substituteBdnNodesButton "left" 0
+      // -ap $substituteBdnNodesButton "right" 2 50
+      // -af $substituteBdnNodesButton "bottom" 4
+      // -ap $restoreBdnNodesButton "left" 2 50
+      // -af $restoreBdnNodesButton "right" 0
+      // -af $restoreBdnNodesButton "bottom" 4
       -ac $bdnNodeList "top" 0 $bdnListToolRow
       -af $bdnNodeList "left" 0
       -af $bdnNodeList "right" 0
-      -ac $bdnNodeList "bottom" 4 $substituteBdnNodesButton
+      // -ac $bdnNodeList "bottom" 4 $substituteBdnNodesButton
+      -af $bdnNodeList "bottom" 4
       $bdnListForm;
 
   formLayout -e
@@ -7652,8 +7655,8 @@ proc buildMainWindow() {
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"selectBdnNodesButton\");" $selectBdnNodesButton;
   textScrollList -e -dcc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"dcc\", \"bdnNodeList\");" $bdnNodeList;
   textScrollList -e -sc "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"sc\", \"bdnNodeList\");" $bdnNodeList;
-  button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"substituteBdnNodesButton\");" $substituteBdnNodesButton;
-  button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"restoreBdnNodesButton\");" $restoreBdnNodesButton;
+  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"substituteBdnNodesButton\");" $substituteBdnNodesButton;
+  // button -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"restoreBdnNodesButton\");" $restoreBdnNodesButton;
 
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnAttributeInitializeButton\");" $bdnAttributeInitializeButton;
   iconTextButton -e -c "nkBdnEditorEventController(\"nkBdnEditorWindow\", \"c\", \"bdnAttributeExportButton\");" $bdnAttributeExportButton;
@@ -7928,8 +7931,8 @@ global proc nkBdnEditorEventController(
 
             case "selectItemsFromSelectedBdnNodesButton": selectItemsFromSelectedBdnNodesButtonPressed(); break;
             case "selectBdnNodesButton": selectBdnNodesButtonPressed(); break;
-            case "substituteBdnNodesButton": substituteBdnNodesButtonPressed(); break;
-            case "restoreBdnNodesButton": restoreBdnNodesButtonPressed(); break;
+            // case "substituteBdnNodesButton": substituteBdnNodesButtonPressed(); break;
+            // case "restoreBdnNodesButton": restoreBdnNodesButtonPressed(); break;
 
             case "bdnAttributeInitializeButton": bdnAttributeInitializeButtonPressed(); break;
             case "bdnAttributeExportButton": bdnAttributeExportButtonPressed(); break;
@@ -8284,7 +8287,7 @@ global proc nkBdnEditorNodeRemoved(string $nodes[]) {
 @returns <string>
 */
 global proc string nkBdnEditorVersion() {
-  return "1.4.7";
+  return "1.4.8";
 }
 
 /*-
